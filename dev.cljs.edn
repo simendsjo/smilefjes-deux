@@ -1,0 +1,9 @@
+^{:watch-dirs ["src" "ui/src"]
+  :css-dirs ["ui/resources/public/css"]}
+{:main smilefjes.ui.main
+ :optimizations :none
+ :pretty-print true
+ :source-map true
+ :asset-path "/js/compiled/dev"
+ :output-to "dev-resources/public/js/compiled/app.js"
+ :output-dir "dev-resources/public/js/compiled/dev"}
