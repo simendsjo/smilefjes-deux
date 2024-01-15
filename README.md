@@ -51,6 +51,13 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
     clj -M:dev -m figwheel.main -b dev -r
     ```
 
+- Hent ned tilsynsdata fra Data Norge.
+
+    ```
+    curl "https://hotell.difi.no/download/mattilsynet/smilefjes/tilsyn?download" > data/tilsyn.csv
+    curl "https://hotell.difi.no/download/mattilsynet/smilefjes/kravpunkter?download" > data/kravpunkter.csv
+    ```
+
 - Start backenden:
 
     ```

@@ -7,3 +7,4 @@
 *.terraform*
 /.clj-kondo/.lock
 /.clj-kondo/inline-configs/
+/data/
