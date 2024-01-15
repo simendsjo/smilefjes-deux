@@ -1,0 +1,44 @@
+[{:db/ident :tilsynsobjekt/id
+  :db/valueType :db.type/string
+  :db/unique :db.unique/identity
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :tilsynsobjekt/orgnummer
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :tilsynsobjekt/adresse
+  :dte/valueType :data/edn
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :tilsynsobjekt/navn
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :tilsynsbesøk/id
+  :db/valueType :db.type/string
+  :db/unique :db.unique/identity
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :tilsynsbesøk/tilsynsobjekt
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :tilsynsbesøk/dato
+  :dte/valueType :java.time/local-date
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :tilsynsbesøk/dato
+  :dte/valueType :java.time/local-date
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :tilsynsbesøk/oppfølging?
+  :db/valueType :db.type/boolean
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :tilsynsbesøk/smilefjeskarakter
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one}
+
+
+ ]

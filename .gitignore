@@ -7,4 +7,5 @@
 *.terraform*
 /.clj-kondo/.lock
 /.clj-kondo/inline-configs/
-/data/
+/content/kravpunkter.csv
+/content/tilsyn.csv

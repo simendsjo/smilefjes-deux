@@ -54,8 +54,8 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
 - Hent ned tilsynsdata fra Data Norge.
 
     ```
-    curl "https://hotell.difi.no/download/mattilsynet/smilefjes/tilsyn?download" > data/tilsyn.csv
-    curl "https://hotell.difi.no/download/mattilsynet/smilefjes/kravpunkter?download" > data/kravpunkter.csv
+    curl "https://hotell.difi.no/download/mattilsynet/smilefjes/tilsyn?download" > content/tilsyn.csv
+    curl "https://hotell.difi.no/download/mattilsynet/smilefjes/kravpunkter?download" > content/kravpunkter.csv
     ```
 
 - Start backenden:
