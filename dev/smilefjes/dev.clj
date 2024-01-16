@@ -15,10 +15,15 @@
 (comment
   (def db (d/db (:datomic/conn (dev/get-app))))
 
-  (d/q '[:find (count ?e)
+  (d/q '[:find ?e .
          :where
          [?e :tilsynsbesøk/id]]
        db)
+
+  (->> (d/entity db [:tilsynsbesøk/id "Z1601041508412850239LCXIE_TilsynAvtale"])
+       :vurdering/_tilsynsbesøk
+       (map #(into {} %)))
+
 
   (start)
   (dev/reset)

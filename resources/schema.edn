@@ -40,5 +40,35 @@
   :db/valueType :db.type/long
   :db/cardinality :db.cardinality/one}
 
+ {:db/ident :kravpunkt/id
+  :db/valueType :db.type/string
+  :db/unique :db.unique/identity
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :kravpunkt/hovedområde
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :kravpunkt/karakter->tekst
+  :dte/valueType :data/edn
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :vurdering/tilsynsbesøk
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :vurdering/kravpunkt
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :vurdering/tilsynsbesøk+kravpunkt
+  :db/valueType :db.type/tuple
+  :db/tupleAttrs [:vurdering/tilsynsbesøk :vurdering/kravpunkt]
+  :db/unique :db.unique/identity
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :vurdering/karakter
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
 
  ]

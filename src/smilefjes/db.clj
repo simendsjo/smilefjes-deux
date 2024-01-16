@@ -10,10 +10,6 @@
   [this] (pr-str this)
   [^String s] (read-string s))
 
-(define-dte :i18n/edn :db.type/string
-  [this] (pr-str this)
-  [^String s] (read-string s))
-
 (defn create-database [uri schema]
   (d/create-database uri)
   (let [conn (d/connect uri)]

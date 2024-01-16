@@ -1,6 +1,7 @@
 (ns smilefjes.import.tilsyn
   (:require [clojure.data.csv :as csv]
             [clojure.java.io :as io]
+            [clojure.set :as set]
             [datomic-type-extensions.api :as d]
             [java-time-literals.core])
   (:import (java.time LocalDate)))
@@ -18,7 +19,7 @@
      :tilsynsbesøk/oppfølging? (= "1" (:tilsynsbesoektype m))
      :tilsynsbesøk/dato (ddmmyyyy->local-date (:dato m))
      :tilsynsbesøk/smilefjeskarakter (parse-long (:total_karakter m))
-     :tilsynsbesøk/tilsynsobjekt {:tilsynsobjekt/id (:﻿tilsynsobjektid m)
+     :tilsynsbesøk/tilsynsobjekt {:tilsynsobjekt/id (:tilsynsobjektid m)
                                   :tilsynsobjekt/navn (:navn m)
                                   :tilsynsobjekt/orgnummer (:orgnummer m)
                                   :tilsynsobjekt/adresse {:linje1 (:adrlinje1 m)
@@ -26,7 +27,7 @@
                                                           :poststed (:poststed m)
                                                           :postnummer (:postnr m)}}}))
 
-(defn parse [csv-file]
+(defn csv->tx [csv-file]
   (let [csv (with-open [reader (io/reader csv-file)]
               (doall
                (csv/read-csv reader {:separator \;})))
@@ -47,7 +48,22 @@
 
   (csv-line->tilsynsbesøk csv-header (first csv-linjer))
 
-  (def res (parse "content/tilsyn.csv"))
+  (first res)
+
+  (filter #(= "Z1601041508412850239LCXIE_TilsynAvtale"
+              (:tilsynsbesøk/id %))
+          res)
+
+  (def tilsyn-id-er (set (map :tilsynsbesøk/id res)))
+
+  (count tilsyn-id-er) ;; => 44514
+  (count smilefjes.import.vurderinger/tilsyn-id-er) ;; => 73704
+
+  (count (set/intersection tilsyn-id-er
+                           smilefjes.import.vurderinger/tilsyn-id-er))
+  ;; => 44514
+
+  (def res (csv->tx "content/tilsyn.csv"))
   (d/create-database "datomic:mem://lol")
   (def conn (d/connect "datomic:mem://lol"))
   @(d/transact conn (read-string (slurp (io/resource "schema.edn"))))
