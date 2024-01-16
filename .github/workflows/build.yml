@@ -168,8 +168,8 @@ jobs:
         with:
           token_format: access_token
           create_credentials_file: true
-          workload_identity_provider: projects/85462809558/locations/global/workloadIdentityPools/gh-actions/providers/github
-          service_account: cloudrun-wi-sa-github-actions@smilefjes-b327.iam.gserviceaccount.com
+          workload_identity_provider: projects/614511977868/locations/global/workloadIdentityPools/gh-actions/providers/github
+          service_account: cloudrun-wi-sa-github-actions@smilefjes-4614.iam.gserviceaccount.com
       - name: Notify publish
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATION_TOKEN }}
@@ -182,7 +182,7 @@ jobs:
       - name: Deploying
         uses: google-github-actions/deploy-cloudrun@v1
         with:
-          project_id: smilefjes-b327
+          project_id: smilefjes-4614
           region: europe-north1
           service: smilefjes
           image: europe-north1-docker.pkg.dev/artifacts-352708/mat/smilefjes:${{ needs.configure.outputs.sha }}
