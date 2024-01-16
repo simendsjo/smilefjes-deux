@@ -1,10 +1,13 @@
 VERSION = $$(git rev-parse --short=10 HEAD)
 IMAGE = europe-north1-docker.pkg.dev/artifacts-352708/mat/smilefjes:$(VERSION)
 
+resources/public/tailwind-out.css:
+	npx tailwindcss -i ./src/tailwind.css -o resources/public/tailwind-out.css
+
 target/public/js/compiled/app.js:
 	clojure -M:build -m figwheel.main -bo prod
 
-docker/build: target/public/js/compiled/app.js
+docker/build: target/public/js/compiled/app.js resources/public/tailwind-out.css
 	clojure -X:build
 
 docker: docker/build
@@ -19,4 +22,10 @@ test:
 clean:
 	rm -fr target docker/build dev-resources/public/js/compiled
 
-.PHONY: docker publish test clean
+node_modules:
+	npm install
+
+tailwind: node_modules
+	npx tailwindcss -i ./src/tailwind.css -o ./resources/public/tailwind-out.css --watch
+
+.PHONY: docker publish test clean tailwind

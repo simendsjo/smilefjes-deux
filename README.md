@@ -45,6 +45,18 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
     brew install clojure
     ```
 
+- Skaff Node
+
+    ```
+    brew install node
+    ```
+
+- Start Tailwind
+
+   ```
+   make tailwind
+   ```
+
 - Start ClojureScript-bygget (Emacs-brukere kan se nedenfor)
 
     ```

@@ -6,6 +6,10 @@
   (cond-> {:site/default-locale :no
            :site/title "Smilefjes"
 
+           :optimus/bundles {"app.css"
+                             {:public-dir "public"
+                              :paths ["/tailwind-out.css"]}}
+
            :powerpack/build-dir "docker/build"
            :powerpack/content-dir "content"
            :powerpack/source-dirs ["src" "dev"]
