@@ -71,3 +71,18 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
 Dersom du bruker Emacs - noe vi anbefaler på det aller varmeste - er det
 `cider-jack-in` og deretter `cider-connect-sibling-cljs` som gjelder for å få
 opp både backenden og frontenden.
+
+## Automatisk bygg
+
+Hvis du har behov for å finne secreten som bygget bruker for å snakke med Slack
+anbefales the massive mengder beroligende, før du begir deg utpå den meningsløst
+vanskelige oppgaven "finn en installert Slack app sin secret". Når du har gitt
+opp så kan du klikke på [denne lenka](https://api.slack.com/apps/A061QTQNFC4/oauth?).
+
+Den lenka kommer helt sikkert til å brekke på et tidspunkt, så her er noen hint
+til neste skattejakt:
+
+- Du vil til api.slack.com
+- Du vil se på installerte apper - den Slack app-en du har laget
+- Du vil til OAuth and Permissions
+- Finn "OAuth Tokens for Your Workspace"
