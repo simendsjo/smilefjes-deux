@@ -1,13 +1,8 @@
-locals {
-  service_name = "smilefjes"
-  fqdn = "smilefjes.mattilsynet.no."
-}
-
 module "smilefjes-ui" {
   source = "git@github.com:Mattilsynet/map-tf-cloudrun?ref=v0.9.2"
 
   create_cloudrun_service_account_only = false
-  service_name = local.service_name
+  service_name = "smilefjes"
   service_location = var.region
   service_project_id = var.project_id
   service_image = "gcr.io/cloudrun/hello"
@@ -28,16 +23,20 @@ module "smilefjes-ui" {
   ingress = "internal-and-cloud-load-balancing"
 
   dedicated_lb = {
-    managed_zone_name = "smilefjes-mattilsynet-no-dns-managed-zone"
-    fqdn = local.fqdn
+    managed_zone_name = "smilefjes-dns-managed-zone"
+    fqdn = "smilefjes.mattilsynet.io"
+    # Når NS-oppsettet på mattilsynet.no er klart:
+    # managed_zone_name = "smilefjes-mattilsynet-no-dns-zone"
+    # fqdn = "smilefjes.mattilsynet.no"
   }
 }
 
+# Når smilefjes.mattilsynet.no er oppe, kan hele denne skrotes
 module "smilefjes-lb" {
   source = "github.com/Mattilsynet/map-tf-cloudrun-shared-lb?ref=v1.5.0"
   lb_name = "smilefjes-shared-lb"
   lb_project_id = var.project_id
-  managed_zone_name = "smilefjes-dns-zone"
+  managed_zone_name = "smilefjes-mattilsynet-no-dns-zone"
   location = "europe-north1"
   backends = {
     smilefjes = {
@@ -54,10 +53,6 @@ module "smilefjes-lb" {
   }
 }
 
-output "fqdn" {
-  value = local.fqdn
-}
-
 output "service" {
-  value = local.service_name
+  value = "smilefjes"
 }
