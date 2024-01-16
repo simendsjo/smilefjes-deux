@@ -14,7 +14,7 @@ resource "google_dns_record_set" "smilefjes" {
   type = "A"
   ttl = 300
   project = var.project_id
-  rrdatas = ["34.107.226.56"]
+  rrdatas = ["34.36.126.51"]
 }
 
 resource "google_dns_record_set" "smilefjes-ipv6" {
@@ -23,5 +23,5 @@ resource "google_dns_record_set" "smilefjes-ipv6" {
   type = "AAAA"
   ttl = 300
   project = var.project_id
-  rrdatas = ["2600:1901:0:7940::"]
+  rrdatas = ["2600:1901:0:bdf0::"]
 }
