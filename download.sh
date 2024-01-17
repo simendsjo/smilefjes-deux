@@ -12,6 +12,7 @@ refresh_data() {
     echo "$etag" > "$1.etag"
     return 0
   else
+    echo "Etag for $2 unchanged, not downloading to $1"
     return 1
   fi
 }
