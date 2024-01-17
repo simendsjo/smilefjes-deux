@@ -14,11 +14,10 @@
            :powerpack/content-dir "content"
            :powerpack/source-dirs ["src" "dev"]
            :powerpack/resource-dirs ["resources"]
-           :powerpack/content-file-suffixes ["md" "edn" "csv"]
            :powerpack/port 5055
            :powerpack/log-level :debug
            :powerpack/render-page #'pages/render-page
-           :powerpack/on-ingested #'ingest/on-ingested}
+           :powerpack/on-started #'ingest/on-started}
     (= :build env)
     (assoc :site/base-url "https://smilefjes.mattilsynet.no")
 

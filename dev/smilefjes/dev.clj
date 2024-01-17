@@ -2,7 +2,8 @@
   (:require [clojure.tools.namespace.repl :as repl]
             [datomic-type-extensions.api :as d]
             [powerpack.dev :as dev]
-            [smilefjes.core :as smilefjes]))
+            [smilefjes.core :as smilefjes]
+            [snitch.core]))
 
 (defmethod dev/configure! :default []
   (repl/set-refresh-dirs "src" "dev" "test")

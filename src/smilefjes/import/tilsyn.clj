@@ -3,7 +3,8 @@
             [clojure.java.io :as io]
             [clojure.set :as set]
             [datomic-type-extensions.api :as d]
-            [java-time-literals.core])
+            [java-time-literals.core]
+            [smilefjes.db :as db])
   (:import (java.time LocalDate)))
 
 :java-time-literals.core/keep
@@ -27,13 +28,14 @@
                                                           :poststed (:poststed m)
                                                           :postnummer (:postnr m)}}}))
 
-(defn csv->tx [csv-file]
-  (let [csv (with-open [reader (io/reader csv-file)]
-              (doall
-               (csv/read-csv reader {:separator \;})))
-        csv-header (map keyword (first csv))]
-    (for [line (next csv)]
-      (csv-line->tilsynsbesøk csv-header line))))
+(defn transact [conn csv-file]
+  (with-open [reader (io/reader csv-file)]
+    (let [csv (csv/read-csv reader {:separator \;})
+          csv-header (map keyword (first csv))]
+      (db/transact-batches
+       conn
+       (for [line (next csv)]
+         (csv-line->tilsynsbesøk csv-header line))))))
 
 (comment
   (def csv
