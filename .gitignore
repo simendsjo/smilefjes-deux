@@ -11,3 +11,5 @@
 /content/tilsyn.csv
 /resources/public/tailwind-out.css
 /node_modules/
+/data/
+/preconlog.txt

@@ -1,6 +1,7 @@
 (ns smilefjes.pages)
 
 (defn render-page [_ctx _page]
+  ;; :page.kind/spisested
   [:html
    [:body
     [:div.grid.place-items-center.h-screen
