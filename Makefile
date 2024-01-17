@@ -28,4 +28,13 @@ node_modules:
 tailwind: node_modules
 	npx tailwindcss -i ./src/tailwind.css -o ./resources/public/tailwind-out.css --watch
 
-.PHONY: docker publish test clean tailwind
+data/tilsyn.csv:
+	./download.sh
+
+data/vurderinger.csv:
+	./download.sh
+
+check-build-preconditions:
+	./check-build-preconditions.sh
+
+.PHONY: docker publish test clean tailwind check-build-preconditions
