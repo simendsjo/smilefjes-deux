@@ -28,7 +28,7 @@
   "Hent URI-en som siden serveres fra - den inneholder kun id-en, som ikke endrer
   seg over tid."
   [m]
-  (str "/smilefjes/spisested/" (str/chop-suffix (:tilsynsobjektid m) "_Tilsynsobjekt") "/"))
+  (str "/spisested/" (str/chop-suffix (:tilsynsobjektid m) "_Tilsynsobjekt") "/"))
 
 (defn get-tilsynsobjekt-link
   "Hent lenken som siden ble vist med i den tidligere løsningen. Denne blir

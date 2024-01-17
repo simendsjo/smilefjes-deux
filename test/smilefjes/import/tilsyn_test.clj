@@ -27,4 +27,4 @@
           {:tilsynsobjektid "Z1703151057439673252OPMTI_Tilsynsobjekt"
            :poststed "Oslo"
            :navn "O`Learys (SSP avd. 2406)"})
-         "/smilefjes/spisested/Z1703151057439673252OPMTI/")))
+         "/spisested/Z1703151057439673252OPMTI/")))
