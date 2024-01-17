@@ -34,7 +34,4 @@ data/tilsyn.csv:
 data/vurderinger.csv:
 	./download.sh
 
-check-build-preconditions:
-	@env GIT_SHA=$(VERSION) ./check-build-preconditions.sh
-
-.PHONY: docker publish test clean tailwind check-build-preconditions
+.PHONY: docker publish test clean tailwind

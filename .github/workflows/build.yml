@@ -30,27 +30,26 @@ jobs:
     needs:
       - configure
     outputs:
-      result: ${{ steps.check.outputs.result }}
+      key: ${{ steps.cache-key.outputs.key }}
+      cache-hit: ${{ steps.check.outputs.cache-hit }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Cache data files
+      - id: cache-key
+        run: echo "key=$(.github/get_data_cache_key.sh)" >> $GITHUB_OUTPUT
+      - name: Determine if a build is required
+        id: check
         uses: actions/cache@v3
         with:
           path: |
             data
-          key: data-files
-      - name: Check if the build is worth running
-        id: check
-        run: echo "result=$(make check-build-preconditions)" >> $GITHUB_OUTPUT
-      - name: Print precon log
-        run: cat preconlog.txt
+          key: data-files-${{ steps.cache-key.outputs.key }}-${{ github.sha }}
 
   notify-start:
     needs:
       - configure
       - preconditions
-    if: needs.preconditions.outputs.result == 'build'
+    if: needs.preconditions.outputs.cache-hit != 'true'
     runs-on: ubuntu-latest
     outputs:
       slack-message: ${{ steps.slack.outputs.message_id }}
@@ -114,6 +113,7 @@ jobs:
 
     needs:
       - configure
+      - preconditions
       - notify-start
 
     steps:
@@ -161,7 +161,10 @@ jobs:
         with:
           path: |
             data
-          key: data-files
+          key: data-files-${{ needs.preconditions.outputs.key }}-${{ github.sha }}
+          restore-keys: |
+            data-files-${{ needs.preconditions.outputs.key }}-
+            data-files-
       - name: Build docker image
         run: make docker
       - id: auth
