@@ -8,7 +8,7 @@ refresh_data() {
 
   if [ "$current_etag" != "$etag" ]; then
     echo "Downloading $2 to $1"
-    curl -s "$2" | sed $'1s/^\uFEFF//' > "$1"
+    curl -s "$2" | sed '1s/^\xEF\xBB\xBF//' > "$1"
     echo "$etag" > "$1.etag"
     return 0
   else
