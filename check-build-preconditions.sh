@@ -19,4 +19,5 @@ else
     fi
 fi
 
+echo "Updating git sha on disk to $GIT_SHA" >> preconlog.txt
 echo "$GIT_SHA" > data/gitsha
