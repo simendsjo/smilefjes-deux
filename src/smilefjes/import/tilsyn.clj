@@ -39,7 +39,7 @@
 
 (comment
   (def csv
-    (with-open [reader (io/reader "content/tilsyn.csv")]
+    (with-open [reader (io/reader "data/tilsyn.csv")]
       (doall
        (csv/read-csv reader {:separator \;}))))
 
@@ -65,7 +65,7 @@
                            smilefjes.import.vurderinger/tilsyn-id-er))
   ;; => 44514
 
-  (def res (csv->tx "content/tilsyn.csv"))
+  (def res (csv->tx "data/tilsyn.csv"))
   (d/create-database "datomic:mem://lol")
   (def conn (d/connect "datomic:mem://lol"))
   @(d/transact conn (read-string (slurp (io/resource "schema.edn"))))

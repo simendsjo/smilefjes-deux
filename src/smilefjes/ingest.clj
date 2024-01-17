@@ -7,16 +7,16 @@
 
 (defn on-started [powerpack]
   (let [start-ms (System/currentTimeMillis)]
-    (log/info "Ingesting content/tilsyn.csv ...")
+    (log/info "Ingesting data/tilsyn.csv ...")
     (tilsyn/transact (:datomic/conn powerpack)
-                     (io/file "content/tilsyn.csv"))
-    (log/info "Ingested content/tilsyn.csv in" (- (System/currentTimeMillis) start-ms) "ms."))
+                     (io/file "data/tilsyn.csv"))
+    (log/info "Ingested data/tilsyn.csv in" (- (System/currentTimeMillis) start-ms) "ms."))
 
   (let [start-ms (System/currentTimeMillis)]
-    (log/info "Ingesting content/vurderinger.csv ...")
+    (log/info "Ingesting data/vurderinger.csv ...")
     (vurderinger/transact (:datomic/conn powerpack)
-                          (io/file "content/vurderinger.csv"))
-    (log/info "Ingested content/vurderinger.csv in" (- (System/currentTimeMillis) start-ms) "ms.")))
+                          (io/file "data/vurderinger.csv"))
+    (log/info "Ingested data/vurderinger.csv in" (- (System/currentTimeMillis) start-ms) "ms.")))
 
 ;; Baseline:
 ;; [powerpack.app] Ingested all data in 02:20.709 (140709ms)
