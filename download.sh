@@ -21,9 +21,3 @@ refresh_data data/tilsyn.csv "https://hotell.difi.no/download/mattilsynet/smilef
 tilsyn=$?
 refresh_data data/vurderinger.csv "https://hotell.difi.no/download/mattilsynet/smilefjes/kravpunkter?download"
 kravpunkter=$?
-
-if [ $tilsyn -eq 0 ] || [ $kravpunkter -eq 0 ]; then
-  exit 0
-else
-  exit 1
-fi
