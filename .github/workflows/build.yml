@@ -155,7 +155,9 @@ jobs:
         with:
           path: |
             docker/build/**/*
-          key: exported-files
+          key: exported-files-${{ github.sha }}
+          restore-keys: |
+            exported-files-
       - name: Cache data files
         uses: actions/cache@v3
         with:
@@ -165,6 +167,8 @@ jobs:
           restore-keys: |
             data-files-${{ needs.preconditions.outputs.key }}-
             data-files-
+      - name: Download data
+        run: ./download.sh
       - name: Build docker image
         run: make docker
       - id: auth
