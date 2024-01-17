@@ -71,4 +71,7 @@
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}
 
+ {:db/ident :page/link
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
  ]

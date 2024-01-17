@@ -4,8 +4,10 @@
             [clojure.set :as set]
             [datomic-type-extensions.api :as d]
             [java-time-literals.core]
-            [smilefjes.db :as db])
-  (:import (java.time LocalDate)))
+            [smilefjes.db :as db]
+            [superstring.core :as str])
+  (:import (java.text Normalizer)
+           (java.time LocalDate)))
 
 :java-time-literals.core/keep
 
@@ -14,14 +16,37 @@
     (LocalDate/parse
      (str y1 y2 y3 y4 "-" m1 m2 "-" d1 d2))))
 
+(defn slugify [s]
+  (-> (str/lower-case s)
+      str/trim
+      (Normalizer/normalize java.text.Normalizer$Form/NFD)
+      (str/replace #"[\u0300-\u036F]" "")
+      (str/replace #"[^a-z 0-9]" "")
+      (str/replace #" +" "_")))
+
+(defn get-tilsynsobjekt-uri
+  "Hent URI-en som siden serveres fra - den inneholder kun id-en, som ikke endrer
+  seg over tid."
+  [m]
+  (str "/smilefjes/spisested/" (str/chop-suffix (:tilsynsobjektid m) "_Tilsynsobjekt") "/"))
+
+(defn get-tilsynsobjekt-link
+  "Hent lenken som siden ble vist med i den tidligere løsningen. Denne blir
+  skrevet om i nginx slik at gamle lenker fungerer mot våre nye adresser."
+  [m]
+  (str "/smilefjes/spisested/" (slugify (:poststed m)) "/" (slugify (:navn m)) "." (:tilsynsobjektid m) "/"))
+
 (defn csv-line->tilsynsbesøk [csv-header csv-line]
   (let [m (zipmap csv-header csv-line)]
     {:tilsynsbesøk/id (:tilsynid m)
      :tilsynsbesøk/oppfølging? (= "1" (:tilsynsbesoektype m))
      :tilsynsbesøk/dato (ddmmyyyy->local-date (:dato m))
      :tilsynsbesøk/smilefjeskarakter (parse-long (:total_karakter m))
-     :tilsynsbesøk/tilsynsobjekt {:tilsynsobjekt/id (:tilsynsobjektid m)
-                                  :tilsynsobjekt/navn (:navn m)
+     :tilsynsbesøk/tilsynsobjekt {:page/uri (get-tilsynsobjekt-uri m)
+                                  :page/link (get-tilsynsobjekt-link m)
+                                  :page/kind :page.kind/spisested
+                                  :tilsynsobjekt/id (:tilsynsobjektid m)
+                                  :tilsynsobjekt/navn (str/trim (:navn m))
                                   :tilsynsobjekt/orgnummer (:orgnummer m)
                                   :tilsynsobjekt/adresse {:linje1 (:adrlinje1 m)
                                                           :linje2 (:adrlinje2 m)

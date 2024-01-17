@@ -3,6 +3,7 @@
             [datomic-type-extensions.api :as d]
             [datomic-type-extensions.types :refer [define-dte]]
             [java-time-dte.install]
+            [powerpack.dev :as dev]
             [powerpack.logger :as log]))
 
 :java-time-dte.install/keep
@@ -30,9 +31,14 @@
     (log/info "Transacted" num "entity-maps in" (int (Math/ceil (/ num batch-size))) "batches")))
 
 (comment
-  (def conn (create-database
-             "datomic:mem://smilefjes"
-             (read-string (slurp (io/resource "schema.edn")))))
+  (def conn (:datomic/conn (dev/get-app)))
+  (def db (d/db conn))
 
+  (->> (d/q '[:find ?e .
+              :where
+              [?e :tilsynsobjekt/id]]
+            db)
+       (d/entity db)
+       (into {}))
 
   )
