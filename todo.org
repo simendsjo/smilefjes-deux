@@ -1,0 +1,23 @@
+* Ting å ta seg til [0/2]
+** TODO Legg på open graph-tags på rapport-siden
+** TODO Footer
+Om smilefjestilsyn
+https://www.matportalen.no/verktoy/tilsynsresultater/slik_forer_mattilsynet_smilefjestilsyn_paa_serveringssteder
+
+Kontakt oss om Smilefjes
+https://www.mattilsynet.no/om_mattilsynet/kontakt_oss/?tema=smilefjes#skjema
+
+Driver du restaurant?
+https://www.mattilsynet.no/mat_og_vann/matservering/smilefjes/
+
+API for smilefjesdata
+https://data.norge.no/datasets/288aa74c-e3d3-492e-9ede-e71503b3bfd9
+
+Varsle oss
+https://www.mattilsynet.no/om_mattilsynet/varsle_oss/bekymringsmelding.633?tema=mat_vannbaaren_smitte
+
+Cookies, personvern og sikkerhet
+https://www.matportalen.no/artikler/cookies_personvern_og_sikkerhet
+
+Om Matportalen.no
+https://www.matportalen.no/artikler/om_matportalenno
