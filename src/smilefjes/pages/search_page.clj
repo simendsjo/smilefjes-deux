@@ -1,6 +1,8 @@
 (ns smilefjes.pages.search-page
   (:require [datomic-type-extensions.api :as d]
-            [smilefjes.search-index :as index]))
+            [smilefjes.link :as link]
+            [smilefjes.search-index :as index]
+            [smilefjes.ui :as ui]))
 
 (defn get-spisesteder [db]
   (->> (d/q '[:find [?e ...]
@@ -9,9 +11,9 @@
             db)
        (map #(d/entity db %))))
 
-(defn format-lookup [spisested]
+(defn format-lookup [ctx spisested]
   (let [{:keys [linje1 linje2 postnummer poststed]} (:spisested/adresse spisested)]
-    [(:tilsynsobjekt/id spisested)
+    [(link/link-to ctx spisested)
      (:spisested/navn spisested)
      linje1 linje2
      postnummer
@@ -23,4 +25,4 @@
      :body {:index (->> spisesteder
                         (map-indexed vector)
                         index/build-index)
-            :lookup (mapv format-lookup spisesteder)}}))
+            :lookup (mapv #(format-lookup ctx %) spisesteder)}}))
