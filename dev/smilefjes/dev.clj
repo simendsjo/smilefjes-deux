@@ -13,6 +13,13 @@
   (set! *print-namespace-maps* false)
   (dev/start))
 
+(defn ->map [x]
+  (cond
+    (:db/id x) (update-vals (into {:db/id (:db/id x)} x) ->map)
+    (map? x) (update-vals x ->map)
+    (coll? x) (map ->map x)
+    :else x))
+
 (comment
   (def db (d/db (:datomic/conn (dev/get-app))))
 
@@ -21,9 +28,9 @@
          [?e :tilsynsbesøk/id]]
        db)
 
-  (->> (d/entity db [:tilsynsbesøk/id "Z1601041508412850239LCXIE_TilsynAvtale"])
-       :vurdering/_tilsynsbesøk
-       (map #(into {} %)))
+  (->map (d/entity db [:tilsynsbesøk/id "Z1601051557592250240VTAHG_TilsynAvtale"]))
+
+
 
 
   (start)
