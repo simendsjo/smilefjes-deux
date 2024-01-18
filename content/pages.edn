@@ -1,5 +1,7 @@
 [{:page/uri "/"
   :page/kind :page.kind/frontpage}
+ {:page/uri "/smilefjes/"
+  :page/kind :page.kind/frontpage}
  {:page/uri "/search/index/nb.json"
   :page/kind :page.kind/spisested-index}
  {:page/uri "/sok/"
