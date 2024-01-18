@@ -1,12 +1,14 @@
 (ns smilefjes.pages
   (:require [medley.core :refer [greatest-by]]
             [smilefjes.pages.search-page :as search-page]
+            [smilefjes.plakaten :as plakaten]
             [smilefjes.ui :as ui]))
 
 (defn render-spisested [spisested]
   (ui/layout
    (let [{:keys [linje1 linje2 poststed postnummer]} (:spisested/adresse spisested)
-         siste-besøk (apply greatest-by :tilsynsbesøk/dato (:tilsynsbesøk/_tilsynsobjekt spisested))]
+         siste-besøk (apply greatest-by :tilsynsbesøk/dato (:tilsynsbesøk/_tilsynsobjekt spisested))
+         karakter (:tilsynsbesøk/smilefjeskarakter siste-besøk)]
      [:div.max-w-screen-md.p-5.mx-auto
       [:h1.text-xl (:spisested/navn spisested)]
       [:div linje1]
@@ -15,13 +17,9 @@
       [:div.bg-gray-100.p-5.mt-5.flex
        [:div
         [:h2.text-l.flex-1 "Siste tilsyn " (str (:tilsynsbesøk/dato siste-besøk))]
-        [:p.text-xs.mt-1 (case (:tilsynsbesøk/smilefjeskarakter siste-besøk)
-                           ("0" "1") "Tilsynet har ikke avdekket regelverksbrudd som krever oppfølging."
-                           ("2" "3") "Tilsynet har avdekket regelverksbrudd som krever oppfølging.")]]
-       [:img.w-14.ml-5 {:src (case (:tilsynsbesøk/smilefjeskarakter siste-besøk)
-                               ("0" "1") "/images/smilefjes.svg"
-                               "2" "/images/strekmunn.svg"
-                               "3" "/images/surmunn.svg")}]]
+        [:p.text-xs.mt-1 (plakaten/oppsummer-smilefjeskarakter karakter)]]
+       [:img.w-14.ml-5 {:title (str "Spisestedet har fått " (plakaten/beskriv-karakter karakter) ".")
+                        :src (plakaten/smilefjes-svg-url karakter)}]]
       [:p.mt-5.text-xs "Mattilsynets smilefjestjeneste er nede på grunn av teknisk svikt, men vi jobber iherdig med å få på plass en erstatning. Nå har du snublet inn i vårt pågående arbeid. Kos med kaos!"]])))
 
 (defn render-page [ctx page]
