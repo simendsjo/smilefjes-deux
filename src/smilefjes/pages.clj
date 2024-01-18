@@ -1,5 +1,6 @@
 (ns smilefjes.pages
-  (:require [medley.core :refer [greatest-by]]))
+  (:require [medley.core :refer [greatest-by]]
+            [smilefjes.pages.search-page :as search-page]))
 
 (defn layout [& body]
   [:html
@@ -27,10 +28,13 @@
                                "3" "/images/surmunn.svg")}]]
       [:p.mt-5.text-xs "Mattilsynets smilefjestjeneste er nede på grunn av teknisk svikt, men vi jobber iherdig med å få på plass en erstatning. Nå har du snublet inn i vårt pågående arbeid. Kos med kaos!"]])))
 
-(defn render-page [_ctx page]
+(defn render-page [ctx page]
   (case (:page/kind page)
     :page.kind/spisested
     (render-spisested page)
+
+    :page.kind/spisested-index
+    (search-page/render-index ctx)
 
     (layout
      [:div.grid.place-items-center.h-screen
