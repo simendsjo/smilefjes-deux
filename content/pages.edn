@@ -1,4 +1,6 @@
 [{:page/uri "/"
   :page/kind :page.kind/frontpage}
  {:page/uri "/search/index/nb.json"
-  :page/kind :page.kind/spisested-index}]
+  :page/kind :page.kind/spisested-index}
+ {:page/uri "/sok/"
+  :page/kind :page.kind/search-page}]

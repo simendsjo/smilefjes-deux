@@ -30,6 +30,9 @@
     :page.kind/spisested-index
     (search-page/render-index ctx)
 
+    :page.kind/search-page
+    (search-page/render-page ctx)
+
     (ui/layout
      [:div.grid.place-items-center.h-screen
       [:div.max-w-md.p-5
