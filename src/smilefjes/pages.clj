@@ -5,12 +5,19 @@
    [:body
     body]])
 
+(defn oops [tittel]
+  [:div.max-w-md.p-5
+   [:h1.text-xl tittel]
+   [:p.mt-5 "Mattilsynets smilefjestjeneste er nede på grunn av teknisk svikt, men vi jobber iherdig med å få på plass en erstatning."]
+   [:p.mt-5 "I mellomtiden kan du finne tilsynsresultater på Digitaliseringsdirektoratets tjeneste "
+    [:a.text-blue-600.underline.hover:no-underline
+     {:href "https://hotell.difi.no/?dataset=mattilsynet/smilefjes/tilsyn"}
+     "hotell.difi.no"] "."]])
+
 (defn render-spisested [spisested]
   (layout
    [:div.grid.place-items-center.h-screen
-    [:div.max-w-md
-     [:h1.text-xl "Smilefjes for " (:tilsynsobjekt/navn spisested) " er snart tilbake"]
-     [:p.mt-5 "Den gamle tjenesten måtte dessverre hastenedlegges på grunn av sikkerhetshensyn, men vi jobber iherdig med å få satt opp en ny smilefjesoversikt."]]]))
+    (oops (str "Smilefjes for " (:tilsynsobjekt/navn spisested) " er snart tilbake"))]))
 
 (defn render-page [_ctx page]
   (case (:page/kind page)
@@ -19,6 +26,4 @@
 
     (layout
      [:div.grid.place-items-center.h-screen
-      [:div.max-w-md
-       [:h1.text-xl "Smilefjes er snart tilbake"]
-       [:p.mt-5 "Den gamle tjenesten måtte dessverre hastenedlegges på grunn av sikkerhetshensyn, men vi jobber iherdig med å få satt opp en ny smilefjesoversikt."]]])))
+      (oops "Smilefjes er snart tilbake")])))
