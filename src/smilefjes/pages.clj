@@ -1,14 +1,10 @@
 (ns smilefjes.pages
   (:require [medley.core :refer [greatest-by]]
-            [smilefjes.pages.search-page :as search-page]))
-
-(defn layout [& body]
-  [:html
-   [:body
-    body]])
+            [smilefjes.pages.search-page :as search-page]
+            [smilefjes.ui :as ui]))
 
 (defn render-spisested [spisested]
-  (layout
+  (ui/layout
    (let [{:keys [linje1 linje2 poststed postnummer]} (:spisested/adresse spisested)
          siste-besøk (apply greatest-by :tilsynsbesøk/dato (:tilsynsbesøk/_tilsynsobjekt spisested))]
      [:div.max-w-screen-md.p-5.mx-auto
@@ -36,7 +32,7 @@
     :page.kind/spisested-index
     (search-page/render-index ctx)
 
-    (layout
+    (ui/layout
      [:div.grid.place-items-center.h-screen
       [:div.max-w-md.p-5
        [:h1.text-xl "Smilefjes er snart tilbake"]
