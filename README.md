@@ -66,7 +66,7 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
 - Hent ned tilsynsdata fra Data Norge.
 
     ```
-    ./download.sh
+    make data
     ```
 
 - Start backenden:

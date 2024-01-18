@@ -34,4 +34,7 @@ data/tilsyn.csv:
 data/vurderinger.csv:
 	./download.sh
 
-.PHONY: docker publish test clean tailwind
+data:
+	./download.sh
+
+.PHONY: docker publish test clean tailwind data
