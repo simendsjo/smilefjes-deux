@@ -44,7 +44,7 @@
     {:tilsynsbesøk/id (:tilsynid m)
      :tilsynsbesøk/oppfølging? (= "1" (:tilsynsbesoektype m))
      :tilsynsbesøk/dato (ddmmyyyy->local-date (:dato m))
-     :tilsynsbesøk/smilefjeskarakter (parse-long (:total_karakter m))
+     :tilsynsbesøk/smilefjeskarakter (:total_karakter m)
      :tilsynsbesøk/tilsynsobjekt {:page/uri (get-tilsynsobjekt-uri m)
                                   :page/link (get-tilsynsobjekt-link m)
                                   :page/kind :page.kind/spisested
