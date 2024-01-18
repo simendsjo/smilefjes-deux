@@ -107,23 +107,28 @@
        (filter not-empty)
        (str/join " ")))
 
+(def word-tokenizers
+  [remove-diacritics
+   tokenize-lower-case
+   tokenize-unique-words])
+
+(def ngram-tokenizers
+  [tokenize-numberless
+   remove-diacritics
+   tokenize-lower-case
+   tokenize-unique-words
+   (partial tokenize-ngrams 2)])
+
 (def schema
   {:spisestedNavn
    {:f :spisested/navn
-    :tokenizers [tokenize-numberless
-                 remove-diacritics
-                 tokenize-lower-case
-                 tokenize-unique-words]
+    :tokenizers word-tokenizers
     :token-filters [stop-words
                     #(short? 1 %)]}
 
    :spisestedNavnNgrams
    {:f :spisested/navn
-    :tokenizers [tokenize-numberless
-                 remove-diacritics
-                 tokenize-lower-case
-                 tokenize-unique-words
-                 (partial tokenize-ngrams 2)]
+    :tokenizers ngram-tokenizers
     :token-filters [stop-words
                     #(short? 1 %)]}
 
@@ -135,10 +140,13 @@
 
    :poststed
    {:f get-searchable-address
-    :tokenizers [tokenize-numberless
-                 remove-diacritics
-                 tokenize-lower-case
-                 tokenize-unique-words]
+    :tokenizers word-tokenizers
+    :token-filters [stop-words
+                    #(short? 1 %)]}
+
+   :poststedNgrams
+   {:f get-searchable-address
+    :tokenizers ngram-tokenizers
     :token-filters [stop-words
                     #(short? 1 %)]}
 
