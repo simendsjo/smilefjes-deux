@@ -27,13 +27,21 @@
 
 (comment
   (def csv
-    (let [s (slurp (io/file "content/vurderinger.csv"))]
+    (let [s (slurp (io/file "data/vurderinger.csv"))]
       (doall
        (csv/read-csv s {:separator \;}))))
 
   (def csv-header (map keyword (map str/trim (first csv))))
   (def csv-linjer (next csv))
   (second csv)
+
+  (sort (set (map (fn [[_ _ a b _ c d]] [a b c d]) csv-linjer)))
+
+  (filter
+   (fn [[_ _ a _ _ c d]] (= [a c] ["3.6" "2"]))
+   csv-linjer)
+
+  ["3.5" "2"]
 
   (zipmap csv-header (first csv-linjer))
 
