@@ -1,6 +1,5 @@
 (ns smilefjes.db
-  (:require [clojure.java.io :as io]
-            [datomic-type-extensions.api :as d]
+  (:require [datomic-type-extensions.api :as d]
             [datomic-type-extensions.types :refer [define-dte]]
             [java-time-dte.install]
             [powerpack.dev :as dev]
@@ -12,19 +11,16 @@
   [this] (pr-str this)
   [^String s] (read-string s))
 
-(defn create-database [uri schema]
-  (d/create-database uri)
-  (let [conn (d/connect uri)]
-    @(d/transact conn schema)
-    conn))
-
 (def batch-size 500)
 
 (defn transact-batches [conn tx-seq]
   (loop [txs tx-seq]
     (let [head (take batch-size txs)
           tail (drop batch-size txs)]
-      @(d/transact conn head)
+      (try
+        @(d/transact conn head)
+        (catch Exception e
+          (throw (ex-info "Failed to transact batch" {:tx head} e))))
       (when (seq tail)
         (recur tail))))
   (let [num (count tx-seq)]
@@ -36,9 +32,13 @@
 
   (->> (d/q '[:find ?e .
               :where
-              [?e :tilsynsobjekt/id]]
+              [?e :tilsynsbesøk/id]]
             db)
        (d/entity db)
-       (into {}))
+       :tilsynsbesøk/vurderinger
+       (map (fn [v]
+              [(:kravpunkt/id (:vurdering/kravpunkt v))
+               (:vurdering/karakter v)]))
+       sort)
 
   )

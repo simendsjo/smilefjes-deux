@@ -1,5 +1,8 @@
-[{:kravpunkt/id "1.1"
-  :kravpunkt/hovedområde "1. Rutiner og ledelse"
+[{:kravpunkt/id "1"
+  :kravpunkt/navn "Rutiner og ledelse"}
+
+ {:kravpunkt/id "1.1"
+  :kravpunkt/hovedområde {:kravpunkt/id "1"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Korrekt smilefjesrapport ikke gjort lett tilgjengelig for publikum"
@@ -7,7 +10,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "1.2"
-  :kravpunkt/hovedområde "1. Rutiner og ledelse"
+  :kravpunkt/hovedområde {:kravpunkt/id "1"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved lovpålagt registrering av virksomheten"
@@ -15,7 +18,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "1.3"
-  :kravpunkt/hovedområde "1. Rutiner og ledelse"
+  :kravpunkt/hovedområde {:kravpunkt/id "1"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved ledelse og ansvar i virksomheten"
@@ -23,7 +26,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "1.4"
-  :kravpunkt/hovedområde "1. Rutiner og ledelse"
+  :kravpunkt/hovedområde {:kravpunkt/id "1"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved interne styrings- og kontrollrutiner for å sikre trygge matvarer"
@@ -31,7 +34,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "1.5"
-  :kravpunkt/hovedområde "1. Rutiner og ledelse"
+  :kravpunkt/hovedområde {:kravpunkt/id "1"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved kontroll og styring med aktuelle risikoer"
@@ -39,15 +42,19 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "1.6"
-  :kravpunkt/hovedområde "1. Rutiner og ledelse"
+  :kravpunkt/hovedområde {:kravpunkt/id "1"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved instruksjon og opplæring av medarbeidere i arbeidsrutiner av betydning for mattryggheten"
                               "3" "Vesentlige mangler ved instruksjon og opplæring av medarbeidere i sentrale arbeidsrutiner"
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
+
+ {:kravpunkt/id "2"
+  :kravpunkt/navn "Lokaler og utstyr"}
+
  {:kravpunkt/id "2.1"
-  :kravpunkt/hovedområde "2. Lokaler og utstyr"
+  :kravpunkt/hovedområde {:kravpunkt/id "2"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved hygienisk standard på lokaler, innredning eller utstyr"
@@ -55,7 +62,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "2.2"
-  :kravpunkt/hovedområde "2. Lokaler og utstyr"
+  :kravpunkt/hovedområde {:kravpunkt/id "2"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Hygieniske mangler ved lokaler og innredning der mat tilberedes og håndteres "
@@ -63,7 +70,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "2.3"
-  :kravpunkt/hovedområde "2. Lokaler og utstyr"
+  :kravpunkt/hovedområde {:kravpunkt/id "2"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved rutiner for rengjøring av lokaler og utstyr med konsekvenser mattryggheten"
@@ -71,7 +78,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "2.4"
-  :kravpunkt/hovedområde "2. Lokaler og utstyr"
+  :kravpunkt/hovedområde {:kravpunkt/id "2"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved rutiner ved hygienisk håndtering av matavfall"
@@ -79,7 +86,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "2.5"
-  :kravpunkt/hovedområde "2. Lokaler og utstyr"
+  :kravpunkt/hovedområde {:kravpunkt/id "2"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved rutiner for å hindre at skadedyr tar seg inn i lokalene"
@@ -87,7 +94,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "2.6"
-  :kravpunkt/hovedområde "2. Lokaler og utstyr"
+  :kravpunkt/hovedområde {:kravpunkt/id "2"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved utstyr for nødvendig håndhygiene av betydning for mattryggheten"
@@ -95,15 +102,19 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "2.7"
-  :kravpunkt/hovedområde "2. Lokaler og utstyr"
+  :kravpunkt/hovedområde {:kravpunkt/id "2"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved toalett- og garderobeforhold av betydning for mattryggheten"
                               "3" "Vesentlige mangler ved toalett- og garderobeforhold av betydning for mattryggheten"
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
+
+ {:kravpunkt/id "3"
+  :kravpunkt/navn "Mathåndtering og tilberedning"}
+
  {:kravpunkt/id "3.1"
-  :kravpunkt/hovedområde "3. Mathåndtering og tilberedning"
+  :kravpunkt/hovedområde {:kravpunkt/id "3"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved rutiner for innkjøp, mottak eller håndtering av råvarer av betydning for hygienisk sikkerhet"
@@ -111,7 +122,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "3.10"
-  :kravpunkt/hovedområde "3. Mathåndtering og tilberedning"
+  :kravpunkt/hovedområde {:kravpunkt/id "3"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved rutiner for nedkjøling av varm mat"
@@ -119,7 +130,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "3.2"
-  :kravpunkt/hovedområde "3. Mathåndtering og tilberedning"
+  :kravpunkt/hovedområde {:kravpunkt/id "3"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved bruk av vann/is med drikkevannskvalitet"
@@ -127,7 +138,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "3.3"
-  :kravpunkt/hovedområde "3. Mathåndtering og tilberedning",
+  :kravpunkt/hovedområde {:kravpunkt/id "3"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved rutiner for oppbevaring og håndtering for å hindre forurensing av maten"
@@ -135,7 +146,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "3.4"
-  :kravpunkt/hovedområde "3. Mathåndtering og tilberedning"
+  :kravpunkt/hovedområde {:kravpunkt/id "3"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Lagring av mat under forhold som ikke er tilstrekkelig til å beskytte mot forurensning"
@@ -143,7 +154,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "3.5"
-  :kravpunkt/hovedområde "3. Mathåndtering og tilberedning"
+  :kravpunkt/hovedområde {:kravpunkt/id "3"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved rutiner for personlig driftshygiene av betydning for trygg mathåndtering"
@@ -151,7 +162,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "3.6"
-  :kravpunkt/hovedområde "3. Mathåndtering og tilberedning"
+  :kravpunkt/hovedområde {:kravpunkt/id "3"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved rutiner for å sikre  at mat oppbevares ved tilstrekkelig lav temperatur"
@@ -159,7 +170,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "3.7"
-  :kravpunkt/hovedområde "3. Mathåndtering og tilberedning"
+  :kravpunkt/hovedområde {:kravpunkt/id "3"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved rutiner for å sikre at varm mat er tilstrekkelig varmebehandlet og oppbevares ved korrekt temperatur før servering"
@@ -167,7 +178,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "3.8"
-  :kravpunkt/hovedområde "3. Mathåndtering og tilberedning"
+  :kravpunkt/hovedområde {:kravpunkt/id "3"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved rutiner for nedkjøling av varm mat"
@@ -175,15 +186,19 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "3.9"
-  :kravpunkt/hovedområde "3. Mathåndtering og tilberedning"
+  :kravpunkt/hovedområde {:kravpunkt/id "3"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved rutiner for nedkjøling av varm mat"
                               "3" "Vesentlige mangler ved rutiner for varmebehandling og oppbevaring av varm mat av stor betydning for matvarenes hygieniske sikkerhet"
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
+
+ {:kravpunkt/id "4"
+  :kravpunkt/navn "Merking og sporbarhet"}
+
  {:kravpunkt/id "4.1"
-  :kravpunkt/hovedområde "4. Sporbarhet og merking"
+  :kravpunkt/hovedområde {:kravpunkt/id "4"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved rutiner som sikrer at næringsmidler kan spores tilbake til opprinnelse eller produksjonstidspunkt"
@@ -191,7 +206,7 @@
                               "4" "Ikke aktuelt"
                               "5" "Ikke vurdert"}}
  {:kravpunkt/id "4.2"
-  :kravpunkt/hovedområde "4. Sporbarhet og merking"
+  :kravpunkt/hovedområde {:kravpunkt/id "4"}
   :kravpunkt/karakter->tekst {"0" ""
                               "1" ""
                               "2" "Mangler ved obligatorisk informasjon/merking av allergener i servert mat "

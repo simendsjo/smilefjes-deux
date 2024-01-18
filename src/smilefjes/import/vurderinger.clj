@@ -7,7 +7,7 @@
 
 (defn csv-line->vurdering [csv-header csv-line]
   (let [m (zipmap csv-header csv-line)]
-    {:vurdering/tilsynsbesøk [:tilsynsbesøk/id (:tilsynid m)]
+    {:tilsynsbesøk/_vurderinger [:tilsynsbesøk/id (:tilsynid m)]
      :vurdering/kravpunkt [:kravpunkt/id (:ordningsverdi m)]
      :vurdering/karakter (:karakter m)}))
 

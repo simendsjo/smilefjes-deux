@@ -46,12 +46,20 @@
                                   :page/link (get-tilsynsobjekt-link m)
                                   :page/kind :page.kind/spisested
                                   :tilsynsobjekt/id (:tilsynsobjektid m)
-                                  :tilsynsobjekt/navn (str/trim (:navn m))
-                                  :tilsynsobjekt/orgnummer (:orgnummer m)
-                                  :tilsynsobjekt/adresse {:linje1 (:adrlinje1 m)
-                                                          :linje2 (:adrlinje2 m)
-                                                          :poststed (:poststed m)
-                                                          :postnummer (:postnr m)}}}))
+                                  :spisested/navn (str/trim (:navn m))
+                                  :spisested/orgnummer (:orgnummer m)
+                                  :spisested/adresse {:linje1 (:adrlinje1 m)
+                                                      :linje2 (:adrlinje2 m)
+                                                      :poststed (:poststed m)
+                                                      :postnummer (:postnr m)}}
+     :tilsynsbesøk/vurderinger [{:vurdering/kravpunkt [:kravpunkt/id "1"]
+                                 :vurdering/karakter (:karakter1 m)}
+                                {:vurdering/kravpunkt [:kravpunkt/id "2"]
+                                 :vurdering/karakter (:karakter2 m)}
+                                {:vurdering/kravpunkt [:kravpunkt/id "3"]
+                                 :vurdering/karakter (:karakter3 m)}
+                                {:vurdering/kravpunkt [:kravpunkt/id "4"]
+                                 :vurdering/karakter (:karakter4 m)}]}))
 
 (defn transact [conn csv-file]
   (with-open [reader (io/reader csv-file)]
@@ -59,8 +67,8 @@
           csv-header (map keyword (first csv))]
       (db/transact-batches
        conn
-       (for [line (next csv)]
-         (csv-line->tilsynsbesøk csv-header line))))))
+       (map (partial csv-line->tilsynsbesøk csv-header)
+            (next csv))))))
 
 (comment
   (def csv
@@ -68,12 +76,21 @@
       (doall
        (csv/read-csv reader {:separator \;}))))
 
+  (d/create-database "datomic:mem://lol")
+  (def conn (d/connect "datomic:mem://lol"))
+  @(d/transact conn (read-string (slurp (io/resource "schema.edn"))))
+  @(d/transact conn (read-string (slurp (io/file "content/kravpunkter.edn"))))
+
+  (doseq [linje csv-linjer]
+    (try
+      @(d/transact conn [(csv-line->tilsynsbesøk csv-header linje)])
+      (catch Exception e
+        (throw (ex-info "Niks" {:linje linje} e)))))
+
   (def csv-header (map keyword (first csv)))
   (def csv-linjer (next csv))
 
   (zipmap csv-header (first csv-linjer))
-
-  (csv-line->tilsynsbesøk csv-header (first csv-linjer))
 
   (first res)
 
