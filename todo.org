@@ -1,5 +1,6 @@
-* Ting å ta seg til [0/2]
+* Ting å ta seg til [0/3]
 ** TODO Legg på open graph-tags på rapport-siden
+** TODO "Regelverksbruddet som ble funnet ved forrige inspeksjon er fulgt opp og funnet i orden."
 ** TODO Footer
 Om smilefjestilsyn
 https://www.matportalen.no/verktoy/tilsynsresultater/slik_forer_mattilsynet_smilefjestilsyn_paa_serveringssteder
