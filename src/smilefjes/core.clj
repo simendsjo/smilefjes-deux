@@ -2,6 +2,10 @@
   (:require [smilefjes.ingest :as ingest]
             [smilefjes.pages :as pages]))
 
+(defn get-context []
+  ;;{:matomo/site-id "?"}
+  )
+
 (defn create-app [env]
   (cond-> {:site/default-locale :no
            :site/title "Smilefjes"
@@ -24,7 +28,8 @@
            :powerpack/port 5055
            :powerpack/log-level :debug
            :powerpack/render-page #'pages/render-page
-           :powerpack/on-started #'ingest/on-started}
+           :powerpack/on-started #'ingest/on-started
+           :powerpack/get-context #'get-context}
     (= :build env)
     (assoc :site/base-url "https://smilefjes.mattilsynet.no")
 

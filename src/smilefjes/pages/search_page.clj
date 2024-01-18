@@ -27,8 +27,8 @@
                         index/build-index)
             :lookup (mapv #(format-lookup ctx %) spisesteder)}}))
 
-(defn render-page [_ctx]
-  (ui/layout
+(defn render-page [ctx]
+  (ui/layout ctx
    [:form.w-96.mx-auto.js-autocomplete {:method :get}
     [:h1.text-xl.my-4 "Søk restaurant/kafé"]
     [:fieldset

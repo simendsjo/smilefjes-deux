@@ -4,8 +4,8 @@
             [smilefjes.plakaten :as plakaten]
             [smilefjes.ui :as ui]))
 
-(defn render-spisested [spisested]
-  (ui/layout
+(defn render-spisested [ctx spisested]
+  (ui/layout ctx
    (let [{:keys [linje1 linje2 poststed postnummer]} (:spisested/adresse spisested)
          siste-besøk (apply greatest-by :tilsynsbesøk/dato (:tilsynsbesøk/_tilsynsobjekt spisested))
          karakter (:tilsynsbesøk/smilefjeskarakter siste-besøk)]
@@ -25,7 +25,7 @@
 (defn render-page [ctx page]
   (case (:page/kind page)
     :page.kind/spisested
-    (render-spisested page)
+    (render-spisested ctx page)
 
     :page.kind/spisested-index
     (search-page/render-index ctx)
@@ -33,7 +33,7 @@
     :page.kind/search-page
     (search-page/render-page ctx)
 
-    (ui/layout
+    (ui/layout ctx
      [:div.grid.place-items-center.h-screen
       [:div.max-w-md.p-5
        [:h1.text-xl "Smilefjes er snart tilbake"]
