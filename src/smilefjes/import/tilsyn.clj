@@ -4,6 +4,7 @@
             [clojure.set :as set]
             [datomic-type-extensions.api :as d]
             [java-time-literals.core]
+            [smilefjes.adresse :as adresse]
             [smilefjes.db :as db]
             [superstring.core :as str])
   (:import (java.text Normalizer)
@@ -45,16 +46,17 @@
      :tilsynsbesøk/oppfølging? (= "1" (:tilsynsbesoektype m))
      :tilsynsbesøk/dato (ddmmyyyy->local-date (:dato m))
      :tilsynsbesøk/smilefjeskarakter (:total_karakter m)
-     :tilsynsbesøk/tilsynsobjekt {:page/uri (get-tilsynsobjekt-uri m)
-                                  :page/link (get-tilsynsobjekt-link m)
-                                  :page/kind :page.kind/spisested
-                                  :tilsynsobjekt/id (get-id m)
-                                  :spisested/navn (str/trim (:navn m))
-                                  :spisested/orgnummer (:orgnummer m)
-                                  :spisested/adresse {:linje1 (:adrlinje1 m)
-                                                      :linje2 (:adrlinje2 m)
-                                                      :poststed (:poststed m)
-                                                      :postnummer (:postnr m)}}
+     :tilsynsbesøk/tilsynsobjekt
+     {:page/uri (get-tilsynsobjekt-uri m)
+      :page/link (get-tilsynsobjekt-link m)
+      :page/kind :page.kind/spisested
+      :tilsynsobjekt/id (get-id m)
+      :spisested/navn (str/trim (:navn m))
+      :spisested/orgnummer (:orgnummer m)
+      :spisested/adresse {:linje1 (adresse/normalize-adresse (:adrlinje1 m))
+                          :linje2 (adresse/normalize-adresse (:adrlinje2 m))
+                          :poststed (adresse/normalize-poststed (:poststed m))
+                          :postnummer (:postnr m)}}
      :tilsynsbesøk/vurderinger [{:vurdering/kravpunkt [:kravpunkt/id "1"]
                                  :vurdering/karakter (:karakter1 m)}
                                 {:vurdering/kravpunkt [:kravpunkt/id "2"]
