@@ -24,11 +24,14 @@
       (str/replace #"[^a-z 0-9]" "")
       (str/replace #" +" "_")))
 
+(defn get-id [m]
+  (str/chop-suffix (:tilsynsobjektid m) "_Tilsynsobjekt"))
+
 (defn get-tilsynsobjekt-uri
   "Hent URI-en som siden serveres fra - den inneholder kun id-en, som ikke endrer
   seg over tid."
   [m]
-  (str "/spisested/" (str/chop-suffix (:tilsynsobjektid m) "_Tilsynsobjekt") "/"))
+  (str "/spisested/" (get-id m) "/"))
 
 (defn get-tilsynsobjekt-link
   "Hent lenken som siden ble vist med i den tidligere løsningen. Denne blir
@@ -45,7 +48,7 @@
      :tilsynsbesøk/tilsynsobjekt {:page/uri (get-tilsynsobjekt-uri m)
                                   :page/link (get-tilsynsobjekt-link m)
                                   :page/kind :page.kind/spisested
-                                  :tilsynsobjekt/id (:tilsynsobjektid m)
+                                  :tilsynsobjekt/id (get-id m)
                                   :spisested/navn (str/trim (:navn m))
                                   :spisested/orgnummer (:orgnummer m)
                                   :spisested/adresse {:linje1 (:adrlinje1 m)
