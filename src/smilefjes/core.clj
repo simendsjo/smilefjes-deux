@@ -8,7 +8,11 @@
 
            :optimus/bundles {"app.css"
                              {:public-dir "public"
-                              :paths ["/tailwind-out.css"]}}
+                              :paths ["/tailwind-out.css"]}
+
+                             "/app.js"
+                             {:public-dir "public"
+                              :paths ["/js/compiled/app.js"]}}
 
            :optimus/assets [{:public-dir "public"
                              :paths [#"/images/*.*"]}]
