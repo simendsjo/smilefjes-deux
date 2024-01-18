@@ -65,7 +65,7 @@
   (#{:pending :loading} (:index-status @search-engine)))
 
 (defn format-result [{:keys [loading? title url description]}]
-  (str "<li class=\"mb-2 bg-slate-100 p-2\">"
+  (str "<li class=\"mb-2 bg-slate-100 p-2 ac-result\">"
        (if loading?
          dom/loader
          (str "<a href=\"" url "\">"
@@ -113,12 +113,14 @@
       (aget results (dec (.-length results))))))
 
 (defn navigate-results [element d]
-  (let [selected (dom/qs element ".mmm-ac-selected")
-        target-element (get-target-element (.querySelectorAll element ".mmm-ac-result") selected d)]
+  (let [selected (dom/qs element ".ac-selected")
+        target-element (get-target-element (.querySelectorAll element ".ac-result") selected d)]
     (when target-element
       (when selected
-        (.remove (.-classList selected) "mmm-ac-selected"))
-      (.add (.-classList target-element) "mmm-ac-selected"))))
+        (.remove (.-classList selected) "ac-selected")
+        (.remove (.-classList selected) "bg-slate-200"))
+      (.add (.-classList target-element) "ac-selected")
+      (.add (.-classList target-element) "bg-slate-200"))))
 
 (defn handle-autocomplete-key-event [e element]
   (case (.-key e)
@@ -127,7 +129,7 @@
     nil))
 
 (defn handle-autocomplete-submit-event [e]
-  (when-let [selected (.querySelector (.-target e) ".mmm-ac-selected a")]
+  (when-let [selected (.querySelector (.-target e) ".ac-selected a")]
     (.preventDefault e)
     (set! js/window.location (.-href selected))))
 
