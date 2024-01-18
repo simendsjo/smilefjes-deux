@@ -10,6 +10,9 @@
                              {:public-dir "public"
                               :paths ["/tailwind-out.css"]}}
 
+           :optimus/assets [{:public-dir "public"
+                             :paths [#"/images/*.*"]}]
+
            :powerpack/build-dir "docker/build"
            :powerpack/content-dir "content"
            :powerpack/source-dirs ["src" "dev"]
