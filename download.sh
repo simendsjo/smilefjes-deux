@@ -18,7 +18,7 @@ refresh_data() {
 }
 
 mkdir -p data
-refresh_data data/tilsyn.csv "https://hotell.difi.no/download/mattilsynet/smilefjes/tilsyn?download"
+refresh_data data/tilsyn.csv "https://data.mattilsynet.no/smilefjes-tilsyn.csv"
 tilsyn=$?
-refresh_data data/vurderinger.csv "https://hotell.difi.no/download/mattilsynet/smilefjes/kravpunkter?download"
+refresh_data data/vurderinger.csv "https://data.mattilsynet.no/smilefjes-kravpunkter.csv"
 kravpunkter=$?
