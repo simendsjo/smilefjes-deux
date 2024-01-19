@@ -30,18 +30,19 @@
 (defn render-page [ctx]
   (ui/with-layout ctx
     (ui/header)
-    [:form.max-w-screen-md.p-5.mx-auto.js-autocomplete {:method :get}
-     [:h1.text-xl "Søk restaurant/kafé"]
-     [:fieldset.mt-1
-      {:class [:relative :w-full "min-w-36" :h-10]}
-      [:input
-       {:class [:shadow :appearance-none :border :rounded :w-full
-                :py-2 :px-3 :text-gray-700 :leading-tight :focus:outline-none
-                :focus:shadow-outline]
-        :autocomplete "off"
-        :type "search"
-        :aria-autocomplete "list"
-        :aria-controls "search-autocomplete"
-        :aria-haspopup "menu"}]
-      [:ol.js-suggestions.px-2.py-2.border.hidden.bg-slate-50
-       {:id "search-autocomplete"}]]]))
+    [:div.bg-gul-200
+     [:form.max-w-screen-md.px-5.py-28.mx-auto.js-autocomplete {:method :get}
+      [:h1.text-xl "Søk etter smilefjes"]
+      [:fieldset.mt-1
+       {:class [:relative :w-full "min-w-36" :h-10]}
+       [:input
+        {:class [:shadow :appearance-none :border :rounded :w-full
+                 :py-2 :px-3 :text-gray-700 :leading-tight :focus:outline-none
+                 :focus:shadow-outline]
+         :autocomplete "off"
+         :type "search"
+         :aria-autocomplete "list"
+         :aria-controls "search-autocomplete"
+         :aria-haspopup "menu"}]
+       [:ol.js-suggestions.px-2.py-2.border.hidden.bg-slate-50
+        {:id "search-autocomplete"}]]]]))
