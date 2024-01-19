@@ -30,7 +30,7 @@
 (defn render-page [ctx]
   (ui/with-layout ctx
     (ui/header)
-    [:div.bg-gul-200
+    [:div.bg-sommerdag-200
      [:form.max-w-screen-md.px-5.py-28.mx-auto.js-autocomplete {:method :get}
       [:h1.text-xl "Søk etter smilefjes"]
       [:fieldset.mt-1
