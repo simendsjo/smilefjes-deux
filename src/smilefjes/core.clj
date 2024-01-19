@@ -3,8 +3,7 @@
             [smilefjes.pages :as pages]))
 
 (defn get-context []
-  ;;{:matomo/site-id "?"}
-  )
+  {:matomo/site-id "9"})
 
 (defn create-app [env]
   (cond-> {:site/default-locale :no
