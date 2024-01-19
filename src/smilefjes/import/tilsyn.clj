@@ -35,10 +35,13 @@
   (str "/spisested/" (get-id m) "/"))
 
 (defn get-tilsynsobjekt-link
-  "Hent lenken som siden ble vist med i den tidligere løsningen. Denne blir
-  skrevet om i nginx slik at gamle lenker fungerer mot våre nye adresser."
+  "Lenken var opprinnelig den samme som den gamle løsningen brukte. Ettersom den
+  inneholder en del overflødig informasjon har vi lagt en redirect i nginx for å
+  kvitte oss med litt ræl, men valgte allikevel å beholde litt meningsbærende
+  informasjon fordi det er hyggelig. Uansett blir denne skrevet om i nginx til å
+  treffe på URI-en til siden."
   [m]
-  (str "/smilefjes/spisested/" (slugify (:poststed m)) "/" (slugify (:navn m)) "." (:tilsynsobjektid m) "/"))
+  (str "/spisested/" (slugify (:poststed m)) "/" (slugify (:navn m)) "." (get-id m) "/"))
 
 (defn csv-line->tilsynsbesøk [csv-header csv-line]
   (let [m (zipmap csv-header csv-line)]

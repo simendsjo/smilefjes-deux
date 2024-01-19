@@ -14,13 +14,13 @@
           {:tilsynsobjektid "Z1703151057439673252OPMTI_Tilsynsobjekt"
            :poststed "Oslo"
            :navn "O`Learys (SSP avd. 2406)"})
-         "/smilefjes/spisested/oslo/olearys_ssp_avd_2406.Z1703151057439673252OPMTI_Tilsynsobjekt/"))
+         "/spisested/oslo/olearys_ssp_avd_2406.Z1703151057439673252OPMTI/"))
 
   (is (= (sut/get-tilsynsobjekt-link
           {:tilsynsobjektid "Z1006080424270381127GXAJR_Tilsynsobjekt"
            :poststed "Gamle Fredrikstad"
            :navn "Mormors Cafe"})
-         "/smilefjes/spisested/gamle_fredrikstad/mormors_cafe.Z1006080424270381127GXAJR_Tilsynsobjekt/")))
+         "/spisested/gamle_fredrikstad/mormors_cafe.Z1006080424270381127GXAJR/")))
 
 (deftest uri-test
   (is (= (sut/get-tilsynsobjekt-uri
