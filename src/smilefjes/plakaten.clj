@@ -2,9 +2,9 @@
 
 (defn oppsummer-smilefjeskarakter [smilefjeskarakter]
   (case smilefjeskarakter
-    ("0" "1") "Tilsynet har ikke avdekket regelverksbrudd som krever oppfølging."
-    "2" "Tilsynet har avdekket regelverksbrudd som krever oppfølging."
-    "3" "Tilsynet har avdekket alvorlig regelverksbrudd."))
+    ("0" "1") "Mattilsynet har ikke avdekket regelverksbrudd som krever oppfølging."
+    "2" "Mattilsynet har avdekket regelverksbrudd som krever oppfølging."
+    "3" "Mattilsynet har avdekket alvorlig regelverksbrudd."))
 
 (defn beskriv-karakter [smilefjeskarakter]
   (case smilefjeskarakter

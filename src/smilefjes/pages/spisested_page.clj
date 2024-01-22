@@ -132,7 +132,7 @@
          [:div.hidden.md:block (vis-siste-tilsynsresultat (first besøkene))]]]]
       [:div.bg-gåsunge-200
        [:div.max-w-screen-md.mx-auto.py-5
-        [:h2.text-2xl.px-5 "Vurdering"]
+        [:h2.text-2xl.px-5 "Vurdering av tilsynet"]
         [:div
          (for [[besøk forrige-besøk] (partition-all 2 1 besøkene)]
            [:div {:class (when (not= besøk (first besøkene)) "hidden")
