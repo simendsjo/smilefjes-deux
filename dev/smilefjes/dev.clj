@@ -30,10 +30,8 @@
 
   (->map (d/entity db [:tilsynsbesøk/id "Z1601051557592250240VTAHG_TilsynAvtale"]))
 
-
-
-
-  (start)
-  (dev/reset)
-
   )
+
+(comment ;; s-:
+  (start)
+  (dev/reset))
