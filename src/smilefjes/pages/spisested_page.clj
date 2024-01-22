@@ -19,7 +19,7 @@
 
 (defn vis-siste-tilsynsresultat [besøk]
   (let [karakter (:tilsynsbesøk/smilefjeskarakter besøk)]
-    [:div.bg-white.rounded.border.border-furu-500.px-5.py-2.text-center
+    [:div.bg-white.rounded-lg.border.border-furu-500.px-5.py-2.text-center
      [:h2.text-l.flex-1 "Siste tilsynsresultat:"]
      [:div.w-36.my-2 {:title (str "Spisestedet har fått " (plakaten/beskriv-karakter karakter) ".")}
       (karakter->smil-icon karakter)]
@@ -35,7 +35,9 @@
 
 (defn vis-mini-tilsynsresultat [besøk]
   (let [karakter (:tilsynsbesøk/smilefjeskarakter besøk)]
-    [:div.p-1.text-center.flex.flex-col.items-center.rounded-lg
+    [:div.p-1.text-center.flex.flex-col.items-center.rounded-lg.cursor-pointer
+     {:data-select_element_id (:tilsynsbesøk/id besøk)
+      :data-selected_class "mmm-mini-selected"}
      [:div.w-8.my-2 {:title (str "Spisestedet har fått " (plakaten/beskriv-karakter karakter) ".")}
       (karakter->smil-icon karakter)]
      [:div.text-xs (formater-dato (:tilsynsbesøk/dato besøk))]]))
@@ -106,15 +108,13 @@
 (defn render [ctx spisested]
   (let [besøkene (->> (:tilsynsbesøk/_tilsynsobjekt spisested)
                       (sort-by :tilsynsbesøk/dato)
-                      reverse)
-        besøk (first besøkene)
-        forrige-besøk (second besøkene)]
+                      reverse)]
     (ui/with-layout ctx
       (ui/header)
       [:div.bg-lysegrønn
        [:div.max-w-screen-md.mx-auto.p-5
         [:div.flex
-         [:div.flex-1
+         [:div.flex-1.js-select-element-parent
           (vis-spisested-info spisested)
           [:p.mt-5 "Tilsynsresultater:"]
           [:div.flex.gap-3.md:gap-5
@@ -129,12 +129,16 @@
               [:span.underline.cursor-pointer
                {:data-toggle_body_class "vis-gamle-tilsyn"}
                "Se flere tilsynsresultater"]]])]
-         [:div.hidden.md:block (vis-siste-tilsynsresultat besøk)]]]]
+         [:div.hidden.md:block (vis-siste-tilsynsresultat (first besøkene))]]]]
       [:div.bg-gåsunge-200
        [:div.max-w-screen-md.mx-auto.py-5
         [:h2.text-2xl.px-5 "Vurdering"]
-        [:p.my-2.px-5 (plakaten/oppsummer-smilefjeskarakter (:tilsynsbesøk/smilefjeskarakter besøk))]
-        [:div.md:px-5.mt-10 (vis-vurderingsoversikt besøk forrige-besøk)]
+        [:div
+         (for [[besøk forrige-besøk] (partition-all 2 1 besøkene)]
+           [:div {:class (when (not= besøk (first besøkene)) "hidden")
+                  :id (:tilsynsbesøk/id besøk)}
+            [:p.my-2.px-5 (plakaten/oppsummer-smilefjeskarakter (:tilsynsbesøk/smilefjeskarakter besøk))]
+            [:div.md:px-5.mt-10 (vis-vurderingsoversikt besøk forrige-besøk)]])]
         [:div.px-5.my-5 (checkbox {:toggle-class "vis-irrelevavnte-vurderinger"
                                    :label "Vis alle kravpunkter"})]
         [:p.px-5.my-10.text-sm

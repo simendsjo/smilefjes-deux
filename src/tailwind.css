@@ -18,6 +18,17 @@
 
 .vis-gamle-tilsyn .vis-gamle-tilsyn-lenke {display: none;}
 
+.mmm-mini-selected-2 {
+    color: #054449;
+    background: white;
+    border: 1px solid #68B096;
+}
+
+.mmm-mini-selected {
+    background: #054449;
+    color: white;
+}
+
 .mmm-checkbox {
     align-items: center;
     cursor: pointer;
