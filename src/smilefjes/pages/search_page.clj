@@ -36,13 +36,13 @@
   (ui/with-layout ctx
     (ui/header)
     [:div.bg-sommerdag-200
-     [:div.max-w-screen-sm.px-5.py-28.mx-auto.js-autocomplete.relative {:method :get}
+     [:div.max-w-screen-sm.px-5.py-8.md:py-28.mx-auto.js-autocomplete.relative {:method :get}
       [:h1.text-3xl.mb-2 "Søk etter smilefjes"]
       [:fieldset.mt-1
        {:class [:relative :w-full "min-w-36" :h-10]}
        [:div.replicant-root {:data-view "autocomplete"}]]]]
-    [:div.max-w-screen-lg.mx-auto.flex.p-8.justify-between.items-center
-     [:div.max-w-72
+    [:div.max-w-screen-lg.mx-auto.md:flex.px-8.py-4.justify-between.items-center
+     [:div.max-w-72.py-4
       [:h2.text-lg.font-medium.mb-4 "Alle smilefjes på ett sted"]
       [:p.mb-4
        "Et smilefjes fra Mattilsynet viser hvordan vi vurderer viktige forhold
@@ -52,6 +52,6 @@
        {:href "https://www.mattilsynet.no/mat-og-drikke/forbrukere/smilefjesordningen"}
        [:div.w-4.mr-2 icons/smilefjes]
        "Les mer om smilefjes"]]
-     [:div
-      (svg "/images/inspektør.svg")]]
+     [:div.max-w-full.py-4.w-full
+      [:div.md:pl-16 (svg "/images/inspektør.svg")]]]
     (ui/footer)))
