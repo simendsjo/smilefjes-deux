@@ -44,7 +44,7 @@
   (case karakter
     ("0" "1") [:img.w-7.mr-3 {:src "/images/checkmark.svg"}]
     ("2" "3") [:img.w-7.mr-3 {:src "/images/xmark.svg"}]
-    ("4" "5") [:div.w-7.mr-3]))
+    [:div.w-7.mr-3]))
 
 (defn vis-vurderingsoversikt [besøk]
   [:div.border-b-2.border-granskog-800.mt-10
