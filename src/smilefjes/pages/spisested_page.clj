@@ -57,10 +57,10 @@
         (for [vurdering vurderinger]
           [:div.bg-white.py-4.px-4.border-gåsunge-200.flex.items-center
            (when (not= vurdering (first vurderinger))
-             {:class [:border-t-2]})
+             {:class ["border-t-2"]})
            [:div (vis-karakter-indikator (:vurdering/karakter vurdering))]
            [:div (when (#{"4" "5"} (:vurdering/karakter vurdering))
-                   {:class [:opacity-50]})
+                   {:class ["opacity-50"]})
             [:div (:kravpunkt/navn (:vurdering/kravpunkt vurdering))]
             [:div.text-xs ((-> vurdering :vurdering/kravpunkt :kravpunkt/karakter->tekst)
                            (:vurdering/karakter vurdering))]]]))])])
