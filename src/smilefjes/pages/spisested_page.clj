@@ -1,5 +1,6 @@
 (ns smilefjes.pages.spisested-page
-  (:require [smilefjes.plakaten :as plakaten]
+  (:require [smilefjes.icons :as icons]
+            [smilefjes.plakaten :as plakaten]
             [smilefjes.ui :as ui]))
 
 (defn zero-pad [n]
@@ -10,12 +11,18 @@
        (zero-pad (.getMonthValue dato)) "."
        (.getYear dato)))
 
+(def karakter->smil-icon
+  {"0" icons/smilefjes
+   "1" icons/smilefjes
+   "2" icons/strekmunn
+   "3" icons/surmunn})
+
 (defn vis-siste-tilsynsresultat [besøk]
   (let [karakter (:tilsynsbesøk/smilefjeskarakter besøk)]
     [:div.bg-white.rounded.border.border-furu-500.px-5.py-2.text-center
      [:h2.text-l.flex-1 "Siste tilsynsresultat:"]
-     [:img.w-36.my-2 {:title (str "Spisestedet har fått " (plakaten/beskriv-karakter karakter) ".")
-                      :src (plakaten/smilefjes-svg-url karakter)}]
+     [:div.w-36.my-2 {:title (str "Spisestedet har fått " (plakaten/beskriv-karakter karakter) ".")}
+      (karakter->smil-icon karakter)]
      (formater-dato (:tilsynsbesøk/dato besøk))]))
 
 (defn vis-spisested-info [spisested]
@@ -28,9 +35,9 @@
 
 (defn vis-mini-tilsynsresultat [besøk]
   (let [karakter (:tilsynsbesøk/smilefjeskarakter besøk)]
-    [:div.py-1.text-center.flex.flex-col.items-center
-     [:img.w-8.my-2 {:title (str "Spisestedet har fått " (plakaten/beskriv-karakter karakter) ".")
-                     :src (plakaten/smilefjes-svg-url karakter)}]
+    [:div.p-1.text-center.flex.flex-col.items-center.rounded-lg
+     [:div.w-8.my-2 {:title (str "Spisestedet har fått " (plakaten/beskriv-karakter karakter) ".")}
+      (karakter->smil-icon karakter)]
      [:div.text-xs (formater-dato (:tilsynsbesøk/dato besøk))]]))
 
 (defn hent-vurderinger-av-hovedområdene [besøk]
@@ -110,13 +117,13 @@
          [:div.flex-1
           (vis-spisested-info spisested)
           [:p.mt-5 "Tilsynsresultater:"]
-          [:div.flex.gap-4.md:gap-6
+          [:div.flex.gap-3.md:gap-5
            (map vis-mini-tilsynsresultat (take 4 besøkene))]
           (when-let [resten (seq (drop 4 besøkene))]
             [:div
              [:div.gamle-tilsyn
               (for [besøkene (partition-all 4 resten)]
-                [:div.flex.gap-4.md:gap-6
+                [:div.flex.gap-3.md:gap-5.mt-2
                  (map vis-mini-tilsynsresultat besøkene)])]
              [:div.text-xs.mt-2.vis-gamle-tilsyn-lenke
               [:span.underline.cursor-pointer
