@@ -1,6 +1,6 @@
-^{:watch-dirs ["src"]
+^{:watch-dirs ["src" "dev"]
   :css-dirs ["resources/public"]}
-{:main smilefjes.ui.main
+{:main smilefjes.dev
  :optimizations :none
  :pretty-print true
  :source-map true

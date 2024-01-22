@@ -36,22 +36,11 @@
   (ui/with-layout ctx
     (ui/header)
     [:div.bg-sommerdag-200
-     [:form.max-w-screen-md.px-5.py-28.mx-auto.js-autocomplete.relative {:method :get}
+     [:div.max-w-screen-sm.px-5.py-28.mx-auto.js-autocomplete.relative {:method :get}
       [:h1.text-3xl.mb-2 "Søk etter smilefjes"]
       [:fieldset.mt-1
        {:class [:relative :w-full "min-w-36" :h-10]}
-       [:input
-        {:class [:shadow :appearance-none :border :rounded :w-full
-                 :py-2 :px-3 :text-gray-700 :leading-tight :focus:outline-none
-                 :focus:shadow-outline]
-         :autocomplete "off"
-         :type "search"
-         :aria-autocomplete "list"
-         :aria-controls "search-autocomplete"
-         :aria-haspopup "menu"}]
-       [:ol.js-suggestions.px-2.py-2.border.hidden.bg-slate-50.absolute
-        {:id "search-autocomplete"
-         :style {:width "100%" :height "auto"}}]]]]
+       [:div.replicant-root {:data-view "autocomplete"}]]]]
     [:div.max-w-screen-lg.mx-auto.flex.p-8.justify-between.items-center
      [:div.max-w-72
       [:h2.text-lg.font-medium.mb-4 "Alle smilefjes på ett sted"]
