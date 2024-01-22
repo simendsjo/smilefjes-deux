@@ -46,7 +46,18 @@
     ("2" "3") [:img.w-7.mr-3 {:src "/images/xmark.svg"}]
     [:div.w-7.mr-3]))
 
-(defn vis-vurderingsoversikt [besøk]
+(defn hent-vurderingstekst [vurdering forrige-besøk]
+  (let [forrige-vurdering (->> (:tilsynsbesøk/vurderinger forrige-besøk)
+                               (filter #(= (:vurdering/kravpunkt vurdering)
+                                           (:vurdering/kravpunkt %)))
+                               first)]
+    (if (and (#{"0" "1"} (:vurdering/karakter vurdering))
+             (#{"2" "3"} (:vurdering/karakter forrige-vurdering)))
+      "Regelverksbruddet som ble funnet ved forrige inspeksjon er fulgt opp og funnet i orden."
+      ((-> vurdering :vurdering/kravpunkt :kravpunkt/karakter->tekst)
+       (:vurdering/karakter vurdering)))))
+
+(defn vis-vurderingsoversikt [besøk forrige-besøk]
   [:div.border-b-2.border-granskog-800.my-10
    (for [hovedvurdering (hent-vurderinger-av-hovedområdene besøk)]
      [:div.border-t-2.border-granskog-800
@@ -63,14 +74,14 @@
              [:div (when ikke-interessant?
                      {:class ["opacity-50"]})
               [:div (:kravpunkt/navn (:vurdering/kravpunkt vurdering))]
-              [:div.text-xs ((-> vurdering :vurdering/kravpunkt :kravpunkt/karakter->tekst)
-                             (:vurdering/karakter vurdering))]]])))])])
+              [:div.text-xs (hent-vurderingstekst vurdering forrige-besøk)]]])))])])
 
 (defn render [ctx spisested]
   (let [besøkene (->> (:tilsynsbesøk/_tilsynsobjekt spisested)
                       (sort-by :tilsynsbesøk/dato)
                       reverse)
-        besøk (first besøkene)]
+        besøk (first besøkene)
+        forrige-besøk (second besøkene)]
     (ui/with-layout ctx
       (ui/header)
       [:div.bg-lysegrønn
@@ -87,4 +98,4 @@
        [:div.max-w-screen-md.mx-auto.py-5
         [:h2.text-2xl.px-5 "Vurdering"]
         [:p.my-2.px-5 (plakaten/oppsummer-smilefjeskarakter (:tilsynsbesøk/smilefjeskarakter besøk))]
-        [:div.md:px-5 (vis-vurderingsoversikt besøk)]]])))
+        [:div.md:px-5 (vis-vurderingsoversikt besøk forrige-besøk)]]])))
