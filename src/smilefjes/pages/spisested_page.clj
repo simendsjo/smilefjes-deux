@@ -2,9 +2,12 @@
   (:require [smilefjes.plakaten :as plakaten]
             [smilefjes.ui :as ui]))
 
+(defn zero-pad [n]
+  (if (< n 10) (str "0" n) n))
+
 (defn formater-dato [dato]
-  (str (.getDayOfMonth dato) "."
-       (.getMonthValue dato) "."
+  (str (zero-pad (.getDayOfMonth dato)) "."
+       (zero-pad (.getMonthValue dato)) "."
        (.getYear dato)))
 
 (defn vis-siste-tilsynsresultat [besøk]
@@ -66,12 +69,11 @@
        [:div (:kravpunkt/navn (:vurdering/kravpunkt hovedvurdering))]]
       (let [vurderinger (hent-vurderinger-for-hovedområde besøk (:vurdering/kravpunkt hovedvurdering))]
         (for [vurdering vurderinger]
-          (let [ikke-interessant? (#{"4" "5"} (:vurdering/karakter vurdering))]
-            [:div (when ikke-interessant?
-                    {:class "not-interesting"})
+          (let [irrelevant? (#{"4" "5"} (:vurdering/karakter vurdering))]
+            [:div (when irrelevant? {:class "irrelevant-vurdering"})
              [:div.bg-white.py-4.px-4.border-b-2.border-gåsunge-200.flex.items-center
               [:div (vis-karakter-indikator (:vurdering/karakter vurdering))]
-              [:div (when ikke-interessant?
+              [:div (when irrelevant?
                       {:class ["opacity-50"]})
                [:div (:kravpunkt/navn (:vurdering/kravpunkt vurdering))]
                [:div.text-xs (hent-vurderingstekst vurdering forrige-besøk)]]]])))])])
@@ -108,16 +110,25 @@
          [:div.flex-1
           (vis-spisested-info spisested)
           [:p.mt-5 "Tilsynsresultater:"]
-          [:div.flex.gap-5
-           (map vis-mini-tilsynsresultat (take 4 besøkene))]]
-         [:div.hidden.md:block (vis-siste-tilsynsresultat besøk)]]
-        [:p.mt-5.text-xs "Mattilsynets smilefjestjeneste er nede på grunn av teknisk svikt, men vi jobber iherdig med å få på plass en erstatning. Nå har du snublet inn i vårt pågående arbeid. Kos med kaos!"]]]
+          [:div.flex.gap-4.md:gap-6
+           (map vis-mini-tilsynsresultat (take 4 besøkene))]
+          (when-let [resten (seq (drop 4 besøkene))]
+            [:div
+             [:div.gamle-tilsyn
+              (for [besøkene (partition-all 4 resten)]
+                [:div.flex.gap-4.md:gap-6
+                 (map vis-mini-tilsynsresultat besøkene)])]
+             [:div.text-xs.mt-2.vis-gamle-tilsyn-lenke
+              [:span.underline.cursor-pointer
+               {:data-toggle_body_class "vis-gamle-tilsyn"}
+               "Se flere tilsynsresultater"]]])]
+         [:div.hidden.md:block (vis-siste-tilsynsresultat besøk)]]]]
       [:div.bg-gåsunge-200
        [:div.max-w-screen-md.mx-auto.py-5
         [:h2.text-2xl.px-5 "Vurdering"]
         [:p.my-2.px-5 (plakaten/oppsummer-smilefjeskarakter (:tilsynsbesøk/smilefjeskarakter besøk))]
         [:div.md:px-5.mt-10 (vis-vurderingsoversikt besøk forrige-besøk)]
-        [:div.px-5.my-5 (checkbox {:toggle-class "show-not-interesting"
+        [:div.px-5.my-5 (checkbox {:toggle-class "vis-irrelevavnte-vurderinger"
                                    :label "Vis alle kravpunkter"})]
         [:p.px-5.my-10.text-sm
          "Mattilsynet har kontrollert etterlevelsen av sentrale krav i matlovgivningen. Resultatene baserer seg på observasjonene som ble gjort og de opplysningene som ble gitt under inspeksjonen."]]])))

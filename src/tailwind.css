@@ -10,8 +10,13 @@
     }
 }
 
-.not-interesting { display: none; }
-.show-not-interesting .not-interesting { display: block; }
+.gamle-tilsyn,
+.irrelevant-vurdering { display: none; }
+
+.vis-gamle-tilsyn .gamle-tilsyn,
+.vis-irrelevavnte-vurderinger .irrelevant-vurdering { display: block; }
+
+.vis-gamle-tilsyn .vis-gamle-tilsyn-lenke {display: none;}
 
 .mmm-checkbox {
     align-items: center;
