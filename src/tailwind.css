@@ -11,3 +11,38 @@
 
 .not-interesting { display: none; }
 .show-not-interesting .not-interesting { display: block; }
+
+.mmm-checkbox {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    gap: 16px;
+    position: relative;
+}
+
+.mmm-checkbox input {
+    display: none;
+}
+
+.mmm-checkbox .checkbox-marker {
+    fill: white;
+    stroke: #68B096;
+    transition: stroke 0.25s, fill 0.25s;
+    width: 24px;
+}
+
+.mmm-checkbox input:checked + .checkbox-marker {
+    fill: #054449;
+    stroke: #054449;
+}
+
+.mmm-svg {
+    display: block;
+    max-width: 100%;
+}
+
+.mmm-svg,
+.mmm svg {
+    fill: currentColor;
+    max-height: 100%;
+}

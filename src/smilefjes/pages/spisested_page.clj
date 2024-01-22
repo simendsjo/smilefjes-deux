@@ -58,7 +58,7 @@
        (:vurdering/karakter vurdering)))))
 
 (defn vis-vurderingsoversikt [besøk forrige-besøk]
-  [:div.border-b-2.border-granskog-800.my-10
+  [:div.border-b-2.border-granskog-800
    (for [hovedvurdering (hent-vurderinger-av-hovedområdene besøk)]
      [:div.border-t-2.border-granskog-800
       [:div.bg-gåsunge-300.py-6.px-4.text-xl.flex.items-center
@@ -75,6 +75,24 @@
                       {:class ["opacity-50"]})
                [:div (:kravpunkt/navn (:vurdering/kravpunkt vurdering))]
                [:div.text-xs (hent-vurderingstekst vurdering forrige-besøk)]]]])))])])
+
+(defn checkbox [{:keys [toggle-class label]}]
+  [:div.px-5
+   [:label.mmm-checkbox {:data-toggle_body_class toggle-class}
+    [:input {:type "checkbox"}]
+    [:svg.mmm-svg.checkbox-marker
+     {:xmlns "http://www.w3.org/2000/svg"
+      :viewBox "0 0 24 24"}
+     [:rect {:x "0.5"
+             :y "0.5"
+             :width "23"
+             :height "23"
+             :rx "3.5"}]
+     [:svg {:x 5 :y 5}
+      [:path {:d "M1.82609 4.97933L0 7.36562L6.05115 12.5999L14 3.3002L12.078 1.3999L6.06382 8.86295L1.82609 4.97933Z"
+              :fill "white"
+              :stroke "none"}]]]
+    label]])
 
 (defn render [ctx spisested]
   (let [besøkene (->> (:tilsynsbesøk/_tilsynsobjekt spisested)
@@ -98,8 +116,6 @@
        [:div.max-w-screen-md.mx-auto.py-5
         [:h2.text-2xl.px-5 "Vurdering"]
         [:p.my-2.px-5 (plakaten/oppsummer-smilefjeskarakter (:tilsynsbesøk/smilefjeskarakter besøk))]
-        [:div.md:px-5 (vis-vurderingsoversikt besøk forrige-besøk)]
-        [:div.px-5
-         [:label {:data-toggle_body_class "show-not-interesting"}
-          [:input {:type "checkbox"}]
-          [:span "Vis alle kravpunkter"]]]]])))
+        [:div.md:px-5.mt-10 (vis-vurderingsoversikt besøk forrige-besøk)]
+        [:div.px-5.my-5 (checkbox {:toggle-class "show-not-interesting"
+                                   :label "Vis alle kravpunkter"})]]])))
