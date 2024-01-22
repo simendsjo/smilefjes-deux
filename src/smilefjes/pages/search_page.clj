@@ -63,4 +63,5 @@
        [:div.w-4.mr-2 icons/smilefjes]
        "Les mer om smilefjes"]]
      [:div
-      (svg "/images/inspektør.svg")]]))
+      (svg "/images/inspektør.svg")]]
+    (ui/footer)))
