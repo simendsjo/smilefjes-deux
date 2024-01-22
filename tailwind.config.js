@@ -23,10 +23,14 @@ module.exports = {
           '500': '#28E3F0',
           '600': '#0DAEBA',
           '700': '#08676E',
-          '800': '#054449',
+          '800': '#054449', // standard
           '900': '#032426'
         },
         'lysegrønn': '#E2F1DF',
+        'gåsunge': {
+          '200': '#FAF6F3', // standard
+          '300': '#F4ECE6' // fra skissene, forsøksvis plassert her
+        },
         'sommerdag': {
           '100': '#FEF9F0',
           '200': '#FEF4E2',
