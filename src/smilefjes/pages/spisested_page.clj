@@ -118,4 +118,6 @@
         [:p.my-2.px-5 (plakaten/oppsummer-smilefjeskarakter (:tilsynsbesøk/smilefjeskarakter besøk))]
         [:div.md:px-5.mt-10 (vis-vurderingsoversikt besøk forrige-besøk)]
         [:div.px-5.my-5 (checkbox {:toggle-class "show-not-interesting"
-                                   :label "Vis alle kravpunkter"})]]])))
+                                   :label "Vis alle kravpunkter"})]
+        [:p.px-5.my-10.text-sm
+         "Mattilsynet har kontrollert etterlevelsen av sentrale krav i matlovgivningen. Resultatene baserer seg på observasjonene som ble gjort og de opplysningene som ble gitt under inspeksjonen."]]])))
