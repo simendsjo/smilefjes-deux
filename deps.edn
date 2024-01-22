@@ -5,6 +5,7 @@
         org.clojure/data.json {:mvn/version "2.4.0"}
         com.datomic/peer {:mvn/version "1.0.6726"}
         dev.weavejester/medley {:mvn/version "1.7.0"}
+        no.cjohansen/fontawesome-clj {:mvn/version "2024.01.22"}
         no.cjohansen/powerpack {:mvn/version "2024.01.16"}
         superstring/superstring {:mvn/version "3.2.0"}}
  :aliases

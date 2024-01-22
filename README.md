@@ -57,6 +57,12 @@ Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer o
    make tailwind
    ```
 
+- Sørg for at du har [FontAwesome](https://fontawesome.com)-ikonene:
+
+    ```
+    make prepare-dev
+    ```
+
 - Start ClojureScript-bygget (Emacs-brukere kan se nedenfor)
 
     ```
