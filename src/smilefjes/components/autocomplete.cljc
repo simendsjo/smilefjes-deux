@@ -36,7 +36,6 @@
 (defn dispatch-keyboard-event [e key-actions]
   #?(:cljs
      (when-let [actions (get key-actions (.-key e))]
-       (prn "WHA")
        (.preventDefault e)
        (.stopPropagation e)
        (r/*dispatch* {:replicant/event :replicant.event/dom-event} e actions))))
@@ -69,7 +68,7 @@
             [:div.h-2.bg-slate-500.rounded]]]
           [:div.rounded-full.bg-slate-500.h-8.w-8]]])
       (for [suggestion suggestions]
-        [:li.p-2.5
+        [:li.p-2.5.cursor-pointer.hover:bg-furu-400
          {:on {:click (:actions suggestion)}
           :class [(when (:current? suggestion)
                     "bg-furu-400")
@@ -120,4 +119,5 @@
                         (fn [idx s]
                           (if (= current idx)
                             (assoc s :current? true)
-                            (assoc s :zebra? (= 1 (mod idx 2)))))))}))
+                            (assoc s :zebra? (= 1 (mod idx 2))))))
+                       (map #(assoc % :actions [[:action/navigate (:url %)]])))}))
