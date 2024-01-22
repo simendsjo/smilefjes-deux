@@ -8,7 +8,7 @@
 (defn header []
   [:div.border-b.border-granskog-800
    [:div.max-w-screen-md.p-4.mx-auto
-    mattilsynet-logo]])
+    [:a {:href "/"} mattilsynet-logo]]])
 
 (defn with-layout [ctx & body]
   [:html
