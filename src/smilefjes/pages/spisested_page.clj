@@ -19,9 +19,9 @@
 
 (defn vis-siste-tilsynsresultat [besøk]
   (let [karakter (:tilsynsbesøk/smilefjeskarakter besøk)]
-    [:div.bg-white.rounded-lg.border.border-furu-500.px-5.py-2.text-center
+    [:div.bg-white.rounded-lg.border.border-furu-500.px-6.py-2.text-center
      [:h2.text-l.flex-1 "Siste tilsynsresultat:"]
-     [:div.w-36.my-2 {:title (str "Spisestedet har fått " (plakaten/beskriv-karakter karakter) ".")}
+     [:div.w-36.my-3 {:title (str "Spisestedet har fått " (plakaten/beskriv-karakter karakter) ".")}
       (karakter->smil-icon karakter)]
      (formater-dato (:tilsynsbesøk/dato besøk))]))
 
@@ -117,13 +117,13 @@
          [:div.flex-1.js-select-element-parent
           (vis-spisested-info spisested)
           [:p.mt-5 "Tilsynsresultater:"]
-          [:div.flex.gap-3.md:gap-5
+          [:div.flex.gap-1.md:gap-3
            (map vis-mini-tilsynsresultat (take 4 besøkene))]
           (when-let [resten (seq (drop 4 besøkene))]
             [:div
              [:div.gamle-tilsyn
               (for [besøkene (partition-all 4 resten)]
-                [:div.flex.gap-3.md:gap-5.mt-2
+                [:div.flex.gap-1.md:gap-3
                  (map vis-mini-tilsynsresultat besøkene)])]
              [:div.text-xs.mt-2.vis-gamle-tilsyn-lenke
               [:span.underline.cursor-pointer
@@ -139,7 +139,7 @@
                   :id (:tilsynsbesøk/id besøk)}
             [:p.my-2.px-5 (plakaten/oppsummer-smilefjeskarakter (:tilsynsbesøk/smilefjeskarakter besøk))]
             [:div.md:px-5.mt-10 (vis-vurderingsoversikt besøk forrige-besøk)]])]
-        [:div.px-5.my-5 (checkbox {:toggle-class "vis-irrelevavnte-vurderinger"
+        [:div.md:px-5.my-5 (checkbox {:toggle-class "vis-irrelevavnte-vurderinger"
                                    :label "Vis alle kravpunkter"})]
         [:p.px-5.my-10.text-sm
          "Mattilsynet har kontrollert etterlevelsen av sentrale krav i matlovgivningen. Resultatene baserer seg på observasjonene som ble gjort og de opplysningene som ble gitt under inspeksjonen."]]]
