@@ -65,3 +65,209 @@
 }
 
 svg {fill: currentColor}
+
+/*************************
+ *** Component: Loader ***
+ *************************/
+
+.mmm-loader {
+    width: 24px;
+    height: 24px;
+    border: 5px solid #054449;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: mmm-rotation 1.5s linear infinite;
+}
+
+@keyframes mmm-rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/*************************
+ *** Component: Button ***
+ *************************/
+
+.mmm-button {
+    align-items: center;
+    background: #054449;
+    border: 2px solid #054449;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    font-family: inherit;
+    font-size: 1rem;
+    justify-content: center;
+    line-height: 2rem;
+    height: 2.75rem;
+    min-width: 10ch;
+    outline: none;
+    padding: 0.25rem 1.25rem;
+    text-align: center;
+    text-decoration: none;
+    transition: none 180ms ease-in-out;
+    transition-property: background-color, color, border-color, box-shadow;
+    vertical-align: middle;
+    width: 100%;
+    white-space: nowrap;
+}
+
+a.mmm-button:link {
+    color: #054449;
+}
+
+.mmm-button-disabled {
+    cursor: default;
+    background: var(--mt-component-button-disabled-background);
+    border-color: var(--mt-component-button-disabled-background);
+    color: var(--mt-component-button-disabled-color);
+}
+
+.mmm-button:focus {
+    box-shadow: 0 0 0 2px #f9f6f1, 0 0 0 0.35rem #348ba3;
+}
+
+.mmm-button-inline {
+    display: inline-flex;
+    width: auto;
+}
+
+.mmm-button-icon {
+    width: 1rem;
+    height: 1rem;
+    margin-left: 0.4rem;
+}
+
+.mmm-button-icon:first-child {
+    margin-left: 0;
+    margin-right: 0.4rem;
+}
+
+.mmm-button-large {
+    height: 3.875rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.mmm-button-small {
+    height: 2rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    min-width: 6ch;
+    font-size: 1rem;
+}
+
+/******************
+ *** Focusables ***
+ ******************/
+
+.mmm-focusable {
+    transition: box-shadow 0.15s ease-in-out;
+}
+
+/* Give it some weight to combat any box-shadow: none on classes that are
+   combined with the focusable class */
+.mmm-focusable:focus,
+.mmm .mmm-focusable:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #f9f6f1, 0 0 0 0.35rem #348ba3;
+}
+
+.mmm-focusable:focus {
+    z-index: 1;
+}
+
+/*************************
+ *** Forms: Text input ***
+ *************************/
+
+.mmm-input {
+    width: 100%;
+    padding: 0.75em 0.75em;
+    border: 1px solid #054449;
+    border-radius: 0.25em;
+    background-color: #fff;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    height: 2.75rem;
+}
+
+.mmm-input-compact {
+    height: 2rem;
+    font-size: 0.8rem;
+}
+
+/***************************
+ *** Forms: Search input ***
+ ***************************/
+
+.mmm-search-input {
+    position: relative;
+}
+
+.mmm-search-input-compact .mmm-ac-results {
+    font-size: 0.8rem;
+}
+
+/****************************
+ *** Forms: Auto-complete ***
+ ****************************/
+
+.mmm-ac-results {
+    background: #fff;
+    border-top: none;
+    border: 1px solid #054449;
+    left: 0;
+    list-style-type: none;
+    margin-block-start: 0;
+    margin-top: -2px;
+    padding-inline-start: 0;
+    padding-top: 3px;
+    position: absolute;
+    right: 0;
+}
+
+.mmm-ac-result {
+    margin: 0;
+    border-bottom: 1px solid var(--mt-component-ac-border-color);
+}
+
+.mmm-ac-result a {
+    display: block;
+    padding: var(--mt-component-form-field-padding-h);
+    text-decoration: none;
+    font-weight: inherit;
+    color: inherit;
+}
+
+.mmm-ac-selected a {
+    background: var(--mt-component-ac-active-background);
+}
+
+/***************************
+ *** Forms: Action input ***
+ ***************************/
+
+.mmm-action-input {
+    display: flex;
+}
+
+.mmm-action-input :first-child {
+    flex-grow: 1;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.mmm-action-input :last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: -1px;
+}
