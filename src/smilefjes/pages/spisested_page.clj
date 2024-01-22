@@ -67,14 +67,14 @@
       (let [vurderinger (hent-vurderinger-for-hovedområde besøk (:vurdering/kravpunkt hovedvurdering))]
         (for [vurdering vurderinger]
           (let [ikke-interessant? (#{"4" "5"} (:vurdering/karakter vurdering))]
-            [:div.bg-white.py-4.px-4.border-b-2.border-gåsunge-200.flex.items-center
-             {:class (when ikke-interessant?
-                       "not-interesting")}
-             [:div (vis-karakter-indikator (:vurdering/karakter vurdering))]
-             [:div (when ikke-interessant?
-                     {:class ["opacity-50"]})
-              [:div (:kravpunkt/navn (:vurdering/kravpunkt vurdering))]
-              [:div.text-xs (hent-vurderingstekst vurdering forrige-besøk)]]])))])])
+            [:div (when ikke-interessant?
+                    {:class "not-interesting"})
+             [:div.bg-white.py-4.px-4.border-b-2.border-gåsunge-200.flex.items-center
+              [:div (vis-karakter-indikator (:vurdering/karakter vurdering))]
+              [:div (when ikke-interessant?
+                      {:class ["opacity-50"]})
+               [:div (:kravpunkt/navn (:vurdering/kravpunkt vurdering))]
+               [:div.text-xs (hent-vurderingstekst vurdering forrige-besøk)]]]])))])])
 
 (defn render [ctx spisested]
   (let [besøkene (->> (:tilsynsbesøk/_tilsynsobjekt spisested)
@@ -98,4 +98,8 @@
        [:div.max-w-screen-md.mx-auto.py-5
         [:h2.text-2xl.px-5 "Vurdering"]
         [:p.my-2.px-5 (plakaten/oppsummer-smilefjeskarakter (:tilsynsbesøk/smilefjeskarakter besøk))]
-        [:div.md:px-5 (vis-vurderingsoversikt besøk forrige-besøk)]]])))
+        [:div.md:px-5 (vis-vurderingsoversikt besøk forrige-besøk)]
+        [:div.px-5
+         [:label {:data-toggle_body_class "show-not-interesting"}
+          [:input {:type "checkbox"}]
+          [:span "Vis alle kravpunkter"]]]]])))

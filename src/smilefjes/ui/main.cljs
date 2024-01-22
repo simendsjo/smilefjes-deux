@@ -1,5 +1,6 @@
 (ns ^:figwheel-hooks smilefjes.ui.main
-  (:require [smilefjes.ui.dom :as dom]
+  (:require [smilefjes.ui.body-toggles :as body-toggles]
+            [smilefjes.ui.dom :as dom]
             [smilefjes.ui.search :as search-ui]
             [smilefjes.ui.tracking :as tracking]))
 
@@ -9,6 +10,7 @@
 (defn boot []
   (main)
   (tracking/track-page-view)
+  (.addEventListener js/document.body "click" body-toggles/handle-clicks)
   (search-ui/initialize-autocomplete
    (js/document.querySelector ".js-autocomplete")
    (get (dom/get-params) "q")))
