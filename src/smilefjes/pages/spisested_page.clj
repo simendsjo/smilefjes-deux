@@ -55,15 +55,16 @@
        [:div (:kravpunkt/navn (:vurdering/kravpunkt hovedvurdering))]]
       (let [vurderinger (hent-vurderinger-for-hovedområde besøk (:vurdering/kravpunkt hovedvurdering))]
         (for [vurdering vurderinger]
-          [:div.bg-white.py-4.px-4.border-gåsunge-200.flex.items-center
-           (when (not= vurdering (first vurderinger))
-             {:class ["border-t-2"]})
-           [:div (vis-karakter-indikator (:vurdering/karakter vurdering))]
-           [:div (when (#{"4" "5"} (:vurdering/karakter vurdering))
-                   {:class ["opacity-50"]})
-            [:div (:kravpunkt/navn (:vurdering/kravpunkt vurdering))]
-            [:div.text-xs ((-> vurdering :vurdering/kravpunkt :kravpunkt/karakter->tekst)
-                           (:vurdering/karakter vurdering))]]]))])])
+          (let [ikke-interessant? (#{"4" "5"} (:vurdering/karakter vurdering))]
+            [:div.bg-white.py-4.px-4.border-b-2.border-gåsunge-200.flex.items-center
+             {:class (when ikke-interessant?
+                       "not-interesting")}
+             [:div (vis-karakter-indikator (:vurdering/karakter vurdering))]
+             [:div (when ikke-interessant?
+                     {:class ["opacity-50"]})
+              [:div (:kravpunkt/navn (:vurdering/kravpunkt vurdering))]
+              [:div.text-xs ((-> vurdering :vurdering/kravpunkt :kravpunkt/karakter->tekst)
+                             (:vurdering/karakter vurdering))]]])))])])
 
 (defn render [ctx spisested]
   (let [besøkene (->> (:tilsynsbesøk/_tilsynsobjekt spisested)
