@@ -47,7 +47,7 @@
     [:div.w-7.mr-3]))
 
 (defn vis-vurderingsoversikt [besøk]
-  [:div.border-b-2.border-granskog-800.mt-10
+  [:div.border-b-2.border-granskog-800.my-10
    (for [hovedvurdering (hent-vurderinger-av-hovedområdene besøk)]
      [:div.border-t-2.border-granskog-800
       [:div.bg-gåsunge-300.py-6.px-4.text-xl.flex.items-center
@@ -78,13 +78,13 @@
         [:div.flex
          [:div.flex-1
           (vis-spisested-info spisested)
-          [:p.mt-5 "Tidligere tilsynsresultater:"]
+          [:p.mt-5 "Tilsynsresultater:"]
           [:div.flex.gap-5
            (map vis-mini-tilsynsresultat (take 4 besøkene))]]
-         (vis-siste-tilsynsresultat besøk)]
+         [:div.hidden.md:block (vis-siste-tilsynsresultat besøk)]]
         [:p.mt-5.text-xs "Mattilsynets smilefjestjeneste er nede på grunn av teknisk svikt, men vi jobber iherdig med å få på plass en erstatning. Nå har du snublet inn i vårt pågående arbeid. Kos med kaos!"]]]
       [:div.bg-gåsunge-200
-       [:div.max-w-screen-md.mx-auto.p-5
-        [:h2.text-2xl "Vurdering"]
-        [:p.my-2 (plakaten/oppsummer-smilefjeskarakter (:tilsynsbesøk/smilefjeskarakter besøk))]
-        (vis-vurderingsoversikt besøk)]])))
+       [:div.max-w-screen-md.mx-auto.py-5
+        [:h2.text-2xl.px-5 "Vurdering"]
+        [:p.my-2.px-5 (plakaten/oppsummer-smilefjeskarakter (:tilsynsbesøk/smilefjeskarakter besøk))]
+        [:div.md:px-5 (vis-vurderingsoversikt besøk)]]])))
