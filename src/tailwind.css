@@ -4,6 +4,7 @@
 
 @layer base {
     html {
+        font-family: Avenir, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         font-size: 20px;
         color: #032C30;
     }
