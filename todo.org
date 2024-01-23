@@ -1,5 +1,5 @@
-* Ting å ta seg til [6/12]
-** TODO Ett eneste søkeresultat: Rett til resultatet ved Enter
+* Ting å ta seg til [7/12]
+** DONE Ett eneste søkeresultat: Rett til resultatet ved Enter
 ** TODO Besørg samme plassering og størrelse av Mattilsynet-logoen som på mattilsynet.no
 ** TODO Få inn kommuner
 ** TODO Søkefelt på resultatsiden

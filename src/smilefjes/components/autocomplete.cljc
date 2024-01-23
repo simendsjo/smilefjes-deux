@@ -111,6 +111,9 @@
                                    current
                                    [[:action/navigate (get-in suggestions [current :url])]]
 
+                                   (= 1 res-n)
+                                   [[:action/navigate (:url (first suggestions))]]
+
                                    (not-empty query)
                                    [[:action/navigate (str "/sok/?q=" query)]])})}
      :loading? (and (nil? suggestions)
