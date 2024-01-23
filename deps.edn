@@ -6,7 +6,8 @@
         com.datomic/peer {:mvn/version "1.0.6726"}
         dev.weavejester/medley {:mvn/version "1.7.0"}
         no.cjohansen/fontawesome-clj {:mvn/version "2024.01.22"}
-        no.cjohansen/powerpack {:mvn/version "2024.01.16"}
+        no.cjohansen/powerpack {:git/url "https://github.com/cjohansen/powerpack.git"
+                                :sha "cf5aa87bf4d47abebdf83f518538338d1b14d33f"}
         no.cjohansen/replicant {:git/url "https://github.com/cjohansen/replicant.git"
                                 :sha "5c42514235717b93706d4b523a22384db808e759"}
         superstring/superstring {:mvn/version "3.2.0"}}
