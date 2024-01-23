@@ -10,9 +10,51 @@
    [:div.p-3.md:py-5.md:px-8
     [:a {:href "/"} (mattilsynet-logo "#054449")]]])
 
+(def footer-section-1
+  {:header "Mattilsynet"
+   :links [{:text "Om Mattilsynet"
+            :href "https://www.mattilsynet.no/om-mattilsynet"}
+           {:text "Varsle oss"
+            :href "https://www.mattilsynet.no/varsle/varsle-om-mat-eller-drikke"}
+           {:text "Driver du restaurant?"
+            :href "https://www.mattilsynet.no/mat-og-drikke/matservering/smilefjes-tilsyn"}]})
+
+(def footer-section-2
+  {:header "Om nettstedet"
+   :links [{:text "Om Smilefjes"
+            :href "https://www.mattilsynet.no/mat-og-drikke/forbrukere/smilefjesordningen"}
+           {:text "Personvernerklæring"
+            :href "https://www.mattilsynet.no/om-mattilsynet/personvernerklaering-og-informasjonskapsler"}
+           {:text "Tilgjengelighetserklæring"
+            :href "https://uustatus.no/nn/erklaringer/publisert/6f6c62f4-caa7-413c-a446-a573a10c243c"}
+           {:text "API for smilefjesdata"
+            :href "https://data.norge.no/datasets/288aa74c-e3d3-492e-9ede-e71503b3bfd9"}]})
+
+(def footer-section-3
+  {:header "Kontakt"
+   :links [{:text "Stensberggata 27"}
+           {:text "0170 OSLO"}
+           {:text "team.mat@mattilsynet.no"
+            :href "mailto:team.mat@mattilsynet.no"}]})
+
+(defn footer-section [{:keys [header links]}]
+  [:div.pb-14
+   [:h3.text-lg.mb-4 header]
+   (for [link links]
+     [:div.text-sm.mb-1
+      (if (:href link)
+        [:a.underline.hover:no-underline {:href (:href link)}
+         (:text link)]
+        (:text link))])])
+
 (defn footer []
   [:div.bg-granskog-800.py-14
    [:div.max-w-screen-lg.p-4.mx-auto
+    [:div.flex.sm:block.justify-center
+     [:div.text-white.sm:flex.justify-between
+      (footer-section footer-section-1)
+      (footer-section footer-section-2)
+      (footer-section footer-section-3)]]
     [:div.flex.justify-center
      [:div [:a {:href "/"} (mattilsynet-logo "white")]]]]])
 

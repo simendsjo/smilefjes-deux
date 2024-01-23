@@ -1,4 +1,4 @@
-* Ting å ta seg til [7/13]
+* Ting å ta seg til [8/13]
 ** DONE Ett eneste søkeresultat: Rett til resultatet ved Enter
 ** TODO Besørg samme plassering og størrelse av Mattilsynet-logoen som på mattilsynet.no
 ** TODO Få inn kommuner
@@ -21,7 +21,7 @@
   "Mangler ved rutiner for å sikre  at mat oppbevares ved tilstrekkelig lav temperatur" ;; <<<---- NIKS
   "Mangler ved rutiner for personlig driftshygiene av betydning for trygg mathåndtering"]
 
-** TODO Footer
+** DONE Footer
 Om smilefjestilsyn
 https://www.matportalen.no/verktoy/tilsynsresultater/slik_forer_mattilsynet_smilefjestilsyn_paa_serveringssteder
 
