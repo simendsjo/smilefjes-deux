@@ -20,6 +20,9 @@
   [:html
    [:head
     [:title (:page/title page)]
+    [:link {:rel "apple-touch-icon" :sizes "180x180" :href "https://www.mattilsynet.no/apple-touch-icon.png"}]
+    [:link {:rel "icon" :type "image/png" :sizes "32x32" :href "https://www.mattilsynet.no/favicon-32x32.png"}]
+    [:link {:rel "icon" :type "image/png" :sizes "16x16" :href "https://www.mattilsynet.no/favicon-16x16.png"}]
     (:head-extras ctx)]
    [:body
     body
