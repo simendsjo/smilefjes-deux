@@ -19,7 +19,13 @@
      (:spisested/navn spisested)
      linje1 linje2
      postnummer
-     poststed]))
+     poststed
+     (for [besøk (->> (:tilsynsbesøk/_tilsynsobjekt spisested)
+                      (sort-by :tilsynsbesøk/dato)
+                      reverse
+                      (take 4))]
+       [(:tilsynsbesøk/smilefjeskarakter besøk)
+        (str (:tilsynsbesøk/dato besøk))])]))
 
 (defn render-index [ctx]
   (let [spisesteder (get-spisesteder (:app/db ctx))]

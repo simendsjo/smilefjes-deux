@@ -2,6 +2,7 @@
   (:require [fontawesome.icons :as icons]
             [smilefjes.components.text-input :refer [TextInput]]
             [smilefjes.components.button :refer [Button]]
+            [smilefjes.icons :as smil]
             [smilefjes.ui.search :as search]
             #?(:cljs [replicant.core :as r])))
 
@@ -15,16 +16,18 @@
        (.stopPropagation e)
        (r/*dispatch* {:replicant/event :replicant.event/dom-event} e actions))))
 
-(defn Suggestion [suggestion]
-  [:li.p-2.5.cursor-pointer.hover:bg-furu-400
-   {:on {:click (:actions suggestion)}
-    :class [(when (:current? suggestion)
+(defn Suggestion [{:keys [actions current? zebra? href title description illustration]}]
+  [:li.p-2.5.cursor-pointer.hover:bg-furu-400.flex
+   {:on {:click actions}
+    :class [(when current?
               "bg-furu-400")
-            (when (:zebra? suggestion)
+            (when zebra?
               "bg-lysegrønn")]}
-   [:a {:href (:href suggestion)}
-    [:div (:title suggestion)]
-    [:div.text-sm (:description suggestion)]]])
+   [:a.grow {:href href}
+    [:div.mb-1.5 title]
+    [:div.text-sm description]]
+   (when illustration
+     [:div.basis-12 illustration])])
 
 (def loader-skeleton
   [:li.p-4.w-full.mx-auto
@@ -82,7 +85,9 @@
            (if (= current idx)
              (assoc s :current? true)
              (assoc s :zebra? (= 1 (mod idx 2))))))
-        (map #(assoc % :actions [[:action/navigate (:url %)]])))))
+        (map #(-> %
+                  (assoc :actions [[:action/navigate (:url %)]])
+                  (assoc :illustration (get smil/karakter->smil (ffirst (:tilsyn %)))))))))
 
 (defn get-location-query [state]
   (get-in state [:location :params "q"]))

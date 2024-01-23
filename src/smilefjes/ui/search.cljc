@@ -23,12 +23,13 @@
                                 :operator :or
                                 :min-accuracy 0.9}))]
           :operator :or})]
-    (let [[url navn adr1 adr2 zip city] (get (::lookup engine) (parse-long (:id match)))]
+    (let [[url navn adr1 adr2 zip city smil] (get (::lookup engine) (parse-long (:id match)))]
       (-> match
           (assoc :url url)
           (assoc :title navn)
           (assoc :description (str adr1 (when (not-empty adr2) (str " " adr2)) ", "
-                                   zip " " city))))))
+                                   zip " " city))
+          (assoc :tilsyn smil)))))
 
 (defn load-json [url]
   #?(:cljs (-> (js/fetch url)
