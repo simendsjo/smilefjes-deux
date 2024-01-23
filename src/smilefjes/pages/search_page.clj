@@ -70,5 +70,5 @@
       [:fieldset.mt-1
        {:class [:relative :w-full "min-w-36" :h-10]}
        [:div.replicant-root {:data-view "search-form"}]]]]
-    [:div.max-w-screen-sm.mx-auto.md.my-8
+    [:div.max-w-screen-lg.mx-auto.md.my-8.px-8
      [:div.replicant-root {:data-view "search-result"}]]))

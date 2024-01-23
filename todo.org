@@ -4,7 +4,7 @@
 ** TODO Få inn kommuner
 ** TODO Søkefelt på resultatsiden
 ** TODO Brødsmuler "Smilefjes > Fredrikstad" (kommune her)
-** TODO Smilefjes i søketreff
+** DONE Smilefjes i søketreff
 ** DONE favicon
 ** DONE Page tracking til Matomo
 ** DONE Legg på open graph-tags på rapport-siden
