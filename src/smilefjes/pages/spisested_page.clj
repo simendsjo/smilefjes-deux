@@ -146,5 +146,4 @@
         [:div.md:px-5.my-5 (checkbox {:toggle-class "vis-irrelevavnte-vurderinger"
                                    :label "Vis alle kravpunkter"})]
         [:p.px-5.my-10.text-sm
-         "Mattilsynet har kontrollert etterlevelsen av sentrale krav i matlovgivningen. Resultatene baserer seg på observasjonene som ble gjort og de opplysningene som ble gitt under inspeksjonen."]]]
-      (layout/footer))))
+         "Mattilsynet har kontrollert etterlevelsen av sentrale krav i matlovgivningen. Resultatene baserer seg på observasjonene som ble gjort og de opplysningene som ble gitt under inspeksjonen."]]])))

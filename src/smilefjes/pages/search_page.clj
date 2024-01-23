@@ -53,8 +53,7 @@
        [:div.w-4.mr-2 icons/smilefjes]
        "Les mer om smilefjes"]]
      [:div.max-w-full.py-4.w-full
-      [:div.md:pl-16 (svg "/images/inspektør.svg")]]]
-    (layout/footer)))
+      [:div.md:pl-16 (svg "/images/inspektør.svg")]]]))
 
 (defn render-result-page [ctx page]
   (layout/with-layout ctx page
@@ -66,5 +65,4 @@
        {:class [:relative :w-full "min-w-36" :h-10]}
        [:div.replicant-root {:data-view "search-form"}]]]]
     [:div.max-w-screen-sm.mx-auto.md.my-8
-     [:div.replicant-root {:data-view "search-result"}]]
-    (layout/footer)))
+     [:div.replicant-root {:data-view "search-result"}]]))

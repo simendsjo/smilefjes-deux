@@ -25,7 +25,9 @@
     [:link {:rel "icon" :type "image/png" :sizes "16x16" :href "https://www.mattilsynet.no/favicon-16x16.png"}]
     (:head-extras ctx)]
    [:body
-    body
+    [:div.min-h-screen.flex.flex-col.justify-between
+     [:div body]
+     (footer)]
     (when-let [site-id (:matomo/site-id ctx)]
       [:img {:data-src (str "https://mattilsynet.matomo.cloud/matomo.php?idsite="
                             site-id
