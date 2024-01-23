@@ -11,15 +11,9 @@
        sort
        last))
 
-(defn get-spisesteder [db kode]
-  (->> (d/q '[:find [?e ...]
-              :in $ ?kode
-              :where
-              [?k :kommune/kode ?kode]
-              [?s :poststed/kommune ?k]
-              [?e :spisested/poststed ?s]]
-            db kode)
-       (map #(d/entity db %))
+(defn get-spisesteder [page]
+  (->> (:poststed/_kommune page)
+       (mapcat :spisested/_poststed)
        (sort-by siste-tilsyn)
        reverse))
 
@@ -33,7 +27,7 @@
     [:div.max-w-screen-lg.mx-auto.md.my-8.px-8
      (result/SearchResult
       {:results
-       (->> (get-spisesteder (:app/db ctx) (:kommune/kode page))
+       (->> (get-spisesteder page)
             (map-indexed
              (fn [idx spisested]
                {:href (link/link-to ctx spisested)
