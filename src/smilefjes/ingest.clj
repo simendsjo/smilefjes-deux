@@ -2,10 +2,17 @@
   (:require [clojure.java.io :as io]
             [java-time-literals.core]
             [powerpack.logger :as log]
+            [smilefjes.import.postnummer :as postnummer]
             [smilefjes.import.tilsyn :as tilsyn]
             [smilefjes.import.vurderinger :as vurderinger]))
 
 (defn on-started [powerpack]
+  (let [start-ms (System/currentTimeMillis)]
+    (log/info "Ingesting data/postnummer.csv ...")
+    (postnummer/transact (:datomic/conn powerpack)
+                         (io/file "data/postnummer.csv"))
+    (log/info "Ingested data/postnummer.csv in" (- (System/currentTimeMillis) start-ms) "ms."))
+
   (let [start-ms (System/currentTimeMillis)]
     (log/info "Ingesting data/tilsyn.csv ...")
     (tilsyn/transact (:datomic/conn powerpack)

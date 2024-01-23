@@ -30,6 +30,18 @@
 
   (->map (d/entity db [:tilsynsbesøk/id "Z1601051557592250240VTAHG_TilsynAvtale"]))
 
+  (map :spisested/navn (:spisested/_poststed (d/entity db [:poststed/postnummer "1610"])))
+  ;; => ("Seiersten kafe Fasvo Bakeriutsalg" "Plankebyen Kafé")
+
+  (:kommune/navn (:poststed/kommune (d/entity db [:poststed/postnummer "1610"])))
+  ;; => "FREDRIKSTAD"
+
+  (->> (d/entity db [:poststed/postnummer "1610"])
+       :poststed/kommune
+       :poststed/_kommune
+       (mapcat :spisested/_poststed)
+       (map :spisested/navn))
+
   )
 
 (comment ;; s-:

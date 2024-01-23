@@ -67,7 +67,8 @@
       :tilsynsobjekt/id (get-id m)
       :spisested/navn navn
       :spisested/orgnummer (:orgnummer m)
-      :spisested/adresse adresse}
+      :spisested/adresse adresse
+      :spisested/poststed {:poststed/postnummer (:postnr m)}}
      :tilsynsbesøk/vurderinger [{:vurdering/kravpunkt [:kravpunkt/id "1"]
                                  :vurdering/karakter (:karakter1 m)}
                                 {:vurdering/kravpunkt [:kravpunkt/id "2"]

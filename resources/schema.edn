@@ -69,4 +69,30 @@
  {:db/ident :page/link
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one}
+
+ {:db/ident :poststed/postnummer
+  :db/valueType :db.type/string
+  :db/unique :db.unique/identity
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :poststed/navn
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :poststed/kommune
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :kommune/kode
+  :db/valueType :db.type/string
+  :db/unique :db.unique/identity
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :kommune/navn
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
+
+ {:db/ident :spisested/poststed
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one}
  ]
