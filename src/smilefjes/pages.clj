@@ -1,5 +1,6 @@
 (ns smilefjes.pages
-  (:require [smilefjes.pages.search-page :as search-page]
+  (:require [smilefjes.pages.kommune-page :as kommune-page]
+            [smilefjes.pages.search-page :as search-page]
             [smilefjes.pages.spisested-page :as spisested-page]))
 
 (defn render-page [ctx page]
@@ -9,6 +10,9 @@
 
     :page.kind/spisested
     (spisested-page/render ctx page)
+
+    :page.kind/kommune
+    (kommune-page/render ctx page)
 
     :page.kind/spisested-index
     (search-page/render-index ctx)
