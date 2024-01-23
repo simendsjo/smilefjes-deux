@@ -114,7 +114,8 @@
                     (not-empty query)
                     (search/loading? state))
      :button {:text "Søk"
-              :icon (icons/icon :fontawesome.solid/magnifying-glass)}
+              :icon (icons/icon :fontawesome.solid/magnifying-glass)
+              :on {:click [[:action/navigate (str "/sok/?q=" query)]]}}
      :suggestions (->> suggestions
                        (take 5)
                        (prepare-suggestions current))}))
