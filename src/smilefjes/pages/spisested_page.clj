@@ -1,7 +1,7 @@
 (ns smilefjes.pages.spisested-page
   (:require [smilefjes.icons :as icons]
-            [smilefjes.plakaten :as plakaten]
-            [smilefjes.ui :as ui]))
+            [smilefjes.layout :as layout]
+            [smilefjes.plakaten :as plakaten]))
 
 (defn zero-pad [n]
   (if (< n 10) (str "0" n) n))
@@ -109,8 +109,8 @@
   (let [besøkene (->> (:tilsynsbesøk/_tilsynsobjekt spisested)
                       (sort-by :tilsynsbesøk/dato)
                       reverse)]
-    (ui/with-layout (assoc ctx :head-extras [:link {:rel "canonical" :href (:page/link spisested)}]) spisested
-      (ui/header)
+    (layout/with-layout (assoc ctx :head-extras [:link {:rel "canonical" :href (:page/link spisested)}]) spisested
+      (layout/header)
       [:div.bg-lysegrønn
        [:div.max-w-screen-md.mx-auto.p-5
         [:div.flex
@@ -147,4 +147,4 @@
                                    :label "Vis alle kravpunkter"})]
         [:p.px-5.my-10.text-sm
          "Mattilsynet har kontrollert etterlevelsen av sentrale krav i matlovgivningen. Resultatene baserer seg på observasjonene som ble gjort og de opplysningene som ble gitt under inspeksjonen."]]]
-      (ui/footer))))
+      (layout/footer))))

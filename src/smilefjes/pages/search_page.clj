@@ -2,9 +2,9 @@
   (:require [clojure.java.io :as io]
             [datomic-type-extensions.api :as d]
             [smilefjes.icons :as icons]
+            [smilefjes.layout :as layout]
             [smilefjes.link :as link]
-            [smilefjes.search-index :as index]
-            [smilefjes.ui :as ui]))
+            [smilefjes.search-index :as index]))
 
 (defn get-spisesteder [db]
   (->> (d/q '[:find [?e ...]
@@ -33,8 +33,8 @@
   (slurp (io/resource (str "public" url))))
 
 (defn render-page [ctx page]
-  (ui/with-layout ctx page
-    (ui/header)
+  (layout/with-layout ctx page
+    (layout/header)
     [:div.bg-sommerdag-200
      [:div.max-w-screen-sm.px-5.py-8.md:py-28.mx-auto.js-autocomplete.relative {:method :get}
       [:h1.text-3xl.mb-2 "Søk etter smilefjes"]
@@ -54,11 +54,11 @@
        "Les mer om smilefjes"]]
      [:div.max-w-full.py-4.w-full
       [:div.md:pl-16 (svg "/images/inspektør.svg")]]]
-    (ui/footer)))
+    (layout/footer)))
 
 (defn render-result-page [ctx page]
-  (ui/with-layout ctx page
-    (ui/header)
+  (layout/with-layout ctx page
+    (layout/header)
     [:div.bg-sommerdag-200
      [:div.max-w-screen-sm.px-5.py-8.mx-auto.js-autocomplete.relative {:method :get}
       [:h1.text-3xl.mb-2 "Søk etter smilefjes"]
@@ -67,4 +67,4 @@
        [:div.replicant-root {:data-view "search-form"}]]]]
     [:div.max-w-screen-sm.mx-auto.md.my-8
      [:div.replicant-root {:data-view "search-result"}]]
-    (ui/footer)))
+    (layout/footer)))

@@ -1,4 +1,4 @@
-(ns smilefjes.ui)
+(ns smilefjes.layout)
 
 (defn mattilsynet-logo [color]
   [:svg.w-44.md:w-52 {:viewBox "0 0 252 45" :fill "none" :xmlns "http://www.w3.org/2000/svg"}
