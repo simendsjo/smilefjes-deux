@@ -34,7 +34,8 @@
   informasjon fordi det er hyggelig. Uansett blir denne skrevet om i nginx til å
   treffe på URI-en til siden."
   [m]
-  (str "/spisested/" (slugify (:poststed m)) "/" (slugify (:navn m)) "." (get-id m) "/"))
+  (str "/spisested/" (or (not-empty (slugify (:poststed m))) "_") "/"
+       (slugify (:navn m)) "." (get-id m) "/"))
 
 (defn csv-line->tilsynsbesøk [csv-header csv-line]
   (let [m (zipmap csv-header csv-line)
@@ -53,7 +54,8 @@
       :page/kind :page.kind/spisested
       :page/title (str "Smilefjes: " navn)
       :open-graph/description (str "Smilefjes: Tilsynsresultat for " navn
-                                   ", " (tilsyn/formatter-adresse adresse))
+                                   (when-let [adresse (not-empty (tilsyn/formatter-adresse adresse))]
+                                     (str ", " adresse)))
       :tilsynsobjekt/id (get-id m)
       :spisested/navn navn
       :spisested/orgnummer (:orgnummer m)
