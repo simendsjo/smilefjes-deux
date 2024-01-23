@@ -43,8 +43,16 @@
   [m]
   (str "/spisested/" (slugify (:poststed m)) "/" (slugify (:navn m)) "." (get-id m) "/"))
 
+(defn formatter-adresse [{:keys [linje1 linje2 poststed postnummer]}]
+  (str/join ", " (filter not-empty [linje1 linje2 (str poststed " " postnummer)])))
+
 (defn csv-line->tilsynsbesøk [csv-header csv-line]
-  (let [m (zipmap csv-header csv-line)]
+  (let [m (zipmap csv-header csv-line)
+        adresse {:linje1 (adresse/normalize-adresse (:adrlinje1 m))
+                 :linje2 (adresse/normalize-adresse (:adrlinje2 m))
+                 :poststed (adresse/normalize-poststed (:poststed m))
+                 :postnummer (:postnr m)}
+        navn (str/trim (:navn m))]
     {:tilsynsbesøk/id (:tilsynid m)
      :tilsynsbesøk/oppfølging? (= "1" (:tilsynsbesoektype m))
      :tilsynsbesøk/dato (ddmmyyyy->local-date (:dato m))
@@ -53,13 +61,13 @@
      {:page/uri (get-tilsynsobjekt-uri m)
       :page/link (get-tilsynsobjekt-link m)
       :page/kind :page.kind/spisested
+      :page/title (str "Smilefjes: " navn)
+      :open-graph/description (str "Smilefjes: Tilsynsresultat for " navn
+                                   ", " (formatter-adresse adresse))
       :tilsynsobjekt/id (get-id m)
-      :spisested/navn (str/trim (:navn m))
+      :spisested/navn navn
       :spisested/orgnummer (:orgnummer m)
-      :spisested/adresse {:linje1 (adresse/normalize-adresse (:adrlinje1 m))
-                          :linje2 (adresse/normalize-adresse (:adrlinje2 m))
-                          :poststed (adresse/normalize-poststed (:poststed m))
-                          :postnummer (:postnr m)}}
+      :spisested/adresse adresse}
      :tilsynsbesøk/vurderinger [{:vurdering/kravpunkt [:kravpunkt/id "1"]
                                  :vurdering/karakter (:karakter1 m)}
                                 {:vurdering/kravpunkt [:kravpunkt/id "2"]

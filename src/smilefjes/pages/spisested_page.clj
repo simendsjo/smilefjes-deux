@@ -109,7 +109,7 @@
   (let [besøkene (->> (:tilsynsbesøk/_tilsynsobjekt spisested)
                       (sort-by :tilsynsbesøk/dato)
                       reverse)]
-    (ui/with-layout (assoc ctx :head-extras [:link {:rel "canonical" :href (:page/link spisested)}])
+    (ui/with-layout (assoc ctx :head-extras [:link {:rel "canonical" :href (:page/link spisested)}]) spisested
       (ui/header)
       [:div.bg-lysegrønn
        [:div.max-w-screen-md.mx-auto.p-5

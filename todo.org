@@ -1,6 +1,6 @@
-* Ting å ta seg til [4/6]
+* Ting å ta seg til [5/6]
 ** DONE Page tracking til Matomo
-** TODO Legg på open graph-tags på rapport-siden
+** DONE Legg på open graph-tags på rapport-siden
 ** DONE canonical url på rapport-siden
 ** DONE "Regelverksbruddet som ble funnet ved forrige inspeksjon er fulgt opp og funnet i orden."
 ** DONE Følg opp krysskobla setninger på bokmål i eksporten til Data Norge

@@ -6,7 +6,7 @@
 (defn render-page [ctx page]
   (case (:page/kind page)
     :page.kind/frontpage
-    (search-page/render-page ctx)
+    (search-page/render-page ctx page)
 
     :page.kind/spisested
     (spisested-page/render ctx page)
@@ -15,9 +15,9 @@
     (search-page/render-index ctx)
 
     :page.kind/search-page
-    (search-page/render-result-page ctx)
+    (search-page/render-result-page ctx page)
 
-    (ui/with-layout ctx
+    (ui/with-layout ctx page
       [:div.grid.place-items-center.h-screen
        [:div.max-w-md.p-5
         [:h1.text-xl "Smilefjes er snart tilbake"]

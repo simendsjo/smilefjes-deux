@@ -32,8 +32,8 @@
 (defn svg [url]
   (slurp (io/resource (str "public" url))))
 
-(defn render-page [ctx]
-  (ui/with-layout ctx
+(defn render-page [ctx page]
+  (ui/with-layout ctx page
     (ui/header)
     [:div.bg-sommerdag-200
      [:div.max-w-screen-sm.px-5.py-8.md:py-28.mx-auto.js-autocomplete.relative {:method :get}
@@ -56,8 +56,8 @@
       [:div.md:pl-16 (svg "/images/inspektør.svg")]]]
     (ui/footer)))
 
-(defn render-result-page [ctx]
-  (ui/with-layout ctx
+(defn render-result-page [ctx page]
+  (ui/with-layout ctx page
     (ui/header)
     [:div.bg-sommerdag-200
      [:div.max-w-screen-sm.px-5.py-8.mx-auto.js-autocomplete.relative {:method :get}

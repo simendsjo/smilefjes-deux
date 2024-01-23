@@ -16,9 +16,11 @@
     [:div.flex.justify-center
      [:div [:a {:href "/"} (mattilsynet-logo "white")]]]]])
 
-(defn with-layout [ctx & body]
+(defn with-layout [ctx page & body]
   [:html
-   [:head (:head-extras ctx)]
+   [:head
+    [:title (:page/title page)]
+    (:head-extras ctx)]
    [:body
     body
     (when-let [site-id (:matomo/site-id ctx)]
