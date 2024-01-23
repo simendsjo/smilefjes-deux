@@ -5,6 +5,9 @@
 
 (defn render-page [ctx page]
   (case (:page/kind page)
+    :page.kind/frontpage
+    (search-page/render-page ctx)
+
     :page.kind/spisested
     (spisested-page/render ctx page)
 
@@ -12,7 +15,7 @@
     (search-page/render-index ctx)
 
     :page.kind/search-page
-    (search-page/render-page ctx)
+    (search-page/render-result-page ctx)
 
     (ui/with-layout ctx
       [:div.grid.place-items-center.h-screen
