@@ -103,3 +103,14 @@ til neste skattejakt:
 - Du vil se på installerte apper - den Slack app-en du har laget
 - Du vil til OAuth and Permissions
 - Finn "OAuth Tokens for Your Workspace"
+
+## Oppdatering av postnummer
+
+Vi har valgt å lagre data/postnummer.csv i dette repoet, da URL'en til Posten
+Bring ikke ser ut til å være stabil. Du kan finne fila her:
+
+https://www.bring.no/tjenester/adressetjenester/postnummer/postnummertabeller-veiledning
+
+Sist gang lå lenken under overskriften "3. Postnummer i rekkefølge,
+postnummertabellen" og het "Postnummerregister_ansi.txt". Vi har lagret den som
+`data/postnummer.csv`.

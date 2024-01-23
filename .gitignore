@@ -11,6 +11,7 @@
 /content/tilsyn.csv
 /resources/public/tailwind-out.css
 /node_modules/
-/data/
+/data/tilsyn.csv*
+/data/vurderinger.csv*
 /preconlog.txt
 /resources/fontawesome-icons/
