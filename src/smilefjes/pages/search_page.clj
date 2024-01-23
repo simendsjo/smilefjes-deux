@@ -42,7 +42,7 @@
   (layout/with-layout ctx page
     (layout/header)
     [:div.bg-sommerdag-200
-     [:div.max-w-screen-sm.px-5.py-8.md:py-28.mx-auto.js-autocomplete.relative {:method :get}
+     [:div.max-w-screen-sm.px-5.py-8.md:py-28.mx-auto.js-autocomplete.relative
       [:h1.text-3xl.mb-2 "Søk etter smilefjes"]
       [:fieldset.mt-1
        {:class [:relative :w-full "min-w-36" :h-10]}
@@ -65,7 +65,7 @@
   (layout/with-layout ctx page
     (layout/header)
     [:div.bg-sommerdag-200
-     [:div.max-w-screen-sm.px-5.py-8.mx-auto.js-autocomplete.relative {:method :get}
+     [:div.max-w-screen-sm.px-5.py-8.mx-auto.js-autocomplete.relative
       [:h1.text-3xl.mb-2 "Søk etter smilefjes"]
       [:fieldset.mt-1
        {:class [:relative :w-full "min-w-36" :h-10]}
