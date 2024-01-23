@@ -11,18 +11,12 @@
        (zero-pad (.getMonthValue dato)) "."
        (.getYear dato)))
 
-(def karakter->smil-icon
-  {"0" icons/smilefjes
-   "1" icons/smilefjes
-   "2" icons/strekmunn
-   "3" icons/surmunn})
-
 (defn vis-siste-tilsynsresultat [besøk]
   (let [karakter (:tilsynsbesøk/smilefjeskarakter besøk)]
     [:div.bg-white.rounded-lg.border.border-furu-500.px-6.py-2.text-center
      [:h2.text-l.flex-1 "Siste tilsynsresultat:"]
      [:div.w-36.my-3 {:title (str "Spisestedet har fått " (plakaten/beskriv-karakter karakter) ".")}
-      (karakter->smil-icon karakter)]
+      (icons/karakter->smil karakter)]
      (formater-dato (:tilsynsbesøk/dato besøk))]))
 
 (defn vis-spisested-info [spisested]
@@ -39,7 +33,7 @@
      {:data-select_element_id (:tilsynsbesøk/id besøk)
       :data-selected_class "mmm-mini-selected"}
      [:div.w-8.my-2 {:title (str "Spisestedet har fått " (plakaten/beskriv-karakter karakter) ".")}
-      (karakter->smil-icon karakter)]
+      (icons/karakter->smil karakter)]
      [:div.text-xs (formater-dato (:tilsynsbesøk/dato besøk))]]))
 
 (defn hent-vurderinger-av-hovedområdene [besøk]
