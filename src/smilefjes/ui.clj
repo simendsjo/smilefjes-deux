@@ -18,6 +18,7 @@
 
 (defn with-layout [ctx & body]
   [:html
+   [:head (:head-extras ctx)]
    [:body
     body
     (when-let [site-id (:matomo/site-id ctx)]
