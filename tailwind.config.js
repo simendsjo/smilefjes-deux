@@ -27,6 +27,7 @@ module.exports = {
           '900': '#032426'
         },
         'lysegrønn': '#E2F1DF',
+        'hvit': '#fff',
         'gåsunge': {
           '200': '#FAF6F3', // standard
           '300': '#F4ECE6' // fra skissene, forsøksvis plassert her

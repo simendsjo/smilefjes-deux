@@ -55,3 +55,16 @@
      [:div.max-w-full.py-4.w-full
       [:div.md:pl-16 (svg "/images/inspektør.svg")]]]
     (ui/footer)))
+
+(defn render-result-page [ctx]
+  (ui/with-layout ctx
+    (ui/header)
+    [:div.bg-sommerdag-200
+     [:div.max-w-screen-sm.px-5.py-8.mx-auto.js-autocomplete.relative {:method :get}
+      [:h1.text-3xl.mb-2 "Søk etter smilefjes"]
+      [:fieldset.mt-1
+       {:class [:relative :w-full "min-w-36" :h-10]}
+       [:div.replicant-root {:data-view "search-form"}]]]]
+    [:div.max-w-screen-sm.mx-auto.md.my-8
+     [:div.replicant-root {:data-view "search-result"}]]
+    (ui/footer)))
