@@ -1,7 +1,5 @@
 (ns smilefjes.ui.search
-  (:require [clojure.string :as str]
-            [smilefjes.search :as search]
-            [smilefjes.ui.dom :as dom]
+  (:require [smilefjes.search :as search]
             [smilefjes.ui.query-engine :as qe]))
 
 (defn search-spisesteder [engine q]
@@ -25,7 +23,7 @@
                                 :operator :or
                                 :min-accuracy 0.9}))]
           :operator :or})]
-    (let [[url navn adr1 adr2 zip city] (get (::lookup engine) (js/parseInt (:id match) 10))]
+    (let [[url navn adr1 adr2 zip city] (get (::lookup engine) (parse-long (:id match)))]
       (-> match
           (assoc :url url)
           (assoc :title navn)
@@ -33,24 +31,30 @@
                                    zip " " city))))))
 
 (defn load-json [url]
-  (-> (js/fetch url)
-      (.then #(.text %))
-      (.then #(js->clj (js/JSON.parse %)))))
+  #?(:cljs (-> (js/fetch url)
+               (.then #(.text %))
+               (.then #(js->clj (js/JSON.parse %))))))
 
 (defn pending? [state]
   (or (not (contains? state ::status))
       (#{:pending :error} (::status state))))
 
-(defn initialize-search-engine [store]
+(defn loading? [state]
+  (or (pending? state) (= :loading (::status state))))
+
+(defn initialize-search-engine [store f]
   (when-not (::schema @store)
     (swap! store assoc ::schema search/schema))
   (when (pending? @store)
     (swap! store assoc ::status :loading)
     (-> (load-json (str "/search/index/nb.json"))
-        (.then #(swap! store assoc
-                       ::index (get % "index")
-                       ::lookup (get % "lookup")
-                       ::status :ready))
+        (.then (fn [res]
+                 (swap! store assoc
+                        ::index (get res "index")
+                        ::lookup (get res "lookup")
+                        ::status :ready)
+                 (f)))
         (.catch (fn [e]
-                  (js/console.error e)
-                  (swap! store assoc ::status :error))))))
+                  #?(:cljs (js/console.error e))
+                  (swap! store assoc ::status :error)
+                  (f))))))
