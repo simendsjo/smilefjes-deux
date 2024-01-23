@@ -10,10 +10,12 @@
     }
 }
 
+.skjul-gamle-tilsyn-lenke,
 .gamle-tilsyn,
 .irrelevant-vurdering { display: none; }
 
 .vis-gamle-tilsyn .gamle-tilsyn,
+.vis-gamle-tilsyn .skjul-gamle-tilsyn-lenke,
 .vis-irrelevavnte-vurderinger .irrelevant-vurdering { display: block; }
 
 .vis-gamle-tilsyn .vis-gamle-tilsyn-lenke {display: none;}

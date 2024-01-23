@@ -128,7 +128,11 @@
              [:div.text-xs.mt-2.vis-gamle-tilsyn-lenke
               [:span.underline.cursor-pointer
                {:data-toggle_body_class "vis-gamle-tilsyn"}
-               "Se flere tilsynsresultater"]]])]
+               "Se flere tilsynsresultater"]]
+             [:div.text-xs.mt-2.skjul-gamle-tilsyn-lenke
+              [:span.underline.cursor-pointer
+               {:data-toggle_body_class "vis-gamle-tilsyn"}
+               "Se færre tilsynsresultater"]]])]
          [:div.hidden.md:block (vis-siste-tilsynsresultat (first besøkene))]]]]
       [:div.bg-gåsunge-200
        [:div.max-w-screen-md.mx-auto.py-5
