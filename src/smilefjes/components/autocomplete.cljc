@@ -107,8 +107,11 @@
                :keyup (when (< 0 res-n)
                         {"ArrowUp" [[:action/assoc-in current-path (get-up-n res-n current)]]
                          "ArrowDown" [[:action/assoc-in current-path (get-down-n res-n current)]]
-                         "Enter" (if current
+                         "Enter" (cond
+                                   current
                                    [[:action/navigate (get-in suggestions [current :url])]]
+
+                                   (not-empty query)
                                    [[:action/navigate (str "/sok/?q=" query)]])})}
      :loading? (and (nil? suggestions)
                     (not-empty query)
@@ -124,8 +127,9 @@
   (let [query (get-query state)]
     {:q query
      :actions {:input [[:action/assoc-in q-path :event/target-value]]
-               :keyup {"Enter" [[:action/search query]
-                                [:action/update-location "/sok/" {"q" :event/target-value}]]}}
+               :keyup (when (not-empty query)
+                        {"Enter" [[:action/search query]
+                                  [:action/update-location "/sok/" {"q" :event/target-value}]]})}
      :button {:text "Søk"
               :icon (icons/icon :fontawesome.solid/magnifying-glass)
               :on (when-not (= query (get-location-query state))
