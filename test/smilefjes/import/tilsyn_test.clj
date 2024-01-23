@@ -2,13 +2,6 @@
   (:require [clojure.test :refer [deftest is]]
             [smilefjes.import.tilsyn :as sut]))
 
-(deftest slugify-test
-  (is (= (sut/slugify " Aalan Gård, Gårdskafè")
-         "aalan_gard_gardskafe"))
-
-  (is (= (sut/slugify "O`Learys (SSP avd. 2406)")
-         "olearys_ssp_avd_2406")))
-
 (deftest link-test
   (is (= (sut/get-tilsynsobjekt-link
           {:tilsynsobjektid "Z1703151057439673252OPMTI_Tilsynsobjekt"

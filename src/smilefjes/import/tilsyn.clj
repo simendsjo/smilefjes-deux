@@ -6,9 +6,9 @@
             [java-time-literals.core]
             [smilefjes.adresse :as adresse]
             [smilefjes.db :as db]
+            [smilefjes.homeless :refer [slugify]]
             [superstring.core :as str])
-  (:import (java.text Normalizer)
-           (java.time LocalDate)))
+  (:import (java.time LocalDate)))
 
 :java-time-literals.core/keep
 
@@ -16,14 +16,6 @@
   (let [[d1 d2 m1 m2 y1 y2 y3 y4] s]
     (LocalDate/parse
      (str y1 y2 y3 y4 "-" m1 m2 "-" d1 d2))))
-
-(defn slugify [s]
-  (-> (str/lower-case s)
-      str/trim
-      (Normalizer/normalize java.text.Normalizer$Form/NFD)
-      (str/replace #"[\u0300-\u036F]" "")
-      (str/replace #"[^a-z 0-9]" "")
-      (str/replace #" +" "_")))
 
 (defn get-id [m]
   (str/chop-suffix (:tilsynsobjektid m) "_Tilsynsobjekt"))
