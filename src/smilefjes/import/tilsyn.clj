@@ -7,6 +7,7 @@
             [smilefjes.adresse :as adresse]
             [smilefjes.db :as db]
             [smilefjes.homeless :refer [slugify]]
+            [smilefjes.tilsyn :as tilsyn]
             [superstring.core :as str])
   (:import (java.time LocalDate)))
 
@@ -35,9 +36,6 @@
   [m]
   (str "/spisested/" (slugify (:poststed m)) "/" (slugify (:navn m)) "." (get-id m) "/"))
 
-(defn formatter-adresse [{:keys [linje1 linje2 poststed postnummer]}]
-  (str/join ", " (filter not-empty [linje1 linje2 (str poststed " " postnummer)])))
-
 (defn csv-line->tilsynsbesøk [csv-header csv-line]
   (let [m (zipmap csv-header csv-line)
         adresse {:linje1 (adresse/normalize-adresse (:adrlinje1 m))
@@ -55,7 +53,7 @@
       :page/kind :page.kind/spisested
       :page/title (str "Smilefjes: " navn)
       :open-graph/description (str "Smilefjes: Tilsynsresultat for " navn
-                                   ", " (formatter-adresse adresse))
+                                   ", " (tilsyn/formatter-adresse adresse))
       :tilsynsobjekt/id (get-id m)
       :spisested/navn navn
       :spisested/orgnummer (:orgnummer m)

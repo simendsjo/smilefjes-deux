@@ -1,7 +1,8 @@
 (ns smilefjes.pages.spisested-page
   (:require [smilefjes.icons :as icons]
             [smilefjes.layout :as layout]
-            [smilefjes.plakaten :as plakaten]))
+            [smilefjes.plakaten :as plakaten]
+            [smilefjes.tilsyn :as tilsyn]))
 
 (defn zero-pad [n]
   (if (< n 10) (str "0" n) n))
@@ -100,9 +101,7 @@
     label]])
 
 (defn render [ctx spisested]
-  (let [besøkene (->> (:tilsynsbesøk/_tilsynsobjekt spisested)
-                      (sort-by :tilsynsbesøk/dato)
-                      reverse)]
+  (let [besøkene (tilsyn/get-besøk spisested)]
     (layout/with-layout (assoc ctx :head-extras [:link {:rel "canonical" :href (:page/link spisested)}]) spisested
       (layout/header)
       [:div.bg-lysegrønn

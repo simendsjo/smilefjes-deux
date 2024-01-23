@@ -4,7 +4,8 @@
             [smilefjes.icons :as icons]
             [smilefjes.layout :as layout]
             [smilefjes.link :as link]
-            [smilefjes.search-index :as index]))
+            [smilefjes.search-index :as index]
+            [smilefjes.tilsyn :as tilsyn]))
 
 (defn get-spisesteder [db]
   (->> (d/q '[:find [?e ...]
@@ -20,10 +21,7 @@
      linje1 linje2
      postnummer
      poststed
-     (for [besøk (->> (:tilsynsbesøk/_tilsynsobjekt spisested)
-                      (sort-by :tilsynsbesøk/dato)
-                      reverse
-                      (take 4))]
+     (for [besøk (take 4 (tilsyn/get-besøk spisested))]
        [(:tilsynsbesøk/smilefjeskarakter besøk)
         (str (:tilsynsbesøk/dato besøk))])]))
 
