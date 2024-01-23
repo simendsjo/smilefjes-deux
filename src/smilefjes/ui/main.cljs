@@ -23,7 +23,7 @@
                     :prepare #'sr/prepare
                     :boot-actions #'sr/get-boot-actions}})
 
-(defn get-view [store el]
+(defn get-view [el]
   (when-let [{:keys [component prepare boot-actions]}
              (get views (.getAttribute el "data-view"))]
     (cond-> {:el el :component #(component (prepare %))}
@@ -42,7 +42,7 @@
   (->> (dom/qsa ".replicant-root")
        (keep
         (fn [el]
-          (if-let [view (get-view store el)]
+          (if-let [view (get-view el)]
             (do
               (set! (.-innerHTML (:el view)) "")
               view)
