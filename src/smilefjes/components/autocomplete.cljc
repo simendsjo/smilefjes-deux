@@ -17,7 +17,7 @@
        (r/*dispatch* {:replicant/event :replicant.event/dom-event} e actions))))
 
 (defn Suggestion [{:keys [actions current? zebra? href title description illustration]}]
-  [:li.p-2.5.cursor-pointer.hover:bg-furu-400.flex
+  [:li.p-2.5.cursor-pointer.hover:bg-furu-400.flex.items-center
    {:on {:click actions}
     :class [(when current?
               "bg-furu-400")
@@ -27,7 +27,7 @@
     [:div.mb-1.5 title]
     [:div.text-sm description]]
    (when illustration
-     [:div.basis-12 illustration])])
+     [:div.basis-10 illustration])])
 
 (def loader-skeleton
   [:li.p-4.w-full.mx-auto
