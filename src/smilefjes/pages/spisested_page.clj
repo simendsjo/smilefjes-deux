@@ -19,9 +19,9 @@
 
 (defn vis-siste-tilsynsresultat [besøk]
   (let [karakter (:tilsynsbesøk/smilefjeskarakter besøk)]
-    [:div.bg-white.rounded-lg.border.border-furu-500.px-6.py-2.text-center
+    [:div.bg-white.rounded-md.border.border-granskog-800.w-52.py-3.flex.flex-col.items-center
      [:h2.text-l.flex-1 "Siste tilsynsresultat:"]
-     [:div.w-36.my-3 {:title (str "Spisestedet har fått " (plakaten/beskriv-karakter karakter) ".")}
+     [:div.w-28.my-4 {:title (str "Spisestedet har fått " (plakaten/beskriv-karakter karakter) ".")}
       (icons/karakter->smil karakter)]
      (formater-dato (:tilsynsbesøk/dato besøk))]))
 
@@ -111,14 +111,17 @@
       (layout/header)
       [:div.bg-lav
        [:div.max-w-screen-md.mx-auto.p-5
-        (let [kommune (:poststed/kommune (:spisested/poststed spisested))]
-          [:div.text-xs
-           [:a.hover:underline {:href "/"}
-            "Smilefjes"]
-           [:span.mx-2 ">"]
-           [:a.hover:underline {:href (:page/uri kommune)}
-            (:kommune/navn kommune)]])
-        [:div.flex.mt-5
+        [:div.flex.justify-between.items-center
+         (let [kommune (:poststed/kommune (:spisested/poststed spisested))]
+           [:div.text-xs
+            [:a.hover:underline {:href "/"}
+             "Smilefjes"]
+            [:span.mx-2 ">"]
+            [:a.hover:underline {:href (:page/uri kommune)}
+             (:kommune/navn kommune)]])
+         [:div.mt-1.basis-52.shrink-0.focus-within:basis-72.transition-basis.hidden.md:block
+          [:div.replicant-root {:data-view "autocomplete-small"}]]]
+        [:div.flex.mt-5.items-center
          [:div.flex-1.js-select-element-parent
           (vis-spisested-info spisested)
           [:p.mt-5 "Tilsynsresultater:"]

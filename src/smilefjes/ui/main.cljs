@@ -18,6 +18,8 @@
 (def views
   {"autocomplete" {:component #'ac/Autocomplete
                    :prepare #'ac/prepare}
+   "autocomplete-small" {:component #'ac/AutocompleteSmall
+                         :prepare #'ac/prepare}
    "search-form" {:component #'ac/Autocomplete
                   :prepare #'ac/prepare-search}
    "search-result" {:component #'sr/SearchResult

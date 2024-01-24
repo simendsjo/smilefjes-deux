@@ -61,6 +61,9 @@
         loader-skeleton)
       (map Suggestion suggestions)])])
 
+(defn AutocompleteSmall [params]
+  (Autocomplete (assoc params :size :small)))
+
 (defn get-up-n [n current]
   (cond
     (or (nil? current)

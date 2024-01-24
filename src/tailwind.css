@@ -107,7 +107,7 @@ svg {fill: currentColor}
     align-items: center;
     background: #054449;
     border: 2px solid #054449;
-    border-radius: 5px;
+    @apply rounded-md;
     color: #fff;
     cursor: pointer;
     display: flex;
@@ -201,7 +201,7 @@ a.mmm-button:link {
     width: 100%;
     padding: 0.75em 0.75em;
     border: 1px solid #054449;
-    border-radius: 0.25em;
+    @apply rounded-md;
     background-color: #fff;
     color: inherit;
     font-family: inherit;
@@ -259,6 +259,10 @@ a.mmm-button:link {
 
 .mmm-ac-selected a {
     background: var(--mt-component-ac-active-background);
+}
+
+.transition-basis {
+    transition: flex-basis 0.25s;
 }
 
 /***************************
