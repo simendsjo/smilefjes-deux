@@ -85,7 +85,7 @@
            (if (= current idx)
              (assoc s :current? true)
              (assoc s :zebra? (= 1 (mod idx 2))))))
-        (map #(-> %
+        (map #(-> (assoc % :href (:url %))
                   (assoc :actions [[:action/navigate (:url %)]])
                   (assoc :illustration (get smil/karakter->smil (ffirst (:tilsyn %)))))))))
 
