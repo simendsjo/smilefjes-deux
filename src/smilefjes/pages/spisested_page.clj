@@ -119,7 +119,7 @@
             [:span.mx-2 ">"]
             [:a.hover:underline {:href (:page/uri kommune)}
              (:kommune/navn kommune)]])
-         [:div.mt-1.basis-52.shrink-0.focus-within:basis-72.transition-basis.hidden.md:block
+         [:div.mt-1.basis-52.shrink-0.focus-within:basis-72.transition-basis.hidden.md:block.h-10
           [:div.replicant-root {:data-view "autocomplete-small"}]]]
         [:div.flex.mt-5.items-center
          [:div.flex-1.js-select-element-parent
