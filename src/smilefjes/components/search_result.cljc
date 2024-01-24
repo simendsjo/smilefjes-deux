@@ -33,7 +33,7 @@
   {:illustration (smil/karakter->smil karakter)
    :title (str "Spisestedet har fått " (plakaten/beskriv-karakter karakter) ".")
    :description (let [[_ year month day] (re-find #"(.*)-(.*)-(.*)" date)]
-                  (str month "." day "." (.substring year 2)))})
+                  (str day "." month "." (.substring year 2)))})
 
 (defn prepare [state]
   (let [query (get-in state [:location :params "q"])
