@@ -62,7 +62,9 @@
       (map Suggestion suggestions)])])
 
 (defn AutocompleteSmall [params]
-  (Autocomplete (assoc params :size :small)))
+  (-> (assoc params :size :small)
+      (update :button dissoc :icon)
+      Autocomplete))
 
 (defn get-up-n [n current]
   (cond
