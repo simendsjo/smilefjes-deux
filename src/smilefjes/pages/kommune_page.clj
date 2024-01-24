@@ -20,7 +20,7 @@
 (defn render [ctx page]
   (layout/with-layout ctx page
     (layout/header)
-    [:div.bg-lysegrønn
+    [:div.bg-lav
      [:div.max-w-screen-md.px-6.py-8.mx-auto.js-autocomplete.relative
       [:h1.text-3xl.mb-2 (:kommune/navn page)]
       [:p "Spisestedene er sortert etter siste tilsyn – sist besøkt øverst."]]]

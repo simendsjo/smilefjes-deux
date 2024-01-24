@@ -26,7 +26,7 @@ module.exports = {
           '800': '#054449', // standard
           '900': '#032426'
         },
-        'lysegrønn': '#E2F1DF',
+        'lav': '#E2F1DF',
         'hvit': '#fff',
         'gåsunge': {
           '200': '#FAF6F3', // standard

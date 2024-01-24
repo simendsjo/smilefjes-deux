@@ -22,7 +22,7 @@
     :class [(when current?
               "bg-furu-400")
             (when zebra?
-              "bg-lysegrønn")]}
+              "bg-lav")]}
    [:a.grow {:href href}
     [:div.mb-1.5 title]
     [:div.text-sm description]]

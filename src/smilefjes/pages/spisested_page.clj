@@ -104,7 +104,7 @@
   (let [besøkene (tilsyn/get-besøk spisested)]
     (layout/with-layout (assoc ctx :head-extras [:link {:rel "canonical" :href (:page/link spisested)}]) spisested
       (layout/header)
-      [:div.bg-lysegrønn
+      [:div.bg-lav
        [:div.max-w-screen-md.mx-auto.p-5
         [:div.flex
          [:div.flex-1.js-select-element-parent
