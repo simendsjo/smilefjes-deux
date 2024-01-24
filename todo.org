@@ -1,9 +1,9 @@
-* Ting å ta seg til [10/14]
+* Ting å ta seg til [11/14]
 ** DONE Ett eneste søkeresultat: Rett til resultatet ved Enter
 ** TODO Besørg samme plassering og størrelse av Mattilsynet-logoen som på mattilsynet.no
 ** DONE Få inn kommuner
 ** TODO Søkefelt på resultatsiden
-** TODO Brødsmuler "Smilefjes > Fredrikstad" (kommune her)
+** DONE Brødsmuler "Smilefjes > Fredrikstad" (kommune her)
 ** TODO Fiks utf-8-trøbbel i kommune-dataene
 ** DONE Smilefjes i søketreff
 ** DONE favicon

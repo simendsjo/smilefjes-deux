@@ -7,6 +7,11 @@
 (defn zero-pad [n]
   (if (< n 10) (str "0" n) n))
 
+(defn formater-kort-dato [dato]
+  (str (zero-pad (.getDayOfMonth dato)) "."
+       (zero-pad (.getMonthValue dato)) "."
+       (subs (str (.getYear dato)) 2 4)))
+
 (defn formater-dato [dato]
   (str (zero-pad (.getDayOfMonth dato)) "."
        (zero-pad (.getMonthValue dato)) "."
@@ -35,7 +40,7 @@
       :data-selected_class "mmm-mini-selected"}
      [:div.w-8.my-2 {:title (str "Spisestedet har fått " (plakaten/beskriv-karakter karakter) ".")}
       (icons/karakter->smil karakter)]
-     [:div.text-xs (formater-dato (:tilsynsbesøk/dato besøk))]]))
+     [:div.text-xs (formater-kort-dato (:tilsynsbesøk/dato besøk))]]))
 
 (defn hent-vurderinger-av-hovedområdene [besøk]
   (->> (:tilsynsbesøk/vurderinger besøk)
@@ -106,17 +111,24 @@
       (layout/header)
       [:div.bg-lav
        [:div.max-w-screen-md.mx-auto.p-5
-        [:div.flex
+        (let [kommune (:poststed/kommune (:spisested/poststed spisested))]
+          [:div.text-xs
+           [:a.hover:underline {:href "/"}
+            "Smilefjes"]
+           [:span.mx-2 ">"]
+           [:a.hover:underline {:href (:page/uri kommune)}
+            (:kommune/navn kommune)]])
+        [:div.flex.mt-5
          [:div.flex-1.js-select-element-parent
           (vis-spisested-info spisested)
           [:p.mt-5 "Tilsynsresultater:"]
-          [:div.flex.gap-1.md:gap-3
+          [:div.flex.gap-3.md:gap-5
            (map vis-mini-tilsynsresultat (take 4 besøkene))]
           (when-let [resten (seq (drop 4 besøkene))]
             [:div
              [:div.gamle-tilsyn
               (for [besøkene (partition-all 4 resten)]
-                [:div.flex.gap-1.md:gap-3
+                [:div.flex.gap-3.md:gap-5
                  (map vis-mini-tilsynsresultat besøkene)])]
              [:div.text-xs.mt-2.vis-gamle-tilsyn-lenke
               [:span.underline.cursor-pointer
