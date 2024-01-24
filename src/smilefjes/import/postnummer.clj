@@ -27,7 +27,7 @@
                         :page/title (str "Smilefjes for " kommunenavn)}}))
 
 (defn transact [conn csv-file]
-  (with-open [reader (io/reader csv-file)]
+  (with-open [reader (io/reader csv-file :encoding "ISO-8859-1")]
     (let [csv (csv/read-csv reader {:separator tab-char})]
       (db/transact-batches
        conn
