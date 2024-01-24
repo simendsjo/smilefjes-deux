@@ -4,8 +4,8 @@
             [smilefjes.plakaten :as plakaten]
             [smilefjes.ui.search :as search]))
 
-(defn Result [{:keys [href title description zebra? illustrations]}]
-  [:li
+(defn Result [{:keys [opts href title description zebra? illustrations]}]
+  [:li opts
    [:a.py-2.px-2.cursor-pointer.hover:bg-gåsunge-300.flex.items-center
     {:href href
      :class [(when zebra? "bg-gåsunge-200")]}

@@ -20,6 +20,13 @@
 
 .vis-gamle-tilsyn .vis-gamle-tilsyn-lenke {display: none;}
 
+.ny-rapport {
+    @apply bg-sommerdag-200;
+    transition: transform 1s ease;
+    transform: translateY(-10px);
+}
+.ny-rapport .bg-gåsunge-200 { @apply bg-sommerdag-300 }
+
 .mmm-mini-selected-2 {
     color: #054449;
     background: white;

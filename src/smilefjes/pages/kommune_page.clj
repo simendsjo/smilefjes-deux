@@ -21,6 +21,7 @@
   (layout/with-layout ctx page
     (layout/header)
     [:div.bg-lav
+     [:input {:type "hidden" :id "kommunekode" :value (:kommune/kode page)}]
      [:div.max-w-screen-md.px-6.py-8.mx-auto.js-autocomplete.relative
       [:h1.text-3xl.mb-2 (:kommune/navn page)]
       [:p "Spisestedene er sortert etter siste tilsyn – sist besøkt øverst."]]]
@@ -30,15 +31,17 @@
        (->> (get-spisesteder page)
             (map-indexed
              (fn [idx spisested]
-               {:href (link/link-to ctx spisested)
-                :title (:spisested/navn spisested)
-                :description (tilsyn/formatter-adresse (:spisested/adresse spisested))
-                :zebra? (= 1 (mod idx 2))
-                :illustrations (->> (tilsyn/get-besøk spisested)
-                                    (take 4)
-                                    (map (juxt :tilsynsbesøk/smilefjeskarakter
-                                               (comp str :tilsynsbesøk/dato)))
-                                    (map result/prepare-illustration))})))})]))
+               (let [besøkene (tilsyn/get-besøk spisested)]
+                 {:opts {:data-last_visit_date (str (:tilsynsbesøk/dato (first besøkene)))}
+                  :href (link/link-to ctx spisested)
+                  :title (:spisested/navn spisested)
+                  :description (tilsyn/formatter-adresse (:spisested/adresse spisested))
+                  :zebra? (= 1 (mod idx 2))
+                  :illustrations (->> besøkene
+                                      (take 4)
+                                      (map (juxt :tilsynsbesøk/smilefjeskarakter
+                                                 (comp str :tilsynsbesøk/dato)))
+                                      (map result/prepare-illustration))}))))})]))
 
 (comment
   (def db (d/db (:datomic/conn (powerpack.dev/get-app))))

@@ -5,6 +5,7 @@
             [smilefjes.ui.actions :as actions]
             [smilefjes.ui.body-toggles :as body-toggles]
             [smilefjes.ui.dom :as dom]
+            [smilefjes.ui.lokalavis :as lokalavis]
             [smilefjes.ui.search :as search-ui]
             [smilefjes.ui.select-element :as select-element]
             [smilefjes.ui.tracking :as tracking]))
@@ -53,6 +54,8 @@
   (tracking/track-page-view)
   (.addEventListener js/document.body "click" body-toggles/handle-clicks)
   (.addEventListener js/document.body "click" select-element/handle-clicks)
+  (when-let [kode (some-> (js/document.getElementById "kommunekode") .-value)]
+    (lokalavis/setup kode))
 
   (when-let [views (get-replicant-views)]
     (add-watch store ::render (fn [_ _ _ state] (render views state)))
