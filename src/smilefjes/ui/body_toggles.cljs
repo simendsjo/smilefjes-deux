@@ -12,7 +12,6 @@
 
 (defn handle-clicks [e]
   (when-let [element (.closest (.-target e) "[data-toggle_body_class]")]
-    (js/console.log element)
     (when (ready-for-change? element)
       (let [class (.getAttribute element "data-toggle_body_class")]
         (.toggle (.-classList js/document.body) class)))))
