@@ -1,6 +1,6 @@
-* Ting å ta seg til [13/15]
+* Ting å ta seg til [14/15]
 ** DONE Ett eneste søkeresultat: Rett til resultatet ved Enter
-** TODO Besørg samme plassering og størrelse av Mattilsynet-logoen som på mattilsynet.no
+** DONE Besørg samme plassering og størrelse av Mattilsynet-logoen som på mattilsynet.no
 ** DONE Få inn kommuner
 ** DONE Søkefelt på resultatsiden
 ** TODO Funker ikke å trykke enter i søkefelt på mobil
