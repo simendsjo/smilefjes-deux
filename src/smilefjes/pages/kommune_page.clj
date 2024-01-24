@@ -21,10 +21,10 @@
   (layout/with-layout ctx page
     (layout/header)
     [:div.bg-lysegrønn
-     [:div.max-w-screen-md.px-5.py-8.mx-auto.js-autocomplete.relative
+     [:div.max-w-screen-md.px-6.py-8.mx-auto.js-autocomplete.relative
       [:h1.text-3xl.mb-2 (:kommune/navn page)]
-      [:p "Spisestedene er sortert etter siste tilsyn – de som sist ble besøkt øverst."]]]
-    [:div.max-w-screen-lg.mx-auto.md.my-8.px-8
+      [:p "Spisestedene er sortert etter siste tilsyn – sist besøkt øverst."]]]
+    [:div.max-w-screen-lg.mx-auto.md.my-8.px-4.md:px-8
      (result/SearchResult
       {:results
        (->> (get-spisesteder page)
