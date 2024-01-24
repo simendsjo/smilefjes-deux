@@ -7,5 +7,7 @@
       str/trim
       (Normalizer/normalize java.text.Normalizer$Form/NFD)
       (str/replace #"[\u0300-\u036F]" "")
+      (str/replace #"æ" "ae")
+      (str/replace #"ø" "o")
       (str/replace #"[^a-z 0-9]" "")
       (str/replace #" +" "_")))
