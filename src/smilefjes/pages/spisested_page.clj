@@ -81,7 +81,7 @@
           (let [irrelevant? (#{"4" "5"} (:vurdering/karakter vurdering))]
             [:div (when irrelevant? {:class "irrelevant-vurdering"})
              [:div.bg-white.py-4.px-4.border-b-2.border-gåsunge-200.flex.items-center
-              [:div (vis-karakter-indikator (:vurdering/karakter vurdering))]
+              [:div.shrink-0 (vis-karakter-indikator (:vurdering/karakter vurdering))]
               [:div (when irrelevant?
                       {:class ["opacity-50"]})
                [:div (:kravpunkt/navn (:vurdering/kravpunkt vurdering))]
