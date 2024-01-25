@@ -1,5 +1,6 @@
 (ns smilefjes.ui.search
-  (:require [smilefjes.search :as search]
+  (:require [clojure.string :as str]
+            [smilefjes.search :as search]
             [smilefjes.ui.query-engine :as qe]))
 
 (defn search-spisesteder [engine q]
@@ -28,7 +29,7 @@
           (assoc :url url)
           (assoc :title navn)
           (assoc :description (str adr1 (when (not-empty adr2) (str " " adr2)) ", "
-                                   zip " " city))
+                                   zip " " (str/replace city #" " " ")))
           (assoc :tilsyn smil)))))
 
 (defn load-json [url]
