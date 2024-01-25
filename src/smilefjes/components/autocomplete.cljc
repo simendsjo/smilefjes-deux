@@ -27,7 +27,7 @@
     [:div.mb-1.5 title]
     [:div.text-sm description]]
    (when illustration
-     [:div.basis-10 illustration])])
+     [:div.basis-10.shrink-0 illustration])])
 
 (def loader-skeleton
   [:li.p-4.w-full.mx-auto
