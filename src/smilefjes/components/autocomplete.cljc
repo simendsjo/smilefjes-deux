@@ -56,7 +56,7 @@
    (when loading?
      [:div.mmm-loader.absolute.top-3.right-24.z-10])
    (when (or (seq suggestions) loading?)
-     [:ol.mmm-ac-results.bg-neutral-50 {:id "suggestions"}
+     [:ol.mmm-ac-results.bg-neutral-50.rounded-b-md {:id "suggestions"}
       (when loading?
         loader-skeleton)
       (map Suggestion suggestions)])])
