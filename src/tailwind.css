@@ -127,11 +127,15 @@ svg {fill: currentColor}
     padding: 0.25rem 1.25rem;
     text-align: center;
     text-decoration: none;
-    transition: none 180ms ease-in-out;
+    transition: background 250ms ease-in-out;
     transition-property: background-color, color, border-color, box-shadow;
     vertical-align: middle;
     width: 100%;
     white-space: nowrap;
+}
+
+.mmm-button:hover {
+    background: #08676E;
 }
 
 a.mmm-button:link {
@@ -185,6 +189,12 @@ a.mmm-button:link {
 
 .mmm-focusable {
     transition: box-shadow 0.15s ease-in-out;
+}
+
+.mmm-button.mmm-focusable {
+    transition-property: box-shadow, background;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
 }
 
 /* Give it some weight to combat any box-shadow: none on classes that are
@@ -243,7 +253,7 @@ a.mmm-button:link {
     left: 0;
     list-style-type: none;
     margin-block-start: 0;
-    margin-top: -2px;
+    margin-top: -5px;
     padding-inline-start: 0;
     padding-top: 3px;
     position: absolute;
