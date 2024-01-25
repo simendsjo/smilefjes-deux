@@ -38,7 +38,7 @@
       [:div.h-2.bg-slate-500.rounded]]]
     [:div.rounded-full.bg-slate-500.h-8.w-8]]])
 
-(defn Autocomplete [{:keys [q class size actions button suggestions loading?]}]
+(defn Autocomplete [{:keys [q placeholder class size actions button suggestions loading?]}]
   [:fieldset.mmm-search-input {:class [(autocomplete-sizes size) class]}
    [:div.mmm-action-input
     (TextInput
@@ -48,6 +48,7 @@
       :on {:input (:input actions)
            :keyup (when-let [key-actions (:keyup actions)]
                     #(dispatch-keyboard-event % key-actions))}
+      :placeholder placeholder
       :autocomplete "off"
       :aria-autocomplete "list"
       :aria-controls "suggestions"
@@ -135,6 +136,9 @@
      :suggestions (->> suggestions
                        (take 5)
                        (prepare-suggestions current))}))
+
+(defn prepare-small [state]
+  (assoc (prepare state) :placeholder "Søk etter spisested"))
 
 (defn prepare-search [state]
   (let [query (get-query state)]
