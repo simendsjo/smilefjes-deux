@@ -1,10 +1,8 @@
 # Smilefjes-plakater på nett
 
-Her bor snart løsningen som viser resultatene fra smilefjestilsyn på alle norske
+Her løsningen som viser resultatene fra smilefjestilsyn på alle norske
 kaféer og restauranter som er underlagt ordningen på
 https://smilefjes.mattilsynet.no.
-
-Dagens løsning finnes (enn så lenge) på https://smilefjes.matportalen.no.
 
 ## Statisk site
 
