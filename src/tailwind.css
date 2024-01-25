@@ -31,6 +31,11 @@
     transition: transform 1s ease;
     transform: translateY(-10px);
 }
+
+.ny-rapport:first-child {
+    @apply mt-4;
+}
+
 .ny-rapport .bg-gåsunge-200 { @apply bg-sommerdag-300 }
 
 .mmm-mini-selected-2 {
@@ -202,7 +207,7 @@ a.mmm-button:link {
 .mmm-focusable:focus,
 .mmm .mmm-focusable:focus {
     outline: none;
-    box-shadow: 0 0 0 2px #f9f6f1, 0 0 0 0.35rem #348ba3;
+    box-shadow: 0 0 0 2px #f9f6f1, 0 0 0 0.35rem #68B096;
 }
 
 .mmm-focusable:focus {

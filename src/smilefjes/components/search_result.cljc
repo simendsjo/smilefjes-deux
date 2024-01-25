@@ -6,13 +6,13 @@
 
 (defn Result [{:keys [opts href title description zebra? illustrations]}]
   [:li opts
-   [:a.py-2.px-2.cursor-pointer.hover:bg-gåsunge-300.flex.items-center
+   [:a.py-2.px-4.md:px-2.cursor-pointer.hover:bg-gåsunge-300.flex.items-center
     {:href href
      :class [(when zebra? "bg-gåsunge-200")]}
     [:span.grow.py-2.pr-4
      [:div.underline.hover:no-underline title]
      [:div.text-sm description]]
-    [:span.flex.gap-4.md:basis-72.basis-16.shrink-0
+    [:span.flex.md:gap-4.md:basis-72.basis-12.shrink-0
      (map-indexed
       (fn [idx {:keys [illustration title description]}]
         [:div.p-1.text-center.flex.flex-col.items-center

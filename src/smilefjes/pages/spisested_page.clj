@@ -143,14 +143,14 @@
                "Se færre tilsynsresultater"]]])]
          [:div.hidden.md:block (vis-siste-tilsynsresultat (first besøkene))]]]]
       [:div.bg-gåsunge-200
-       [:div.max-w-screen-md.mx-auto.py-5
+       [:div.max-w-screen-md.mx-auto.pb-5.pt-10
         [:h2.text-2xl.px-5 "Vurdering av tilsynet"]
         [:div
          (for [[besøk forrige-besøk] (partition-all 2 1 besøkene)]
            [:div {:class (when (not= besøk (first besøkene)) "hidden")
                   :id (:tilsynsbesøk/id besøk)}
             [:p.my-2.px-5 (plakaten/oppsummer-smilefjeskarakter (:tilsynsbesøk/smilefjeskarakter besøk))]
-            [:div.md:px-5.mt-10 (vis-vurderingsoversikt besøk forrige-besøk)]])]
+            [:div.md:px-5.mt-5 (vis-vurderingsoversikt besøk forrige-besøk)]])]
         [:div.md:px-5.my-5 (checkbox {:toggle-class "vis-irrelevavnte-vurderinger"
                                    :label "Vis alle kravpunkter"})]
         [:p.px-5.my-10.text-sm

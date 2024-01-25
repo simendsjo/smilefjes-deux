@@ -52,7 +52,7 @@
        "Et smilefjes fra Mattilsynet viser hvordan vi vurderer viktige forhold
        som hygiene, rengjøring og vedlikehold på et spisested. Her finner du
        alle smilefjestilsyn i Norge siden 2016."]
-      [:a.inline-flex.items-center.border.rounded.px-4.py-2.font-medium.border-granskog-800.border-2.text-granskog-800
+      [:a.inline-flex.items-center.border.rounded.px-4.py-2.font-medium.border-granskog-800.border-2.text-granskog-800.hover:bg-lav.transition
        {:href "https://www.mattilsynet.no/mat-og-drikke/forbrukere/smilefjesordningen"}
        "Les mer om smilefjes"
        [:div.w-4.ml-2 (icons/render :fontawesome.solid/arrow-right)]]]
@@ -68,5 +68,5 @@
       [:fieldset.mt-1
        {:class [:relative :w-full "min-w-36" :h-10]}
        [:div.replicant-root {:data-view "search-form"}]]]]
-    [:div.max-w-screen-lg.mx-auto.md.my-8.px-8
+    [:div.max-w-screen-lg.mx-auto.md.my-8.md:px-8
      [:div.replicant-root {:data-view "search-result"}]]))
