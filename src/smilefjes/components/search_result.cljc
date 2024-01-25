@@ -24,10 +24,13 @@
       illustrations)]]])
 
 (defn SearchResult [{:keys [results loading?]}]
-  [:ol
-   (if loading?
-     ac/loader-skeleton
-     (map Result results))])
+  [:div
+   (when-not loading?
+     [:h2.text-xl.pl-4.md:pl-2.mb-2 (count results) " spisesteder"])
+   [:ol
+    (if loading?
+      ac/loader-skeleton
+      (map Result results))]])
 
 (defn prepare-illustration [[karakter date]]
   {:illustration (smil/karakter->smil karakter)
