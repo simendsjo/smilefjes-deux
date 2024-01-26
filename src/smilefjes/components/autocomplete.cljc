@@ -39,28 +39,30 @@
     [:div.rounded-full.bg-slate-500.h-8.w-8]]])
 
 (defn Autocomplete [{:keys [q placeholder class size actions button suggestions loading?]}]
-  [:fieldset.mmm-search-input {:class [(autocomplete-sizes size) class]}
-   [:div.mmm-action-input
-    (TextInput
-     {:value (or q "")
-      :type "search"
-      :size size
-      :on {:input (:input actions)
-           :keyup (when-let [key-actions (:keyup actions)]
-                    #(dispatch-keyboard-event % key-actions))}
-      :placeholder placeholder
-      :autocomplete "off"
-      :aria-autocomplete "list"
-      :aria-controls "suggestions"
-      :aria-haspopup "menu"})
-    (Button (assoc button :type "submit" :inline? true :size size))]
-   (when loading?
-     [:div.mmm-loader.absolute.top-3.right-24.z-10])
-   (when (or (seq suggestions) loading?)
-     [:ol.mmm-ac-results.bg-neutral-50.rounded-b-md {:id "suggestions"}
-      (when loading?
-        loader-skeleton)
-      (map Suggestion suggestions)])])
+  (let [expanded? (or (seq suggestions) loading?)]
+    [:fieldset.mmm-search-input
+     {:class [(autocomplete-sizes size) class (when expanded? "mmm-action-input-expanded")]}
+     [:div.mmm-action-input
+      (TextInput
+       {:value (or q "")
+        :type "search"
+        :size size
+        :on {:input (:input actions)
+             :keyup (when-let [key-actions (:keyup actions)]
+                      #(dispatch-keyboard-event % key-actions))}
+        :placeholder placeholder
+        :autocomplete "off"
+        :aria-autocomplete "list"
+        :aria-controls "suggestions"
+        :aria-haspopup "menu"})
+      (Button (assoc button :type "submit" :inline? true :size size))]
+     (when loading?
+       [:div.mmm-loader.absolute.top-3.right-24.z-10])
+     (when (or (seq suggestions) loading?)
+       [:ol.mmm-ac-results.bg-neutral-50.rounded-b-md {:id "suggestions"}
+        (when loading?
+          loader-skeleton)
+        (map Suggestion suggestions)])]))
 
 (defn AutocompleteSmall [params]
   (-> (assoc params :size :small)
