@@ -35,7 +35,7 @@
 
 (defn vis-mini-tilsynsresultat [besøk]
   (let [karakter (:tilsynsbesøk/smilefjeskarakter besøk)]
-    [:div.p-1.text-center.flex.flex-col.items-center.rounded-lg.cursor-pointer
+    [:div.p-1.text-center.flex.flex-col.items-center.rounded-lg.cursor-pointer.border.border-transparent.hover:border-granskog-800
      {:data-select_element_id (:tilsynsbesøk/id besøk)
       :data-selected_class "mmm-mini-selected"}
      [:div.w-8.my-2 {:title (str "Spisestedet har fått " (plakaten/beskriv-karakter karakter) ".")}
@@ -124,7 +124,7 @@
         [:div.flex.mt-5.items-center
          [:div.flex-1.js-select-element-parent
           (vis-spisested-info spisested)
-          [:p.mt-5 "Tilsynsresultater:"]
+          [:p.mt-4.mb-2 "Tilsynsresultater:"]
           [:div.flex.gap-3.md:gap-5
            (map vis-mini-tilsynsresultat (take 4 besøkene))]
           (when-let [resten (seq (drop 4 besøkene))]

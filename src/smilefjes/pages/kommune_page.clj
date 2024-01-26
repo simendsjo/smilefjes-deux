@@ -22,7 +22,7 @@
     (layout/header)
     [:div.bg-lav
      [:input {:type "hidden" :id "kommunekode" :value (:kommune/kode page)}]
-     [:div.max-w-screen-md.px-6.py-8.mx-auto.js-autocomplete.relative
+     [:div.max-w-screen-lg.md:px-10.px-4.py-8.mx-auto.js-autocomplete.relative
       [:h1.text-3xl.mb-2 (:kommune/navn page)]
       [:p "Spisestedene er sortert etter siste tilsyn – sist besøkt øverst."]]]
     [:div.max-w-screen-lg.mx-auto.md.my-8.md:px-8
