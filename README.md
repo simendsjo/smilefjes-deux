@@ -1,6 +1,6 @@
 # Smilefjes-plakater på nett
 
-Her løsningen som viser resultatene fra smilefjestilsyn på alle norske
+Her bor løsningen som viser resultatene fra smilefjestilsyn på alle norske
 kaféer og restauranter som er underlagt ordningen på
 https://smilefjes.mattilsynet.no.
 
@@ -19,9 +19,9 @@ byggesteg og publiserer bare statiske filer til en nginx-server. Da får vi:
 ## Hva med søket?
 
 Serveren [bygger en indeks](./src/smilefjes/search_index.clj) som serveres som
-en [(statisk) JSON payload](https://smilefjes.mattilsynet.no/search/index/nb.json)
-(~200kB gzippet), og så har vi implementert [en liten
-søkemotor](./src/smilefjes/search_index.clj) som kjører i nettleseren.
+en [(statisk) JSON payload](https://smilefjes.mattilsynet.no/search/index/nb.json),
+og så har vi implementert [en liten søkemotor](./src/smilefjes/search_index.clj)
+som kjører i nettleseren.
 
 Du kan lese litt om strategien i disse to blogginnleggene:
 
