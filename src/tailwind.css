@@ -265,6 +265,10 @@ a.mmm-button:link {
     right: 0;
 }
 
+.mmm-ac-results li:last-child {
+    @apply rounded-b-md;
+}
+
 .mmm-ac-result {
     margin: 0;
     border-bottom: 1px solid var(--mt-component-ac-border-color);
