@@ -35,8 +35,8 @@
   {:header "Kontakt"
    :links [{:text "Stensberggata 27"}
            {:text "0170 OSLO"}
-           {:text "team.mat@mattilsynet.no"
-            :href "mailto:team.mat@mattilsynet.no"}]})
+           {:text "postmottak@mattilsynet.no"
+            :href "mailto:postmottak@mattilsynet.no"}]})
 
 (defn footer-section [{:keys [header links]}]
   [:div.pb-14
