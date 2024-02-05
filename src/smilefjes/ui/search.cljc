@@ -15,12 +15,12 @@
                     ;; Boost exact matches
                     (-> (:spisestedNavn (::schema engine))
                         (assoc :q q)
-                        (assoc :fields ["spisestedNavn" "postnummer" "poststed"])
+                        (assoc :fields ["spisestedNavn" "postnummer" "sted"])
                         (assoc :boost 10))
                     ;; Add fuzziness
                     (-> (:spisestedNavnNgrams (::schema engine))
                         (merge {:q q
-                                :fields ["spisestedNavnNgrams" "poststedNgrams"]
+                                :fields ["spisestedNavnNgrams" "stedNgrams"]
                                 :operator :or
                                 :min-accuracy 0.9}))]
           :operator :or})]

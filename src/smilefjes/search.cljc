@@ -103,7 +103,8 @@
 (defn get-searchable-address [spisested]
   (->> [(-> spisested :spisested/adresse :poststed)
         (-> spisested :spisested/adresse :linje1)
-        (-> spisested :spisested/adresse :linje2)]
+        (-> spisested :spisested/adresse :linje2)
+        (-> spisested :spisested/poststed :poststed/kommune :kommune/navn)]
        (filter not-empty)
        (str/join " ")))
 
@@ -138,13 +139,13 @@
                  remove-diacritics
                  (partial tokenize-edge-ngrams 3 10)]}
 
-   :poststed
+   :sted
    {:f get-searchable-address
     :tokenizers word-tokenizers
     :token-filters [stop-words
                     #(short? 1 %)]}
 
-   :poststedNgrams
+   :stedNgrams
    {:f get-searchable-address
     :tokenizers ngram-tokenizers
     :token-filters [stop-words
