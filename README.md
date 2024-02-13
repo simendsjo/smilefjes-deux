@@ -112,3 +112,14 @@ https://www.bring.no/tjenester/adressetjenester/postnummer/postnummertabeller-ve
 Sist gang lå lenken under overskriften "3. Postnummer i rekkefølge,
 postnummertabellen" og het "Postnummerregister_ansi.txt". Vi har lagret den som
 `data/postnummer.csv`.
+
+## Oppdatering av ikke omfattede virksomheter
+
+Kodeverket forteller oss at alle virksomheter med aktivitetsid DETALJ_NAER er
+omfattet av smilefjesordningen. Den gang ei. Det er snarere et flertall med
+denne aktivitetsid'en som IKKE er omfattet. Derfor har regionene måttet markere
+over 100 000 virksomheter som "ikke omfattet" utenfor kodeverket.
+
+Den lista ble litt i lengste laget for å sjekke inn her. Vi har derfor laget en
+liten eksportrutine som kan gjøres manuelt ved behov. Du finner den i
+m2n-repo'et - ettersom det er der vi for øyeblikket har tilgang til MATS-data.

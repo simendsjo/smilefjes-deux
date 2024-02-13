@@ -16,7 +16,8 @@
   (let [start-ms (System/currentTimeMillis)]
     (log/info "Ingesting data/tilsyn.csv ...")
     (tilsyn/transact (:datomic/conn powerpack)
-                     (io/file "data/tilsyn.csv"))
+                     (io/file "data/tilsyn.csv")
+                     (read-string (slurp (io/file "data/ikke-omfattet.edn"))))
     (log/info "Ingested data/tilsyn.csv in" (- (System/currentTimeMillis) start-ms) "ms."))
 
   (let [start-ms (System/currentTimeMillis)]

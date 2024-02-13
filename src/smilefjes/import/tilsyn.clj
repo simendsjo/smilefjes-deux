@@ -37,47 +37,48 @@
   (str "/spisested/" (or (not-empty (slugify (:poststed m))) "_") "/"
        (slugify (:navn m)) "." (get-id m) "/"))
 
-(defn csv-line->tilsynsbesøk [csv-header csv-line]
+(defn csv-line->tilsynsbesøk [csv-header csv-line ikke-omfattet-id?]
   (let [m (zipmap csv-header csv-line)
         adresse {:linje1 (adresse/normalize-adresse (:adrlinje1 m))
                  :linje2 (adresse/normalize-adresse (:adrlinje2 m))
                  :poststed (adresse/normalize-poststed (:poststed m))
                  :postnummer (:postnr m)}
         navn (str/trim (:navn m))]
-    {:tilsynsbesøk/id (:tilsynid m)
-     :tilsynsbesøk/oppfølging? (= "1" (:tilsynsbesoektype m))
-     :tilsynsbesøk/dato (ddmmyyyy->local-date (:dato m))
-     :tilsynsbesøk/smilefjeskarakter (:total_karakter m)
-     :tilsynsbesøk/tilsynsobjekt
-     {:page/uri (get-tilsynsobjekt-uri m)
-      :page/link (get-tilsynsobjekt-link m)
-      :page/kind :page.kind/spisested
-      :page/title (str "Smilefjes: " navn)
-      :open-graph/description (str "Smilefjes: Tilsynsresultat for " navn
-                                   (when-let [adresse (not-empty (tilsyn/formatter-adresse adresse))]
-                                     (str ", " adresse)))
-      :tilsynsobjekt/id (get-id m)
-      :spisested/navn navn
-      :spisested/orgnummer (:orgnummer m)
-      :spisested/adresse adresse
-      :spisested/poststed {:poststed/postnummer (:postnr m)}}
-     :tilsynsbesøk/vurderinger [{:vurdering/kravpunkt [:kravpunkt/id "1"]
-                                 :vurdering/karakter (:karakter1 m)}
-                                {:vurdering/kravpunkt [:kravpunkt/id "2"]
-                                 :vurdering/karakter (:karakter2 m)}
-                                {:vurdering/kravpunkt [:kravpunkt/id "3"]
-                                 :vurdering/karakter (:karakter3 m)}
-                                {:vurdering/kravpunkt [:kravpunkt/id "4"]
-                                 :vurdering/karakter (:karakter4 m)}]}))
+    (when-not (ikke-omfattet-id? (:tilsynsobjektid m))
+      {:tilsynsbesøk/id (:tilsynid m)
+       :tilsynsbesøk/oppfølging? (= "1" (:tilsynsbesoektype m))
+       :tilsynsbesøk/dato (ddmmyyyy->local-date (:dato m))
+       :tilsynsbesøk/smilefjeskarakter (:total_karakter m)
+       :tilsynsbesøk/tilsynsobjekt
+       {:page/uri (get-tilsynsobjekt-uri m)
+        :page/link (get-tilsynsobjekt-link m)
+        :page/kind :page.kind/spisested
+        :page/title (str "Smilefjes: " navn)
+        :open-graph/description (str "Smilefjes: Tilsynsresultat for " navn
+                                     (when-let [adresse (not-empty (tilsyn/formatter-adresse adresse))]
+                                       (str ", " adresse)))
+        :tilsynsobjekt/id (get-id m)
+        :spisested/navn navn
+        :spisested/orgnummer (:orgnummer m)
+        :spisested/adresse adresse
+        :spisested/poststed {:poststed/postnummer (:postnr m)}}
+       :tilsynsbesøk/vurderinger [{:vurdering/kravpunkt [:kravpunkt/id "1"]
+                                   :vurdering/karakter (:karakter1 m)}
+                                  {:vurdering/kravpunkt [:kravpunkt/id "2"]
+                                   :vurdering/karakter (:karakter2 m)}
+                                  {:vurdering/kravpunkt [:kravpunkt/id "3"]
+                                   :vurdering/karakter (:karakter3 m)}
+                                  {:vurdering/kravpunkt [:kravpunkt/id "4"]
+                                   :vurdering/karakter (:karakter4 m)}]})))
 
-(defn transact [conn csv-file]
+(defn transact [conn csv-file ikke-omfattet-id?]
   (with-open [reader (io/reader csv-file)]
     (let [csv (csv/read-csv reader {:separator \;})
           csv-header (map keyword (first csv))]
       (db/transact-batches
        conn
-       (map (partial csv-line->tilsynsbesøk csv-header)
-            (next csv))))))
+       (keep #(csv-line->tilsynsbesøk csv-header % ikke-omfattet-id?)
+             (next csv))))))
 
 (comment
   (def csv
