@@ -59,26 +59,33 @@
     [:div.flex.justify-center
      [:div [:a {:href "/"} (mattilsynet-logo "white")]]]]])
 
+(defn get-standard-head-elements [ctx page]
+  (list
+   [:title (:page/title page)]
+   [:link {:rel "apple-touch-icon" :sizes "180x180" :href "https://www.mattilsynet.no/apple-touch-icon.png"}]
+   [:link {:rel "icon" :type "image/png" :sizes "32x32" :href "https://www.mattilsynet.no/favicon-32x32.png"}]
+   [:link {:rel "icon" :type "image/png" :sizes "16x16" :href "https://www.mattilsynet.no/favicon-16x16.png"}]))
+
+(defn get-tracking-pixel [ctx]
+  (when-let [site-id (:matomo/site-id ctx)]
+    [:img {:data-src (str "https://mattilsynet.matomo.cloud/matomo.php?idsite="
+                          site-id
+                          "&rec=1"
+                          "&url={url}"
+                          "&action_name={title}"
+                          "&ua={ua}"
+                          "&urlref={referrer}")
+           :id "smilefjes-tracking-pixel"
+           :style "border:0"
+           :alt ""}]))
+
 (defn with-layout [ctx page & body]
   [:html
    [:head
-    [:title (:page/title page)]
-    [:link {:rel "apple-touch-icon" :sizes "180x180" :href "https://www.mattilsynet.no/apple-touch-icon.png"}]
-    [:link {:rel "icon" :type "image/png" :sizes "32x32" :href "https://www.mattilsynet.no/favicon-32x32.png"}]
-    [:link {:rel "icon" :type "image/png" :sizes "16x16" :href "https://www.mattilsynet.no/favicon-16x16.png"}]
+    (get-standard-head-elements ctx page)
     (:head-extras ctx)]
    [:body
     [:div.min-h-screen.flex.flex-col.justify-between
      [:div body]
      (footer)]
-    (when-let [site-id (:matomo/site-id ctx)]
-      [:img {:data-src (str "https://mattilsynet.matomo.cloud/matomo.php?idsite="
-                            site-id
-                            "&rec=1"
-                            "&url={url}"
-                            "&action_name={title}"
-                            "&ua={ua}"
-                            "&urlref={referrer}")
-             :id "smilefjes-tracking-pixel"
-             :style "border:0"
-             :alt ""}])]])
+    (get-tracking-pixel ctx)]])
