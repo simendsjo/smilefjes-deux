@@ -1,6 +1,7 @@
-(ns smilefjes.ui.map)
+(ns smilefjes.ui.map
+  (:require [clojure.string :as str]))
 
-(defn render-map [el]
+(defn render-map [el features]
   (let [map (js/mapboxgl.Map.
              #js {:container el
                   :style "mapbox://styles/mapbox/streets-v12"
@@ -15,17 +16,7 @@
                                      (clj->js
                                       {:type "geojson"
                                        :data  {:type "FeatureCollection"
-                                               :features [{:type "Feature"
-                                                           :geometry {:type "Point"
-                                                                      :coordinates [10.812988060061402 59.78772952219009]}
-                                                           :properties {:title "Christian"
-                                                                        :description "Her bor'n"}}
-                                                          {:type "Feature"
-                                                           :geometry {:type "Point"
-                                                                      :coordinates [10.950073340056957 59.215469737612594]}
-                                                           :properties {:title "Magnar"
-                                                                        :description "Her er'n"}}]}}))
-
+                                               :features features}}))
                          (.addLayer map (clj->js
                                          {:id "points"
                                           :type "symbol"
@@ -35,7 +26,6 @@
                                                    :text-font ["Open Sans Semibold"]
                                                    :text-offset [0 0.5]
                                                    :text-anchor "top"}}))
-
                          (.on map "click"
                               "points"
                               (fn [e]
@@ -52,21 +42,32 @@
                                       (.setHTML popup description)
                                       (.addTo popup map))))))))))))
 
-(defn receive-file [box e]
+(defn parse-csv [s]
+  (let [[headers & lines] (str/split-lines s)
+        ks (map keyword (str/split headers #"\|"))]
+    (for [line lines]
+      (zipmap ks (str/split line #"\|")))))
+
+(defn ->map-feature [virksomhet]
+  {:type "Feature"
+   :geometry {:type "Point"
+              :coordinates [(:lon virksomhet) (:lat virksomhet)]}
+   :properties {:title (:navn virksomhet)
+                :description (str "<h3>" (:navn virksomhet) "</h3>"
+                                  "<p>Orgnummer: " (:orgnr virksomhet) "</p>"
+                                  "<p>" (:adresse virksomhet) ", " (:sted virksomhet) "</p>")}})
+
+(defn receive-file [el box e]
   (.preventDefault e)
   (.remove (.-classList box) "border-furu-600")
-  (js/console.log (-> e .-dataTransfer .-files))
-
   (let [file (-> e .-dataTransfer .-files (aget 0))]
     (when file
       (let [reader (js/FileReader.)]
         (set! (.-onload reader)
               (fn [event]
                 (let [contents (-> event .-target .-result)]
-                  (js/console.log "Contents of the file:" contents))))
-        (.readAsText reader file))))
-
-)
+                  (render-map el (map ->map-feature (parse-csv contents))))))
+        (.readAsText reader file)))))
 
 (defn boot [el]
   (let [box (.-firstChild el)]
@@ -75,4 +76,4 @@
     (.addEventListener box "dragover" (fn [e]
                                         (.preventDefault e)
                                         (set! (-> e .-dataTransfer .-dropEffect) "copy")))
-    (.addEventListener box "drop" #(receive-file box %))))
+    (.addEventListener box "drop" #(receive-file el box %))))
