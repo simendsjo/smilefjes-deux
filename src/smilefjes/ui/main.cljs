@@ -6,6 +6,7 @@
             [smilefjes.ui.body-toggles :as body-toggles]
             [smilefjes.ui.dom :as dom]
             [smilefjes.ui.lokalavis :as lokalavis]
+            [smilefjes.ui.map :as map]
             [smilefjes.ui.search :as search-ui]
             [smilefjes.ui.select-element :as select-element]
             [smilefjes.ui.tracking :as tracking]))
@@ -71,6 +72,11 @@
               (actions/perform-actions @store)
               (actions/execute! store))))))
 
-  (swap! store assoc :booted-at (.getTime (js/Date.))))
+  (swap! store assoc :booted-at (.getTime (js/Date.)))
+
+  (when-let [map-el (js/document.getElementById "mapbox")]
+    (when js/window.mapboxgl
+      (set! (.-accessToken js/mapboxgl) "pk.eyJ1IjoiY3JvbWxlY2giLCJhIjoiY2xzd3dqcTNsMW9sYzJzczA5N2R1enpsZSJ9.tcr8dy_CopvtvJEzapcahA")
+      (map/boot map-el))))
 
 (defonce ^:export kicking-out-the-jams (boot))

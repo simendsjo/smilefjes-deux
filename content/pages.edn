@@ -5,4 +5,7 @@
   :page/kind :page.kind/spisested-index}
  {:page/uri "/sok/"
   :page/title "Søk etter smilefjes"
-  :page/kind :page.kind/search-page}]
+  :page/kind :page.kind/search-page}
+ {:page/uri "/kart/"
+  :page/title "Se steder i kart"
+  :page/kind :page.kind/map-page}]
