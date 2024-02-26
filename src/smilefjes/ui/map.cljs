@@ -1,5 +1,6 @@
 (ns smilefjes.ui.map
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str])
+  (:require-macros [smilefjes.assets :refer [asset-path]]))
 
 (defn render-map [el features]
   (let [map (js/mapboxgl.Map.
@@ -9,7 +10,7 @@
                   :zoom 7})]
     (.on map "load"
          (fn []
-           (.loadImage map "/images/map-marker.png"
+           (.loadImage map (asset-path "/images/map-marker.png")
                        (fn [_error image]
                          (.addImage map "custom-marker" image);
                          (.addSource map "points"
