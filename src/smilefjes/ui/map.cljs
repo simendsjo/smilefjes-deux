@@ -14,19 +14,54 @@
            (.loadImage map (asset-path "/images/map-marker.png")
                        (fn [_error image]
                          (.addImage map "custom-marker" image);
+
                          (.addSource map "points"
                                      (clj->js
                                       {:type "geojson"
                                        :data  {:type "FeatureCollection"
-                                               :features features}}))
+                                               :features features}
+                                       :cluster true
+                                       :clusterMaxZoom 12
+                                       :clusterRadius 50}))
+
+                         (.addLayer map (clj->js
+                                         {:id "clusters"
+                                          :type "circle"
+                                          :source "points"
+                                          :filter '[has point_count]
+                                          :paint {:circle-color '[step
+                                                                  [get point_count]
+                                                                  "#054449"
+                                                                  10
+                                                                  "#054449"]
+                                                  :circle-radius '[step
+                                                                   [get point_count]
+                                                                   20
+                                                                   10 ;; Hvis flere enn 10, så...
+                                                                   25
+                                                                   ]}}))
+
+                         (.addLayer map (clj->js
+                                         {:id "cluster-counts"
+                                          :type "symbol"
+                                          :source "points"
+                                          :filter '[has point_count]
+                                          :layout {:text-field '[get point_count_abbreviated]
+                                                   :text-font ["Open Sans Semibold"]
+                                                   :text-size 12}
+                                          :paint {:text-color "#FAF6F3"}}))
+
                          (.addLayer map (clj->js
                                          {:id "points"
                                           :type "symbol"
                                           :source "points"
+                                          :filter '[! [has point_count]]
                                           :layout {:icon-image "custom-marker"
+                                                   :icon-allow-overlap true
                                                    :text-field ["get" "title"]
                                                    :text-font ["Open Sans Semibold"]
                                                    :text-offset [0 0.5]
+                                                   :text-allow-overlap true
                                                    :text-anchor "top"}}))
                          (.on map "click"
                               "points"
@@ -51,13 +86,15 @@
       (zipmap ks (str/split line #"\|")))))
 
 (defn ->map-feature [virksomhet]
-  {:type "Feature"
-   :geometry {:type "Point"
-              :coordinates [(:lon virksomhet) (:lat virksomhet)]}
-   :properties {:title (:navn virksomhet)
-                :description (str "<h3>" (:navn virksomhet) "</h3>"
-                                  "<p>Orgnummer: " (:orgnr virksomhet) "</p>"
-                                  "<p>" (:adresse virksomhet) ", " (:sted virksomhet) "</p>")}})
+  (let [navn-biter (->> (str/split (:navn virksomhet) #" ")
+                        (map str/capitalize))]
+    {:type "Feature"
+     :geometry {:type "Point"
+                :coordinates [(:lon virksomhet) (:lat virksomhet)]}
+     :properties {:title (str/join " " (take 2 navn-biter))
+                  :description (str "<h3>" (str/join " " navn-biter) "</h3>"
+                                    "<p>Orgnummer: " (:orgnr virksomhet) "</p>"
+                                    "<p>" (:adresse virksomhet) ", " (:sted virksomhet) "</p>")}}))
 
 (defmethod actions/perform-action ::drop [_ [e]]
   (.preventDefault e)
