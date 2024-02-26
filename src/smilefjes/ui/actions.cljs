@@ -84,6 +84,7 @@
 (defn execute! [store effects]
   (doseq [[kind fx] (->> (remove nil? effects)
                          (group-by :kind))]
+    (println "[execute!]" kind)
     (case kind
       ::assoc-in (swap! store assoc-in* (mapcat :args fx))
       ::go-to-location (set! js/window.location (:location (first fx)))
