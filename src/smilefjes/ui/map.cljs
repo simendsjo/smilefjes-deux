@@ -69,13 +69,13 @@
                                 (let [features (.queryRenderedFeatures map (.-point e))]
                                   (when (seq features)
                                     (let [feature (first features)
-                                          properties (.-properties feature)
-                                          coordinates (.-geometry feature)
+                                          properties (aget feature "properties")
+                                          coordinates (aget feature "geometry")
                                           popup (js/mapboxgl.Popup.
                                                  #js {:closeButton true
                                                       :offset [0, 10]})
-                                          description (.-description properties)]
-                                      (.setLngLat popup (.-coordinates coordinates))
+                                          description (aget properties "description")]
+                                      (.setLngLat popup (aget coordinates "coordinates"))
                                       (.setHTML popup description)
                                       (.addTo popup map))))))))))))
 
