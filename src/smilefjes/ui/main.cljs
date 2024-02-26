@@ -25,7 +25,9 @@
                   :prepare #'ac/prepare-search}
    "search-result" {:component #'sr/SearchResult
                     :prepare #'sr/prepare
-                    :boot-actions #'sr/get-boot-actions}})
+                    :boot-actions #'sr/get-boot-actions}
+   "tilsynsassistent" {:prepare #'map/prepare
+                       :component #'map/render}})
 
 (defn get-view [el]
   (when-let [{:keys [component prepare boot-actions]}
@@ -60,6 +62,9 @@
   (when-let [kode (some-> (js/document.getElementById "kommunekode") .-value)]
     (lokalavis/setup kode))
 
+  (when js/window.mapboxgl
+    (set! (.-accessToken js/mapboxgl) "pk.eyJ1IjoiY3JvbWxlY2giLCJhIjoiY2xzd3dqcTNsMW9sYzJzczA5N2R1enpsZSJ9.tcr8dy_CopvtvJEzapcahA"))
+
   (when-let [views (get-replicant-views)]
     (add-watch store ::render (fn [_ _ _ state] (render views state)))
     (replicant/set-dispatch! #'handle-event)
@@ -72,11 +77,6 @@
               (actions/perform-actions @store)
               (actions/execute! store))))))
 
-  (swap! store assoc :booted-at (.getTime (js/Date.)))
-
-  (when-let [map-el (js/document.getElementById "mapbox")]
-    (when js/window.mapboxgl
-      (set! (.-accessToken js/mapboxgl) "pk.eyJ1IjoiY3JvbWxlY2giLCJhIjoiY2xzd3dqcTNsMW9sYzJzczA5N2R1enpsZSJ9.tcr8dy_CopvtvJEzapcahA")
-      (map/boot map-el))))
+  (swap! store assoc :booted-at (.getTime (js/Date.))))
 
 (defonce ^:export kicking-out-the-jams (boot))

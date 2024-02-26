@@ -1,5 +1,6 @@
 (ns smilefjes.ui.map
-  (:require [clojure.string :as str])
+  (:require [clojure.string :as str]
+            [smilefjes.ui.actions :as actions])
   (:require-macros [smilefjes.assets :refer [asset-path]]))
 
 (defn render-map [el features]
@@ -58,23 +59,44 @@
                                   "<p>Orgnummer: " (:orgnr virksomhet) "</p>"
                                   "<p>" (:adresse virksomhet) ", " (:sted virksomhet) "</p>")}})
 
-(defn receive-file [el box e]
+(defmethod actions/perform-action ::drop [_ [e]]
   (.preventDefault e)
-  (.remove (.-classList box) "border-furu-600")
-  (let [file (-> e .-dataTransfer .-files (aget 0))]
-    (when file
-      (let [reader (js/FileReader.)]
-        (set! (.-onload reader)
-              (fn [event]
-                (let [contents (-> event .-target .-result)]
-                  (render-map el (map ->map-feature (parse-csv contents))))))
-        (.readAsText reader file)))))
+  [{:kind :smilefjes.ui.actions/assoc-in
+    :args [[::ready-to-drop?] false]}
+   (when-let [file (-> e .-dataTransfer .-files (aget 0))]
+     {:kind :smilefjes.ui.actions/read-file
+      :file file
+      :parser #'parse-csv
+      :path [::drop-data]})])
 
-(defn boot [el]
-  (let [box (.-firstChild el)]
-    (.addEventListener box "dragenter" #(.add (.-classList box) "border-furu-600"))
-    (.addEventListener box "dragleave" #(.remove (.-classList box) "border-furu-600"))
-    (.addEventListener box "dragover" (fn [e]
-                                        (.preventDefault e)
-                                        (set! (-> e .-dataTransfer .-dropEffect) "copy")))
-    (.addEventListener box "drop" #(receive-file el box %))))
+(defn dragover [e]
+  (.preventDefault e)
+  (set! (-> e .-dataTransfer .-dropEffect) "copy"))
+
+(defn prepare [state]
+  {:map (when-let [data (::drop-data state)]
+          {:features (map ->map-feature data)})
+   :launchpad {:text "Slipp CSV-filen her for å se stedene"
+               :class (if (::ready-to-drop? state)
+                        "border-furu-600"
+                        "border-furu-400")
+               :on {:dragenter [[:action/assoc-in [::ready-to-drop?] true]]
+                    :dragleave [[:action/assoc-in [::ready-to-drop?] false]]
+                    :dragover dragover
+                    :drop [[:action/prevent-default :event/event]
+                           [::drop :event/event]]}}})
+
+(defn Map [{:keys [features]}]
+  [:div.absolute.top-0.right-0.bottom-0.left-0
+   {:replicant/on-update
+    (fn [{:replicant/keys [node]}]
+      (render-map node features))}])
+
+(defn render [data]
+  (or
+   (some-> data :map Map)
+   (when-let [{:keys [class text on]} (:launchpad data)]
+     [:div.border-dashed.border-2.bg-furu-100.rounded.absolute.top-8.right-8.bottom-8.left-8.flex.items-center.justify-center.transition
+      {:class class
+       :on on}
+      [:p.mb-4 text]])))

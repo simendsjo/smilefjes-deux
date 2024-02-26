@@ -11,8 +11,6 @@
     [:script {:type "text/javascript"} "mapboxgl.accessToken = 'pk.eyJ1IjoiY3JvbWxlY2giLCJhIjoiY2xzd3dqcTNsMW9sYzJzczA5N2R1enpsZSJ9.tcr8dy_CopvtvJEzapcahA';"]
     (layout/header)
     [:div.min-h-screen.flex.flex-col.justify-between
-     [:div.grow.relative {:id "mapbox"}
-      [:div.border-dashed.border-2.border-furu-400.bg-furu-100.rounded.absolute.top-8.right-8.bottom-8.left-8.flex.items-center.justify-center.transition
-       [:p.mb-4 "Slipp CSV-filen her for å se stedene"]]]
+     [:div.grow.relative.replicant-root {:data-view "tilsynsassistent"}]
      (layout/footer)]
     (layout/get-tracking-pixel ctx)]])
