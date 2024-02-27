@@ -177,11 +177,12 @@
     [:span.font-bold.grow text]
     (when icon (icons/render icon {:size 16}))]
    (when options
-     [:ol.absolute.flex.flex-col.rounded.rounded-t-none.bg-gåsunge-200.py-1.border-2.left-0.right-0.border-t-0
+     [:ol.absolute.rounded.rounded-t-none.bg-gåsunge-200.pt-1.border-2.left-0.right-0.border-t-0
       {:style {:margin-top "-4px"}}
       (for [{:keys [text actions]} (remove :current? options)]
-        [:li.px-2.py-2.border-t.text-sm.hover:bg-white
-         [:button.text-left {:on {:click actions}}
+        [:li
+         [:button.text-left.w-full.px-2.py-2.border-t.text-sm.hover:bg-white
+          {:on {:click actions}}
           text]])])])
 
 (defn MapView [{:keys [description menu map-data]}]
