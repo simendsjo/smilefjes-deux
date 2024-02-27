@@ -1,5 +1,6 @@
 (ns smilefjes.ui.actions
-  (:require [clojure.string :as str]
+  (:require [cljs.reader :as reader]
+            [clojure.string :as str]
             [clojure.walk :as walk]
             [smilefjes.ui.search :as search]))
 
@@ -15,6 +16,9 @@
 
        (= :event/event x)
        event
+
+       (= :event/target-file-name x)
+       (some-> event .-dataTransfer .-files (aget 0) .-name)
 
        :else x))
    data))
@@ -76,9 +80,13 @@
   (let [reader (js/FileReader.)]
     (set! (.-onload reader)
           (fn [event]
-            (let [contents (-> event .-target .-result)]
-              (swap! store assoc-in path (cond-> contents
-                                           parser parser)))))
+            (try
+              (let [contents (cond-> (-> event .-target .-result)
+                               (re-find #"\.edn$" (.-name file)) reader/read-string
+                               parser parser)]
+                (swap! store assoc-in (conj path (.-name file)) contents))
+              (catch :default e
+                (js/alert (.-message e))))))
     (.readAsText reader file)))
 
 (defn execute! [store effects]
