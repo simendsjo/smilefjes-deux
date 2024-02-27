@@ -9,7 +9,7 @@
         no.cjohansen/powerpack {:git/url "https://github.com/cjohansen/powerpack.git"
                                 :sha "bdba7af6e5e79ebef1a97960b6363d172dfd06a4"}
         no.cjohansen/replicant {:git/url "https://github.com/cjohansen/replicant.git"
-                                :sha "5c42514235717b93706d4b523a22384db808e759"}
+                                :sha "033d3ad277be4da11ece7690b19470bacec52156"}
         superstring/superstring {:mvn/version "3.2.0"}}
  :aliases
  {:dev {:extra-paths ["dev" "test" "dev-resources"]
