@@ -1,4 +1,4 @@
-{:main smilefjes.ui.main
+{:main smilefjes.ui.core
  :optimizations :advanced
  :pretty-print false
  :source-map "target/public/js/compiled/app.js.map"

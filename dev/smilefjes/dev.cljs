@@ -6,3 +6,7 @@
 
 (defn ^:after-load main []
   (swap! smilefjes/store assoc :reloaded-at (js/Date.)))
+
+(defonce ^:export kicking-out-the-jams
+  (smilefjes/boot
+   {:on-render #(inspector/inspect "Page data" %)}))
