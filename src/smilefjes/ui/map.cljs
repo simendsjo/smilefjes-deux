@@ -129,6 +129,12 @@
     (fn [{:replicant/keys [node]}]
       (render-map node features))}])
 
+(defn get-freezer-data [state]
+  (->> (keys state)
+       (filter keyword?)
+       (filter (comp #{"smilefjes.ui.map"} namespace))
+       (select-keys state)))
+
 (defn render [data]
   (or
    (some-> data :map Map)
