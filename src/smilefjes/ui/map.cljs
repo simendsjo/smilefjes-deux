@@ -146,13 +146,56 @@
                                  :actions [[:action/assoc-in [::current-file] :event/target-file-name]
                                            [:action/assoc-in [::menu-open?] false]]}])}))))
 
+(def sidebar-path [:transient :sidebar-open?])
+
+(defn sidebar-open? [state]
+  (get-in state sidebar-path))
+
+(defn prepare-sidebar-button [state]
+  (if (sidebar-open? state)
+    {:text "Vis steder"
+     :icon (icons/icon :fontawesome.solid/x)
+     :actions [[:action/assoc-in sidebar-path false]]}
+    {:text "Vis steder"
+     :icon (icons/icon :fontawesome.solid/bars)
+     :actions [[:action/assoc-in sidebar-path true]]}))
+
+(defn prepare-sidebar [state]
+  (when-let [current (when (sidebar-open? state)
+                       (get-current-file state))]
+    {:sections
+     (for [{:sted/keys [navn orgnummer detaljer]} (sort-by :sted/navn (:kart/steder current))]
+       (let [path [:transient orgnummer ::expanded?]]
+         {:title navn
+          :button (if (get-in state path)
+                    {:icon (icons/icon :fontawesome.solid/caret-up)
+                     :actions [[:action/assoc-in path false]]}
+                    {:icon (icons/icon :fontawesome.solid/caret-down)
+                     :actions [[:action/assoc-in path true]]})
+          :content (if (get-in state path)
+                     (concat
+                      (list {:content [:p "Orgnummer: " orgnummer]})
+                      (for [{:keys [tittel hiccup elementer]} detaljer]
+                        (if hiccup
+                          {:title tittel
+                           :content hiccup}
+                          {:title tittel
+                           ;; Denne datastrukturen kunne vært noe mer
+                           ;; gjennomtenkt...
+                           :sections (for [{:keys [tittel hiccup]} elementer]
+                                       {:title tittel
+                                        :hiccup hiccup})})))
+                     (list {:content [:p "Orgnummer: " orgnummer]}))}))}))
+
 (defn prepare [state]
   (if-let [current (get-current-file state)]
     {:menu (prepare-menu state current)
      :description (str (:kart/beskrivelse current)
                        " Oppdatert " (:kart/dato current) ".")
      :map-data {:id [(:file/name current) (:kart/dato current)]
-                :features (:kart/features current)}}
+                :features (:kart/features current)}
+     :buttons [(prepare-sidebar-button state)]
+     :sidebar (prepare-sidebar state)}
     {:launchpad (prepare-launchpad state)
      :menu (prepare-menu state {:kart/tittel "Last opp ny fil"})}))
 
@@ -185,12 +228,52 @@
           {:on {:click actions}}
           text]])])])
 
-(defn MapView [{:keys [description menu map-data]}]
+(defn Toolbar [{:keys [menu description buttons]}]
+  [:div.border-b-2.border-furu-700.flex.gap-4.items-center.px-4
+   (Menu menu)
+   [:p.text-sm.opacity-80.my-4 (or description " ")]
+   (when (seq buttons)
+     [:div.flex.gap-4
+      (for [{:keys [text actions icon]} buttons]
+        [:button
+         {:title text
+          :on {:click actions}}
+         (icons/render icon {:size 16})])])])
+
+(defn Sidebar [{:keys [sections]}]
+  (when sections
+    [:aside.absolute.top-0.bottom-0.right-0.w-72.bg-white.border-l.border-furu-700.z-10.overflow-y-auto
+     {:style {:transform "translateX(0)"
+              :transition "transform 0.25s ease-in"}
+      :replicant/mounting {:style {:transform "translateX(100%)"}}
+      :replicant/unmounting {:style {:transform "translateX(100%)"}}}
+     (map-indexed
+      (fn [idx {:keys [title button content]}]
+        [:button.block.w-full.border-b.text-left.text-sm
+         {:on {:click (:actions button)}
+          :class (when (= 0 (mod idx 2))
+                   "bg-sommerdag-100")}
+         [:div.flex.items-center.justify-between.p-2
+          [:span.font-bold title]
+          (icons/render (:icon button) {:size 16})]
+         [:div.p-2.text-xs.pt-0
+          (for [{:keys [content title sections]} content]
+            (concat
+             (when title [[:h3.mt-4.mb-2.text-md.font-bold title]])
+             (when content [content])
+             (mapcat
+              (fn [{:keys [title hiccup]}]
+                (list [:h4.font-bold.mt-2.mb-1 title]
+                      hiccup))
+              sections)))]])
+      sections)]))
+
+(defn MapView [data]
   [:div.grow.flex.flex-col
-   [:div.border-b-2.border-furu-700.flex.gap-4.items-center.px-4
-    (Menu menu)
-    [:p.text-sm.opacity-80.my-4 description]]
-   (Map map-data)])
+   (Toolbar data)
+   [:main.grow.flex.flex-col.relative
+    (Map (:map-data data))
+    (Sidebar (:sidebar data))]])
 
 (defn Launchpad [{:keys [class text on]}]
   [:div.border-dashed.border-2.bg-furu-100.rounded.flex.items-center.justify-center.transition.grow.m-4
@@ -204,8 +287,6 @@
      (MapView data))
    (when-let [launchpad (:launchpad data)]
      [:div.grow.flex.flex-col
-      (when-let [menu (:menu data)]
-        [:div.border-b-2.border-furu-700.flex.gap-4.items-center.px-4
-         (Menu menu)
-         [:p.text-sm.opacity-80.my-4 " "]])
+      (when (:menu data)
+        (Toolbar data))
       (Launchpad launchpad)])))
