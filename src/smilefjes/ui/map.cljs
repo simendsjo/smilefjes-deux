@@ -66,7 +66,7 @@
                          (.on map "click"
                               "points"
                               (fn [e]
-                                (let [features (.queryRenderedFeatures map (.-point e))]
+                                (let [features (.queryRenderedFeatures map (aget e "point"))]
                                   (when (seq features)
                                     (let [feature (first features)
                                           properties (aget feature "properties")
