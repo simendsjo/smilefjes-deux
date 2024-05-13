@@ -276,3 +276,12 @@ jobs:
           message_id: ${{ needs.notify-start.outputs.slack-message }}
           status: Surmunn fra ende til annen! :(
           color: danger
+
+  keepalive-job:
+    name: Keep Github Actions alive
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: gautamkrishnar/keepalive-workflow@v2
