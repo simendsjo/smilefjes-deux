@@ -44,7 +44,11 @@
       [:h1.text-3xl.mb-2 "Søk etter smilefjes"]
       [:fieldset.mt-1
        {:class [:relative :w-full "min-w-36" :h-10]}
-       [:div.replicant-root {:data-view "autocomplete"}]]]]
+       [:div.replicant-root {:data-view "autocomplete"}]]
+      [:div.mt-4
+       "eller "
+       [:a.underline.hover:no-underline {:href "/kommune/"}
+        "finn din kommune"] "."]]]
     [:div.max-w-screen-lg.mx-auto.sm:flex.px-4.md:px-8.py-4.md:py-8.justify-around.items-center
      [:div.max-w-72.py-4.md
       [:h2.text-lg.font-medium.mb-4 "Alle smilefjes på ett sted"]
@@ -67,6 +71,10 @@
       [:h1.text-3xl.mb-2 "Søk etter smilefjes"]
       [:fieldset.mt-1
        {:class [:relative :w-full "min-w-36" :h-10]}
-       [:div.replicant-root {:data-view "search-form"}]]]]
+       [:div.replicant-root {:data-view "search-form"}]]
+      [:div.mt-4
+       "eller "
+       [:a.underline.hover:no-underline {:href "/kommune/"}
+        "finn din kommune"] "."]]]
     [:div.max-w-screen-lg.mx-auto.md.my-8.md:px-8
      [:div.replicant-root {:data-view "search-result"}]]))
