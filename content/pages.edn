@@ -8,4 +8,7 @@
   :page/kind :page.kind/search-page}
  {:page/uri "/tilsyn/"
   :page/title "Tilsynsoversikt"
-  :page/kind :page.kind/map-page}]
+  :page/kind :page.kind/map-page}
+ {:page/uri "/kommune/"
+  :page/title "Kommuneoversikt"
+  :page/kind :page.kind/kommune-page}]

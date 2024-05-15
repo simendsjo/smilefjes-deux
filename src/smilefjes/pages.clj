@@ -12,6 +12,9 @@
     :page.kind/spisested
     (spisested-page/render ctx page)
 
+    :page.kind/kommune-page
+    (kommune-page/render-list ctx page)
+
     :page.kind/kommune
     (kommune-page/render ctx page)
 

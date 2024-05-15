@@ -43,6 +43,28 @@
                                                  (comp str :tilsynsbesøk/dato)))
                                       (map result/prepare-illustration))}))))})]))
 
+(defn render-list [ctx page]
+  (layout/with-layout ctx page
+    (layout/header)
+    [:div.bg-lav
+     [:div.max-w-screen-lg.md:px-10.px-4.py-8.mx-auto.js-autocomplete.relative
+      [:h1.text-3xl.mb-2 "Serveringssteder i din kommune"]
+      [:p "Finn din kommune for å se alle serveringsstedene vi har besøkt der du bor."]]]
+    [:div.max-w-screen-lg.mx-auto.md.my-8.md:px-8
+     [:ol
+      (->> (d/q '[:find [?e ...]
+                  :where
+                  [?e :kommune/navn]]
+                (:app/db ctx))
+           (map #(d/entity (:app/db ctx) %))
+           (sort-by :kommune/navn)
+           (map-indexed
+            (fn [idx kommune]
+              {:href (:page/uri kommune)
+               :title (:kommune/navn kommune)
+               :zebra? (= 1 (mod idx 2))}))
+           (map result/Result))]]))
+
 (comment
   (def db (d/db (:datomic/conn (powerpack.dev/get-app))))
   (def page (d/entity db [:kommune/kode "3107"]))
