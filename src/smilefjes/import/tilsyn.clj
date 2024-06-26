@@ -37,6 +37,9 @@
   (str "/spisested/" (or (not-empty (slugify (:poststed m))) "_") "/"
        (slugify (:navn m)) "." (get-id m) "/"))
 
+(def ikke-inkludert-besøk?
+  #{"Z2406251324396200239ZDBTB_TilsynAvtale"})
+
 (defn csv-line->tilsynsbesøk [csv-header csv-line ikke-omfattet-id?]
   (let [m (zipmap csv-header csv-line)
         adresse {:linje1 (adresse/normalize-adresse (:adrlinje1 m))
@@ -44,7 +47,8 @@
                  :poststed (adresse/normalize-poststed (:poststed m))
                  :postnummer (:postnr m)}
         navn (str/trim (:navn m))]
-    (when-not (ikke-omfattet-id? (:tilsynsobjektid m))
+    (when (and (not (ikke-omfattet-id? (:tilsynsobjektid m)))
+               (not (ikke-inkludert-besøk? (:tilsynid m))))
       {:tilsynsbesøk/id (:tilsynid m)
        :tilsynsbesøk/oppfølging? (= "1" (:tilsynsbesoektype m))
        :tilsynsbesøk/dato (ddmmyyyy->local-date (:dato m))
