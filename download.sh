@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 refresh_data() {
   local current_etag
