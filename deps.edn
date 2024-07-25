@@ -10,7 +10,18 @@
                                 :sha "bdba7af6e5e79ebef1a97960b6363d172dfd06a4"}
         no.cjohansen/replicant {:git/url "https://github.com/cjohansen/replicant.git"
                                 :sha "033d3ad277be4da11ece7690b19470bacec52156"}
-        superstring/superstring {:mvn/version "3.2.0"}}
+        superstring/superstring {:mvn/version "3.2.0"}
+
+        ;; FIXME: Why are these needed? Are someone asking for conflicting versions?
+        ;; See `clojure -X:deps tree`
+        org.eclipse.jetty/jetty-server {:mvn/version "9.4.24.v20191120"}
+        org.eclipse.jetty/jetty-util {:mvn/version "9.4.24.v20191120"}
+        org.eclipse.jetty/jetty-http {:mvn/version "9.4.24.v20191120"}
+        org.eclipse.jetty/jetty-io {:mvn/version "9.4.24.v20191120"}
+        org.eclipse.jetty.websocket/websocket-api {:mvn/version "9.4.24.v20191120"}
+        org.eclipse.jetty.websocket/websocket-common {:mvn/version "9.4.24.v20191120"}
+        ;; FIXME: Is this the same issue as with jetty?
+        org.apache.activemq/artemis-jms-client-all {:mvn/version "2.28.0"}}
  :aliases
  {:dev {:extra-paths ["dev" "test" "dev-resources"]
         :extra-deps {cider/piggieback {:mvn/version "0.5.3"}

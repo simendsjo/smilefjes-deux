@@ -34,8 +34,28 @@ ClojureScript-løsning for at klienten kunne dele tokenizing-koden med backenden
 
 ## Hvordan kjører jeg dette lokalt?
 
-Dette oppsettet antar for øyeblikket at du sitter på en Mac. Du kan lese mer om
-[hvordan dette er skrudd sammen](#arkitektur) lenger ned.
+### GNU/Linux
+
+Det letteste er å ha guix, direnv, emacs og emacs-direnv installert.
+
+Naviger til mappen, så vil du ha Clojure, OpenJDK m.m. tilgjengelig.
+Dette kan ta en del tid første gang da den må laste ned pakker den
+ikke har tilgjengelig.
+
+Følgende kan eksempelvis startes med `M-x compile` eller `M-x async-shell-command`.
+Første gang trenger vi å laste ned data `make data`.
+Start tailwind prosessen med `make tailwind`.
+
+Deretter kan vi benytte `M-x cider-jack-in` etterfulgt av
+`M-x cider-connect-sibling-cljs`.
+
+I backend REPL-en, start smilefjes:
+```
+user> (require 'smilefjes.dev)
+user> (smilefjes.dev/start)
+```
+
+### Mac
 
 - Skaff Clojure
 
